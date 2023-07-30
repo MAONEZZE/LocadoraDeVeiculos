@@ -24,7 +24,7 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {        
+        {
             Assembly assembly = typeof(LocadoraDeVeiculosDbContext).Assembly;
 
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
