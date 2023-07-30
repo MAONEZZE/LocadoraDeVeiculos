@@ -18,6 +18,8 @@
 
         public abstract UserControl ObtemListagem();
 
+        public Configuracao configuracao = null!;
+
         public abstract ConfiguracaoToolboxBase ObtemConfiguracaoToolbox();
 
         public string ObterMensagemRodape()

@@ -31,6 +31,5 @@
         public virtual bool VisualizarHabilitado { get { return false; } }
 
         #endregion
-
     }
 }
