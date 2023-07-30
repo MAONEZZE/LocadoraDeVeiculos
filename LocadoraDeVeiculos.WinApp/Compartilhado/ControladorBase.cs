@@ -10,8 +10,6 @@
 
         public abstract void Excluir();
 
-        public virtual void Duplicar() { }
-
         public virtual void Filtrar() { }
 
         public virtual void Visualizar() { }

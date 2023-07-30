@@ -1,4 +1,7 @@
 ﻿using LocadoraDeVeiculos.Infra.Compartilhado;
+using LocadoraDeVeiculos.Infra.ModuloParceiro;
+using LocadoraDeVeiculos.Servico.ModuloParceiro;
+using LocadoraDeVeiculos.WinApp.ModuloParceiro;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -8,11 +11,28 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
     {
         public static bool Inicializar;
 
+        static IDictionary<string, ControladorBase> controladores = new Dictionary<string, ControladorBase>();
+
         static Ioc()
         {
             var dbContext = InicializarContexto();
 
             AtualizarBancoDados(dbContext);
+
+            var repositorioParceiro = new RepositorioParceiro(dbContext);
+
+            var servicoParceiro = new ServicoParceiro(repositorioParceiro);
+
+            var controladorParceiro = new ControladorParceiro(servicoParceiro,repositorioParceiro);
+
+            controladores.Add("Parceiros", controladorParceiro);
+        }
+
+        public static ControladorBase ObterControlador(object sender)
+        {
+            ToolStripMenuItem control = (ToolStripMenuItem)sender;
+
+            return controladores[control.Text];
         }
 
         private static LocadoraDeVeiculosDbContext InicializarContexto()

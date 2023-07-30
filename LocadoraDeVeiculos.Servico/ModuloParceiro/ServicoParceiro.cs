@@ -77,6 +77,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
             try
             {
+                var existe = repositorioParceiro.Existe(parceiro);
+
+                if (!existe)
+                {
+                    Log.Warning("Parceiro {parceiroId} não encontrado para excluir", parceiro.Id);
+
+                    return Result.Fail("Parceiro não encontrada");
+                }
+
                 repositorioParceiro.Excluir(parceiro);
 
                 Log.Debug("Parceiro {parceiroId} excluído com sucesso", parceiro.Id);
@@ -112,8 +121,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
             {
                 erros.AddRange(resultado.Errors.Select(e => e.Message));
             }
-
-            if (!repositorioParceiro.EhValido(parceiro))
+            var ehValido = repositorioParceiro.EhValido(parceiro);
+            if (!ehValido)
                 erros.Add($"Este nome '{parceiro.Nome}' já está sendo utilizado");
 
             return erros;
