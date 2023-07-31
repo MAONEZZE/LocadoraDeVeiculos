@@ -21,7 +21,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloCupom
 
         public override List<Cupom> SelecionarTodos()
         {
-            return registros.Include(x=>x.Parceiro).ToList();
+            return registros.Include(x => x.Parceiro).ToList();
         }
     }
 }

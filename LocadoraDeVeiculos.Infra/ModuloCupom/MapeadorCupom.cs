@@ -19,7 +19,6 @@ namespace LocadoraDeVeiculos.Infra.ModuloCupom
 
             builder.Ignore(c => c.EhValido);
 
-
         }
     }
 }

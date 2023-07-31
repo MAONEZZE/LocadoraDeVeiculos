@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado
 {
@@ -43,7 +44,7 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
 
         public virtual T SelecionarPorId(int id)
         {
-            return registros.SingleOrDefault(t=>t.Id == id)!;
+            return registros.SingleOrDefault(t => t.Id == id)!;
         }
 
         public virtual List<T> SelecionarTodos()
