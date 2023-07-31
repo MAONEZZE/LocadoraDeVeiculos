@@ -1,7 +1,9 @@
 ﻿using LocadoraDeVeiculos.Infra.Compartilhado;
 using LocadoraDeVeiculos.Infra.ModuloCupom;
 using LocadoraDeVeiculos.Infra.ModuloParceiro;
+using LocadoraDeVeiculos.Servico.ModuloCupom;
 using LocadoraDeVeiculos.Servico.ModuloParceiro;
+using LocadoraDeVeiculos.WinApp.ModuloCupom;
 using LocadoraDeVeiculos.WinApp.ModuloParceiro;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,8 +30,13 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var repositorioCupom = new RepositorioCupom(dbContext);
 
+            var servicoCupom = new ServicoCupom(repositorioCupom);
+
+            var controladorCupom = new ControladorCupom(servicoCupom, repositorioCupom, repositorioParceiro);
+
          
             controladores.Add("Parceiro", controladorParceiro);
+            controladores.Add("Cupom", controladorCupom);
         }
 
         public static ControladorBase ObterControlador(object sender)

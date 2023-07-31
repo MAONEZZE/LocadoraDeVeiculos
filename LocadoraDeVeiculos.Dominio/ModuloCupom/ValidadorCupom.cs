@@ -4,7 +4,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCupom
 {
     public class ValidadorCupom : AbstractValidator<Cupom>, IValidadorCupom
     {
-        ValidadorCupom()
+       public ValidadorCupom()
         {
             RuleFor(x => x.Nome)
                 .NotNull()

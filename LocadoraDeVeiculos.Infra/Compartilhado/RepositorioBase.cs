@@ -41,12 +41,12 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
             return registros.Contains(registro);
         }
 
-        public T SelecionarPorId(int id)
+        public virtual T SelecionarPorId(int id)
         {
             return registros.SingleOrDefault(t=>t.Id == id)!;
         }
 
-        public List<T> SelecionarTodos()
+        public virtual List<T> SelecionarTodos()
         {
             return registros.ToList();
         }

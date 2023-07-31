@@ -91,7 +91,7 @@
             funcionarioMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             funcionarioMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             funcionarioMenuItem.Name = "funcionarioMenuItem";
-            funcionarioMenuItem.Size = new Size(245, 54);
+            funcionarioMenuItem.Size = new Size(252, 54);
             funcionarioMenuItem.Text = "Funcionário";
             // 
             // automóvelToolStripMenuItem
@@ -101,7 +101,7 @@
             automóvelToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             automóvelToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             automóvelToolStripMenuItem.Name = "automóvelToolStripMenuItem";
-            automóvelToolStripMenuItem.Size = new Size(245, 54);
+            automóvelToolStripMenuItem.Size = new Size(252, 54);
             automóvelToolStripMenuItem.Text = "Automóvel";
             // 
             // veiculoMenuItem
@@ -136,7 +136,7 @@
             clienteMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             clienteMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             clienteMenuItem.Name = "clienteMenuItem";
-            clienteMenuItem.Size = new Size(245, 54);
+            clienteMenuItem.Size = new Size(252, 54);
             clienteMenuItem.Text = "Cliente";
             // 
             // planoDeCobrançaMenuItem
@@ -145,7 +145,7 @@
             planoDeCobrançaMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             planoDeCobrançaMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             planoDeCobrançaMenuItem.Name = "planoDeCobrançaMenuItem";
-            planoDeCobrançaMenuItem.Size = new Size(245, 54);
+            planoDeCobrançaMenuItem.Size = new Size(252, 54);
             planoDeCobrançaMenuItem.Text = "Plano de Cobrança";
             // 
             // condutorMenuItem
@@ -154,7 +154,7 @@
             condutorMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             condutorMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             condutorMenuItem.Name = "condutorMenuItem";
-            condutorMenuItem.Size = new Size(245, 54);
+            condutorMenuItem.Size = new Size(252, 54);
             condutorMenuItem.Text = "Condutor";
             // 
             // descontoToolStripMenuItem
@@ -164,7 +164,7 @@
             descontoToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             descontoToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             descontoToolStripMenuItem.Name = "descontoToolStripMenuItem";
-            descontoToolStripMenuItem.Size = new Size(245, 54);
+            descontoToolStripMenuItem.Size = new Size(252, 54);
             descontoToolStripMenuItem.Text = "Desconto";
             // 
             // parceiroMenuItem
@@ -173,7 +173,7 @@
             parceiroMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             parceiroMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             parceiroMenuItem.Name = "parceiroMenuItem";
-            parceiroMenuItem.Size = new Size(173, 54);
+            parceiroMenuItem.Size = new Size(252, 54);
             parceiroMenuItem.Text = "Parceiro";
             parceiroMenuItem.Click += ParceiroMenuItem_Click;
             // 
@@ -183,8 +183,9 @@
             cupomMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             cupomMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             cupomMenuItem.Name = "cupomMenuItem";
-            cupomMenuItem.Size = new Size(173, 54);
+            cupomMenuItem.Size = new Size(252, 54);
             cupomMenuItem.Text = "Cupom";
+            cupomMenuItem.Click += CupomMenuItem_Click;
             // 
             // aluguelMenuItem
             // 
@@ -192,7 +193,7 @@
             aluguelMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             aluguelMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             aluguelMenuItem.Name = "aluguelMenuItem";
-            aluguelMenuItem.Size = new Size(245, 54);
+            aluguelMenuItem.Size = new Size(252, 54);
             aluguelMenuItem.Text = "Aluguel";
             // 
             // toolStripLocadora
