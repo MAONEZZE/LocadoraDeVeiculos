@@ -1,3 +1,4 @@
+
 namespace LocadoraDeVeiculos.WinApp
 {
     public partial class TelaPrincipalForm : Form
@@ -15,14 +16,65 @@ namespace LocadoraDeVeiculos.WinApp
             Instancia = this;
         }
 
+        #region "atualizarRodape"
+        public void AtualizarRodape(string msg)
+        {
+            labelRodape.Text = msg;
+
+        }
+
         public void AtualizarRodape()
         {
             string mensagemRodape = controlador.ObterMensagemRodape();
 
             AtualizarRodape(mensagemRodape);
         }
+        #endregion
 
-        private void ConfigurarToolsTips(ConfiguracaoToolboxBase configuracao)
+        #region "configuracoes"
+        private void ConfigurarTelaPrincipal(ControladorBase controlador)
+        {
+            this.controlador = controlador;
+
+            ConfigurarToolbox();
+
+            ConfigurarListagem();
+
+            string mensagemRodape = controlador.ObterMensagemRodape();
+
+            AtualizarRodape(mensagemRodape);
+        }
+
+        private void ConfigurarToolbox()
+        {
+            ConfiguracaoToolboxBase configuracao = controlador.ObtemConfiguracaoToolbox();
+
+            if (configuracao != null)
+            {
+                txtMenu.Enabled = true;
+
+                labelTipoCadastro.Text = configuracao.TipoCadastro;
+
+                ConfigurarTooltips(configuracao);
+
+                ConfigurarBotoes(configuracao);
+            }
+        }
+
+        private void ConfigurarListagem()
+        {
+            AtualizarRodape("");
+
+            var listagemControl = controlador.ObtemListagem();
+
+            panelRegistros.Controls.Clear();
+
+            listagemControl.Dock = DockStyle.Fill;
+
+            panelRegistros.Controls.Add(listagemControl);
+        }
+
+        private void ConfigurarTooltips(ConfiguracaoToolboxBase configuracao)
         {
             BtnInserir.ToolTipText = configuracao.TooltipInserir;
             BtnEditar.ToolTipText = configuracao.TooltipEditar;
@@ -37,12 +89,9 @@ namespace LocadoraDeVeiculos.WinApp
             BtnExcluir.Enabled = configuracao.ExcluirHabilitado;
             BtnFiltrar.Enabled = configuracao.FiltrarHabilitado;
         }
+        #endregion
 
-        public void AtualizarRodape(string msg)
-        {
-
-        }
-
+        #region click - opções de operação
         private void BtnInserir_Click(object sender, EventArgs e)
         {
             controlador.Inserir();
@@ -62,10 +111,22 @@ namespace LocadoraDeVeiculos.WinApp
         {
             controlador.Filtrar();
         }
+        #endregion
 
+        #region click - escolha dos menus
         private void BtnGerarPdf_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void ParceiroMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+        }
+
+        #endregion
+
+
+
     }
 }

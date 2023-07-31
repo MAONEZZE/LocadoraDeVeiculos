@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Infra.Compartilhado;
+using LocadoraDeVeiculos.Infra.ModuloCupom;
 using LocadoraDeVeiculos.Infra.ModuloParceiro;
 using LocadoraDeVeiculos.Servico.ModuloParceiro;
 using LocadoraDeVeiculos.WinApp.ModuloParceiro;
@@ -25,7 +26,10 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var controladorParceiro = new ControladorParceiro(servicoParceiro,repositorioParceiro);
 
-            controladores.Add("Parceiros", controladorParceiro);
+            var repositorioCupom = new RepositorioCupom(dbContext);
+
+         
+            controladores.Add("Parceiro", controladorParceiro);
         }
 
         public static ControladorBase ObterControlador(object sender)

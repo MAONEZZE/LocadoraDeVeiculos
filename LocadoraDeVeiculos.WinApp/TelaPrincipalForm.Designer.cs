@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             toolStrip = new ToolStrip();
-            toolStripSplitButton1 = new ToolStripSplitButton();
+            toolStripSplit = new ToolStripSplitButton();
             funcionarioMenuItem = new ToolStripMenuItem();
             automóvelToolStripMenuItem = new ToolStripMenuItem();
             veiculoMenuItem = new ToolStripMenuItem();
@@ -42,6 +42,8 @@
             parceiroMenuItem = new ToolStripMenuItem();
             cupomMenuItem = new ToolStripMenuItem();
             aluguelMenuItem = new ToolStripMenuItem();
+            toolStripLocadora = new ToolStripLabel();
+            labelTipoCadastro = new ToolStripLabel();
             txtMenu = new ToolStrip();
             BtnInserir = new ToolStripButton();
             BtnEditar = new ToolStripButton();
@@ -51,7 +53,8 @@
             toolStripSeparator2 = new ToolStripSeparator();
             BtnGerarPdf = new ToolStripButton();
             statusStrip = new StatusStrip();
-            StatusLabel = new ToolStripStatusLabel();
+            labelRodape = new ToolStripStatusLabel();
+            panelRegistros = new Panel();
             toolStrip.SuspendLayout();
             txtMenu.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -59,24 +62,28 @@
             // 
             // toolStrip
             // 
-            toolStrip.Items.AddRange(new ToolStripItem[] { toolStripSplitButton1 });
+            toolStrip.BackColor = SystemColors.InactiveCaption;
+            toolStrip.ImageScalingSize = new Size(20, 20);
+            toolStrip.Items.AddRange(new ToolStripItem[] { toolStripSplit, toolStripLocadora, labelTipoCadastro });
             toolStrip.Location = new Point(0, 0);
             toolStrip.Name = "toolStrip";
-            toolStrip.Size = new Size(800, 47);
+            toolStrip.Size = new Size(914, 47);
             toolStrip.TabIndex = 0;
             toolStrip.Text = "toolStrip1";
             // 
-            // toolStripSplitButton1
+            // toolStripSplit
             // 
-            toolStripSplitButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripSplitButton1.DropDownItems.AddRange(new ToolStripItem[] { funcionarioMenuItem, automóvelToolStripMenuItem, clienteMenuItem, planoDeCobrançaMenuItem, condutorMenuItem, descontoToolStripMenuItem, aluguelMenuItem });
-            toolStripSplitButton1.Image = Properties.Resources.playlist_add_check_FILL0_wght400_GRAD0_opsz40;
-            toolStripSplitButton1.ImageAlign = ContentAlignment.MiddleRight;
-            toolStripSplitButton1.ImageScaling = ToolStripItemImageScaling.None;
-            toolStripSplitButton1.ImageTransparentColor = Color.Magenta;
-            toolStripSplitButton1.Name = "toolStripSplitButton1";
-            toolStripSplitButton1.Size = new Size(56, 44);
-            toolStripSplitButton1.Text = "toolStripSplitButton1";
+            toolStripSplit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripSplit.DropDownButtonWidth = 50;
+            toolStripSplit.DropDownItems.AddRange(new ToolStripItem[] { funcionarioMenuItem, automóvelToolStripMenuItem, clienteMenuItem, planoDeCobrançaMenuItem, condutorMenuItem, descontoToolStripMenuItem, aluguelMenuItem });
+            toolStripSplit.Image = Properties.Resources.playlist_add_check_FILL0_wght400_GRAD0_opsz40;
+            toolStripSplit.ImageAlign = ContentAlignment.MiddleRight;
+            toolStripSplit.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripSplit.ImageTransparentColor = Color.Magenta;
+            toolStripSplit.Name = "toolStripSplit";
+            toolStripSplit.Size = new Size(95, 44);
+            toolStripSplit.Text = "Menu";
+            toolStripSplit.ToolTipText = "Menu";
             // 
             // funcionarioMenuItem
             // 
@@ -84,7 +91,7 @@
             funcionarioMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             funcionarioMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             funcionarioMenuItem.Name = "funcionarioMenuItem";
-            funcionarioMenuItem.Size = new Size(206, 54);
+            funcionarioMenuItem.Size = new Size(245, 54);
             funcionarioMenuItem.Text = "Funcionário";
             // 
             // automóvelToolStripMenuItem
@@ -94,7 +101,7 @@
             automóvelToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             automóvelToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             automóvelToolStripMenuItem.Name = "automóvelToolStripMenuItem";
-            automóvelToolStripMenuItem.Size = new Size(206, 54);
+            automóvelToolStripMenuItem.Size = new Size(245, 54);
             automóvelToolStripMenuItem.Text = "Automóvel";
             // 
             // veiculoMenuItem
@@ -103,7 +110,7 @@
             veiculoMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             veiculoMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             veiculoMenuItem.Name = "veiculoMenuItem";
-            veiculoMenuItem.Size = new Size(215, 54);
+            veiculoMenuItem.Size = new Size(257, 54);
             veiculoMenuItem.Text = "Veículo";
             // 
             // categoriaMenuItem
@@ -112,7 +119,7 @@
             categoriaMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             categoriaMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             categoriaMenuItem.Name = "categoriaMenuItem";
-            categoriaMenuItem.Size = new Size(215, 54);
+            categoriaMenuItem.Size = new Size(257, 54);
             categoriaMenuItem.Text = "Categoria";
             // 
             // tipoDeCombustívelMenuItem
@@ -120,7 +127,7 @@
             tipoDeCombustívelMenuItem.Image = Properties.Resources.combustivel;
             tipoDeCombustívelMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             tipoDeCombustívelMenuItem.Name = "tipoDeCombustívelMenuItem";
-            tipoDeCombustívelMenuItem.Size = new Size(215, 54);
+            tipoDeCombustívelMenuItem.Size = new Size(257, 54);
             tipoDeCombustívelMenuItem.Text = "Tipo de Combustível";
             // 
             // clienteMenuItem
@@ -129,7 +136,7 @@
             clienteMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             clienteMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             clienteMenuItem.Name = "clienteMenuItem";
-            clienteMenuItem.Size = new Size(206, 54);
+            clienteMenuItem.Size = new Size(245, 54);
             clienteMenuItem.Text = "Cliente";
             // 
             // planoDeCobrançaMenuItem
@@ -138,7 +145,7 @@
             planoDeCobrançaMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             planoDeCobrançaMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             planoDeCobrançaMenuItem.Name = "planoDeCobrançaMenuItem";
-            planoDeCobrançaMenuItem.Size = new Size(206, 54);
+            planoDeCobrançaMenuItem.Size = new Size(245, 54);
             planoDeCobrançaMenuItem.Text = "Plano de Cobrança";
             // 
             // condutorMenuItem
@@ -147,7 +154,7 @@
             condutorMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             condutorMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             condutorMenuItem.Name = "condutorMenuItem";
-            condutorMenuItem.Size = new Size(206, 54);
+            condutorMenuItem.Size = new Size(245, 54);
             condutorMenuItem.Text = "Condutor";
             // 
             // descontoToolStripMenuItem
@@ -157,7 +164,7 @@
             descontoToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             descontoToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             descontoToolStripMenuItem.Name = "descontoToolStripMenuItem";
-            descontoToolStripMenuItem.Size = new Size(206, 54);
+            descontoToolStripMenuItem.Size = new Size(245, 54);
             descontoToolStripMenuItem.Text = "Desconto";
             // 
             // parceiroMenuItem
@@ -166,8 +173,9 @@
             parceiroMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             parceiroMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             parceiroMenuItem.Name = "parceiroMenuItem";
-            parceiroMenuItem.Size = new Size(149, 54);
+            parceiroMenuItem.Size = new Size(173, 54);
             parceiroMenuItem.Text = "Parceiro";
+            parceiroMenuItem.Click += ParceiroMenuItem_Click;
             // 
             // cupomMenuItem
             // 
@@ -175,7 +183,7 @@
             cupomMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             cupomMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             cupomMenuItem.Name = "cupomMenuItem";
-            cupomMenuItem.Size = new Size(149, 54);
+            cupomMenuItem.Size = new Size(173, 54);
             cupomMenuItem.Text = "Cupom";
             // 
             // aluguelMenuItem
@@ -184,15 +192,35 @@
             aluguelMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             aluguelMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             aluguelMenuItem.Name = "aluguelMenuItem";
-            aluguelMenuItem.Size = new Size(206, 54);
+            aluguelMenuItem.Size = new Size(245, 54);
             aluguelMenuItem.Text = "Aluguel";
+            // 
+            // toolStripLocadora
+            // 
+            toolStripLocadora.Alignment = ToolStripItemAlignment.Right;
+            toolStripLocadora.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            toolStripLocadora.ForeColor = SystemColors.GrayText;
+            toolStripLocadora.Name = "toolStripLocadora";
+            toolStripLocadora.Size = new Size(308, 44);
+            toolStripLocadora.Text = "         Locadora de Veículos                  ";
+            toolStripLocadora.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // labelTipoCadastro
+            // 
+            labelTipoCadastro.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            labelTipoCadastro.ForeColor = SystemColors.ActiveCaptionText;
+            labelTipoCadastro.Name = "labelTipoCadastro";
+            labelTipoCadastro.Size = new Size(0, 44);
             // 
             // txtMenu
             // 
+            txtMenu.BackColor = SystemColors.MenuBar;
+            txtMenu.Enabled = false;
+            txtMenu.ImageScalingSize = new Size(20, 20);
             txtMenu.Items.AddRange(new ToolStripItem[] { BtnInserir, BtnEditar, BtnExcluir, toolStripSeparator1, BtnFiltrar, toolStripSeparator2, BtnGerarPdf });
             txtMenu.Location = new Point(0, 47);
             txtMenu.Name = "txtMenu";
-            txtMenu.Size = new Size(800, 55);
+            txtMenu.Size = new Size(914, 55);
             txtMenu.TabIndex = 1;
             txtMenu.Text = "toolStrip2";
             // 
@@ -263,33 +291,46 @@
             BtnGerarPdf.ImageTransparentColor = Color.Magenta;
             BtnGerarPdf.Name = "BtnGerarPdf";
             BtnGerarPdf.Size = new Size(52, 52);
-            BtnGerarPdf.Text = "toolStripButton1";
             BtnGerarPdf.Click += BtnGerarPdf_Click;
             // 
             // statusStrip
             // 
-            statusStrip.Items.AddRange(new ToolStripItem[] { StatusLabel });
-            statusStrip.Location = new Point(0, 428);
+            statusStrip.ImageScalingSize = new Size(20, 20);
+            statusStrip.Items.AddRange(new ToolStripItem[] { labelRodape });
+            statusStrip.Location = new Point(0, 574);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new Size(800, 22);
+            statusStrip.Padding = new Padding(1, 0, 16, 0);
+            statusStrip.Size = new Size(914, 26);
             statusStrip.TabIndex = 2;
             statusStrip.Text = "statusStrip1";
             // 
-            // StatusLabel
+            // labelRodape
             // 
-            StatusLabel.Name = "StatusLabel";
-            StatusLabel.Size = new Size(118, 17);
-            StatusLabel.Text = "toolStripStatusLabel1";
+            labelRodape.Name = "labelRodape";
+            labelRodape.Size = new Size(88, 20);
+            labelRodape.Text = "Bem-Vindo!";
+            // 
+            // panelRegistros
+            // 
+            panelRegistros.BackColor = SystemColors.AppWorkspace;
+            panelRegistros.Dock = DockStyle.Fill;
+            panelRegistros.Location = new Point(0, 102);
+            panelRegistros.Name = "panelRegistros";
+            panelRegistros.Size = new Size(914, 472);
+            panelRegistros.TabIndex = 3;
             // 
             // TelaPrincipalForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
+            Controls.Add(panelRegistros);
             Controls.Add(statusStrip);
             Controls.Add(txtMenu);
             Controls.Add(toolStrip);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "TelaPrincipalForm";
+            ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Locação de Veículo";
             toolStrip.ResumeLayout(false);
@@ -324,9 +365,13 @@
         private ToolStripButton BtnExcluir;
         private ToolStripSeparator toolStripSeparator1;
         private StatusStrip statusStrip;
-        private ToolStripStatusLabel StatusLabel;
+        private ToolStripStatusLabel labelRodape;
         private ToolStripButton BtnFiltrar;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton BtnGerarPdf;
+        private ToolStripLabel toolStripLocadora;
+        private ToolStripLabel labelTipoCadastro;
+        private Panel panelRegistros;
+        private ToolStripSplitButton toolStripSplit;
     }
 }

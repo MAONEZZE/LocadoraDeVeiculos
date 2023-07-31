@@ -3,6 +3,9 @@
     public class Parceiro : EntidadeBase<Parceiro>
     {
         public string Nome { get; set; }
+
+        public Parceiro() { }
+
         public Parceiro(int id, string nome) : this(nome)
         {
             Id = id;
@@ -16,6 +19,11 @@
         public override void AlterarInformacoes(Parceiro entidade)
         {
             Nome = entidade.Nome;
+        }
+
+        public override string ToString()
+        {
+            return Nome;
         }
 
         public override bool Equals(object? obj)

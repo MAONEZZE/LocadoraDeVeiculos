@@ -4,28 +4,36 @@ using LocadoraDeVeiculos.Dominio.ModuloParceiro;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
 {
-    public partial class ParceiroTelaForm : Form
+    public partial class TelaParceiroForm : Form
     {
         public event GravarRegistroDelegate<Parceiro> onGravarRegistro;
 
         Parceiro parceiro;
-     
-        public Parceiro Parceiro { get => parceiro; set=> txtNome.Text = value.Nome; }
-      
-        public ParceiroTelaForm()
+
+        int id; 
+
+        public TelaParceiroForm()
         {
             InitializeComponent();
 
-            var nome = txtNome.Text;
-
-            parceiro = new Parceiro(nome);
+            this.ConfigurarDialog();                 
         }
 
+        public void ConfiguararParceiro(Parceiro parceiro)
+        {
+            id = parceiro.Id;
+
+            txtNome.Text = parceiro.Nome;
+
+            this.parceiro = parceiro;
+        }
+
+       
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
-            var nome = txtNome.Text;
+            parceiro.Id = id;
 
-            parceiro = new Parceiro(parceiro.Id, nome);
+            parceiro.Nome = txtNome.Text;
 
             Result resultado = onGravarRegistro(parceiro);
 

@@ -1,6 +1,6 @@
 ﻿namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
 {
-    partial class ParceiroTelaForm
+    partial class TelaParceiroForm
     {
         /// <summary>
         /// Required designer variable.

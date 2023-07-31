@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
-using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado
 {

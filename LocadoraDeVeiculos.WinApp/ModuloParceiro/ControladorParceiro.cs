@@ -19,20 +19,64 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
 
         public override void Inserir()
         {
-            var telaParceiro = new ParceiroTelaForm();
+            var telaParceiro = new TelaParceiroForm()
+            {
+                Text = "Cadastrar Parceiro"
+            };
+
+            telaParceiro.ConfiguararParceiro(new Parceiro());
 
             telaParceiro.onGravarRegistro += servicoParceiro.Inserir;
 
             if (telaParceiro.ShowDialog() == DialogResult.OK)
             {
-                ObtemListagem();
+                AtualizarListagem();
             }
         }
         public override void Excluir()
         {
-            throw new NotImplementedException();
+            var id = tabelaParceiro.ObtemIdSelecionado();
+
+            var parceiro = repositorioParceiro.SelecionarPorId(id);
+
+            var opcao = MessageBox.Show($"Confirma excluir o parceiro {parceiro}?","Excluir Parceiro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcao == DialogResult.No) return;
+
+            var result = servicoParceiro.Excluir(parceiro);
+
+            if (result.IsFailed)
+            {
+                var erros = result.Errors.Select(x => x.Message).ToList();
+
+                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]); 
+            }
+               
+            else
+                AtualizarListagem();
         }
 
+        public override void Editar()
+        {
+
+            var id = tabelaParceiro.ObtemIdSelecionado();
+
+            var parceiro = repositorioParceiro.SelecionarPorId(id);
+
+            var telaParceiro = new TelaParceiroForm()
+            {
+                Text = "Editar Parceiro",               
+            };
+
+            telaParceiro.ConfiguararParceiro(parceiro);
+
+            telaParceiro.onGravarRegistro += servicoParceiro.Editar;
+
+            if (telaParceiro.ShowDialog() == DialogResult.OK)
+            {
+                AtualizarListagem();
+            }
+        }
 
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
@@ -44,16 +88,21 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
         {
             tabelaParceiro ??= new TabelaParceiroControl();
 
-            var listagem = repositorioParceiro.SelecionarTodos();
-
-            tabelaParceiro.AtualizarRegistros(listagem);
-
-            EnviarMensagem(listagem);
+            AtualizarListagem();
 
             return tabelaParceiro;
         }
 
-        private void EnviarMensagem(List<Parceiro> listagem)
+        private void AtualizarListagem()
+        {
+            var listagem = repositorioParceiro.SelecionarTodos();
+
+            tabelaParceiro.AtualizarRegistros(listagem);
+
+            AtualizarRodape(listagem);
+        }
+
+        private void AtualizarRodape(List<Parceiro> listagem)
         {
             var sufixo = listagem.Count > 1 ? "s" : "";
 
