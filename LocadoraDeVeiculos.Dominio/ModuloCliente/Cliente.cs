@@ -10,7 +10,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
     public class Cliente : Pessoa<Cliente>
     {
         public List<Cupom> cuponsUtilizados;
-        public Endereco endereco;
+        public Endereco Endereco { get; set; }
 
         public Cliente()
         {
@@ -23,7 +23,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
             base.Email = email;
             base.Telefone = telefone;
             base.TipoCliente = tipoCliente;
-            this.endereco = endereco;
+            this.Endereco = endereco;
         }
         public Cliente(int id, string nome, string email, string telefone, Endereco endereco, TipoClienteEnum tipoCliente, string documento) : this()
         {
@@ -33,7 +33,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
             base.Email = email;
             base.Telefone = telefone;
             base.TipoCliente = tipoCliente;
-            this.endereco = endereco;
+            this.Endereco = endereco;
         }
     }
 }
