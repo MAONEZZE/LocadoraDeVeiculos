@@ -1,13 +1,11 @@
-﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
-namespace LocadoraDeVeiculos.Dominio.ModuloParceiro
+﻿namespace LocadoraDeVeiculos.Dominio.ModuloParceiro
 {
     public class Parceiro : EntidadeBase<Parceiro>
     {
         public string Nome { get; set; }
-        public Parceiro(int id ,string nome)
+        public Parceiro(int id, string nome) : this(nome)
         {
             Id = id;
-            Nome = nome;
         }
 
         public Parceiro(string nome)

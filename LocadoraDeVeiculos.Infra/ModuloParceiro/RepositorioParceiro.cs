@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloParceiro;
-using LocadoraDeVeiculos.Infra.Compartilhado;
 
 namespace LocadoraDeVeiculos.Infra.ModuloParceiro
 {
