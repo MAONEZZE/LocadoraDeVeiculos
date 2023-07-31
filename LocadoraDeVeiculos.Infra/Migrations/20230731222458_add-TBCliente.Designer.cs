@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.Infra.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDeVeiculosDbContext))]
-    partial class LocadoraDeVeiculosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230731222458_add-TBCliente")]
+    partial class addTBCliente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,29 +107,6 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TBParceiro", (string)null);
-                });
-
-            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloTaxaServico.TaxaServico", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("varchar(250)");
-
-                    b.Property<int>("Preco")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TipoCalculo")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TBTaxaServico", (string)null);
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloCupom.Cupom", b =>

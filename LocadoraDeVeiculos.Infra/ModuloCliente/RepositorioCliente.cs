@@ -1,10 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
-using LocadoraDeVeiculos.Dominio.ModuloCupom;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocadoraDeVeiculos.Infra.ModuloCliente
 {
@@ -17,7 +11,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloCliente
         public bool EhValido(Cliente cliente)
         {
 
-            var encontrado = registros.SingleOrDefault(x => x.tipoDocumento == cliente.tipoDocumento);
+            var encontrado = registros.SingleOrDefault(x => x.Documento == cliente.Documento);
 
             if (encontrado == null || encontrado.Id == cliente.Id)
                 return true;

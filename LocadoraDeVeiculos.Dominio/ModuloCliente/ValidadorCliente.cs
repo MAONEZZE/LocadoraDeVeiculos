@@ -21,12 +21,12 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
                 .NotNull()
                 .NotEmpty();
 
-            RuleFor(x => x.endereco)
+            RuleFor(x => x.Endereco)
                 .NotNull() 
                 .NotEmpty()
                 .Custom(VerificadorEndereco);
 
-            RuleFor(x => x.tipoCliente)
+            RuleFor(x => x.TipoCliente)
                 .NotEmpty()
                 .NotNull();
 
@@ -37,32 +37,32 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
 
         private void VerificadorEndereco(Endereco endereco, ValidationContext<Cliente> ctx)
         {
-            if(endereco.bairro == null)
+            if(endereco.Bairro == null)
             {
                 ctx.AddFailure(new ValidationFailure("Bairro", "O Bairro não pode ser nulo"));
             }
 
-            if (endereco.cidade == null)
+            if (endereco.Cidade == null)
             {
                 ctx.AddFailure(new ValidationFailure("Cidade", "O Cidade não pode ser nulo"));
             }
 
-            if (endereco.estado == null)
+            if (endereco.Estado == null)
             {
                 ctx.AddFailure(new ValidationFailure("Estado", "O Estado não pode ser nulo"));
             }
 
-            if (endereco.numero <= 0)
+            if (endereco.Numero <= 0)
             {
                 ctx.AddFailure(new ValidationFailure("Número", "O Número da residencia não pode ser 0 ou menor que 0"));
             }
 
-            if (endereco.cep == null)
+            if (endereco.Cep == null)
             {
                 ctx.AddFailure(new ValidationFailure("CEP", "Digite um CEP válido"));
             }
 
-            if (endereco.logradouro == null)
+            if (endereco.Logradouro == null)
             {
                 ctx.AddFailure(new ValidationFailure("Logradouro", "O Logradouro não pode ser nulo"));
             }
