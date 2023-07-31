@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            toolStrip1 = new ToolStrip();
+            toolStrip = new ToolStrip();
             toolStripSplitButton1 = new ToolStripSplitButton();
             funcionarioMenuItem = new ToolStripMenuItem();
             automóvelToolStripMenuItem = new ToolStripMenuItem();
@@ -42,7 +42,7 @@
             parceiroMenuItem = new ToolStripMenuItem();
             cupomMenuItem = new ToolStripMenuItem();
             aluguelMenuItem = new ToolStripMenuItem();
-            toolStrip2 = new ToolStrip();
+            txtMenu = new ToolStrip();
             BtnInserir = new ToolStripButton();
             BtnEditar = new ToolStripButton();
             BtnExcluir = new ToolStripButton();
@@ -50,21 +50,21 @@
             BtnFiltrar = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
             BtnGerarPdf = new ToolStripButton();
-            statusStrip1 = new StatusStrip();
-            toolStripStatusLabel1 = new ToolStripStatusLabel();
-            toolStrip1.SuspendLayout();
-            toolStrip2.SuspendLayout();
-            statusStrip1.SuspendLayout();
+            statusStrip = new StatusStrip();
+            StatusLabel = new ToolStripStatusLabel();
+            toolStrip.SuspendLayout();
+            txtMenu.SuspendLayout();
+            statusStrip.SuspendLayout();
             SuspendLayout();
             // 
-            // toolStrip1
+            // toolStrip
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripSplitButton1 });
-            toolStrip1.Location = new Point(0, 0);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(800, 47);
-            toolStrip1.TabIndex = 0;
-            toolStrip1.Text = "toolStrip1";
+            toolStrip.Items.AddRange(new ToolStripItem[] { toolStripSplitButton1 });
+            toolStrip.Location = new Point(0, 0);
+            toolStrip.Name = "toolStrip";
+            toolStrip.Size = new Size(800, 47);
+            toolStrip.TabIndex = 0;
+            toolStrip.Text = "toolStrip1";
             // 
             // toolStripSplitButton1
             // 
@@ -187,14 +187,14 @@
             aluguelMenuItem.Size = new Size(206, 54);
             aluguelMenuItem.Text = "Aluguel";
             // 
-            // toolStrip2
+            // txtMenu
             // 
-            toolStrip2.Items.AddRange(new ToolStripItem[] { BtnInserir, BtnEditar, BtnExcluir, toolStripSeparator1, BtnFiltrar, toolStripSeparator2, BtnGerarPdf });
-            toolStrip2.Location = new Point(0, 47);
-            toolStrip2.Name = "toolStrip2";
-            toolStrip2.Size = new Size(800, 55);
-            toolStrip2.TabIndex = 1;
-            toolStrip2.Text = "toolStrip2";
+            txtMenu.Items.AddRange(new ToolStripItem[] { BtnInserir, BtnEditar, BtnExcluir, toolStripSeparator1, BtnFiltrar, toolStripSeparator2, BtnGerarPdf });
+            txtMenu.Location = new Point(0, 47);
+            txtMenu.Name = "txtMenu";
+            txtMenu.Size = new Size(800, 55);
+            txtMenu.TabIndex = 1;
+            txtMenu.Text = "toolStrip2";
             // 
             // BtnInserir
             // 
@@ -266,45 +266,45 @@
             BtnGerarPdf.Text = "toolStripButton1";
             BtnGerarPdf.Click += BtnGerarPdf_Click;
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
-            statusStrip1.Location = new Point(0, 428);
-            statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(800, 22);
-            statusStrip1.TabIndex = 2;
-            statusStrip1.Text = "statusStrip1";
+            statusStrip.Items.AddRange(new ToolStripItem[] { StatusLabel });
+            statusStrip.Location = new Point(0, 428);
+            statusStrip.Name = "statusStrip";
+            statusStrip.Size = new Size(800, 22);
+            statusStrip.TabIndex = 2;
+            statusStrip.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // StatusLabel
             // 
-            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new Size(118, 17);
-            toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            StatusLabel.Name = "StatusLabel";
+            StatusLabel.Size = new Size(118, 17);
+            StatusLabel.Text = "toolStripStatusLabel1";
             // 
             // TelaPrincipalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(statusStrip1);
-            Controls.Add(toolStrip2);
-            Controls.Add(toolStrip1);
+            Controls.Add(statusStrip);
+            Controls.Add(txtMenu);
+            Controls.Add(toolStrip);
             Name = "TelaPrincipalForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Locação de Veículo";
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
-            toolStrip2.ResumeLayout(false);
-            toolStrip2.PerformLayout();
-            statusStrip1.ResumeLayout(false);
-            statusStrip1.PerformLayout();
+            toolStrip.ResumeLayout(false);
+            toolStrip.PerformLayout();
+            txtMenu.ResumeLayout(false);
+            txtMenu.PerformLayout();
+            statusStrip.ResumeLayout(false);
+            statusStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private ToolStrip toolStrip1;
+        private ToolStrip toolStrip;
         private ToolStripSplitButton toolStripSplitButton1;
         private ToolStripMenuItem funcionarioMenuItem;
         private ToolStripMenuItem automóvelToolStripMenuItem;
@@ -318,13 +318,13 @@
         private ToolStripMenuItem parceiroMenuItem;
         private ToolStripMenuItem cupomMenuItem;
         private ToolStripMenuItem aluguelMenuItem;
-        private ToolStrip toolStrip2;
+        private ToolStrip txtMenu;
         private ToolStripButton BtnInserir;
         private ToolStripButton BtnEditar;
         private ToolStripButton BtnExcluir;
         private ToolStripSeparator toolStripSeparator1;
-        private StatusStrip statusStrip1;
-        private ToolStripStatusLabel toolStripStatusLabel1;
+        private StatusStrip statusStrip;
+        private ToolStripStatusLabel StatusLabel;
         private ToolStripButton BtnFiltrar;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton BtnGerarPdf;

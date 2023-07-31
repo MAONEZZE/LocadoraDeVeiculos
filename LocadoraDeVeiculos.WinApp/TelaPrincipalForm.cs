@@ -5,7 +5,7 @@ namespace LocadoraDeVeiculos.WinApp
         public static TelaPrincipalForm Instancia { get; private set; } = null!;
 
         private ControladorBase controlador = null!;
-        
+
         public TelaPrincipalForm()
         {
             InitializeComponent();
@@ -22,22 +22,20 @@ namespace LocadoraDeVeiculos.WinApp
             AtualizarRodape(mensagemRodape);
         }
 
-        private void ConfigurarToolsTips(ControladorBase controlador)
+        private void ConfigurarToolsTips(ConfiguracaoToolboxBase configuracao)
         {
-            BtnInserir.ToolTipText = controlador.configuracao.ToolTipInserir;
-            BtnEditar.ToolTipText = controlador.configuracao.ToolTipEditar;
-            BtnExcluir.ToolTipText = controlador.configuracao.ToolTipExcluir;
-            BtnFiltrar.ToolTipText = controlador.configuracao.ToolTipFiltrar;
-            BtnGerarPdf.ToolTipText = controlador.configuracao.ToolTipGerarPdf;
+            BtnInserir.ToolTipText = configuracao.TooltipInserir;
+            BtnEditar.ToolTipText = configuracao.TooltipEditar;
+            BtnExcluir.ToolTipText = configuracao.TooltipExcluir;
+            BtnFiltrar.ToolTipText = configuracao.TooltipFiltrar;
         }
 
-        private void ConfigurarBotoes(ControladorBase controlador)
+        private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
         {
-            BtnInserir.Enabled = controlador.configuracao.BtnAdicionar.Enabled;
-            BtnEditar.Enabled = controlador.configuracao.BtnEditar.Enabled;
-            BtnExcluir.Enabled = controlador.configuracao.BtnExcluir.Enabled;
-            BtnFiltrar.Enabled = controlador.configuracao.BtnFiltrar.Enabled;
-            BtnGerarPdf.Enabled = controlador.configuracao.BtnGerarPdf.Enabled;
+            BtnInserir.Enabled = configuracao.InserirHabilitado;
+            BtnEditar.Enabled = configuracao.EditarHabilitado;
+            BtnExcluir.Enabled = configuracao.ExcluirHabilitado;
+            BtnFiltrar.Enabled = configuracao.FiltrarHabilitado;
         }
 
         public void AtualizarRodape(string msg)
@@ -67,7 +65,7 @@ namespace LocadoraDeVeiculos.WinApp
 
         private void BtnGerarPdf_Click(object sender, EventArgs e)
         {
-            
+
         }
     }
 }
