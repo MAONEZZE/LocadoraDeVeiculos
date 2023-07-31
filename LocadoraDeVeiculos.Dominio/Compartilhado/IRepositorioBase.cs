@@ -8,11 +8,13 @@
 
         void Excluir(T registro);
 
-        bool Existe(T registro);
+        bool  Existe(T registro);
 
         List<T> SelecionarTodos();
 
         T SelecionarPorId(int id);
+
+
 
     }
 }

@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ModuloCompartilhado\" />
+    <Compile Remove="ModuloCompartilhado\**" />
+    <EmbeddedResource Remove="ModuloCompartilhado\**" />
+    <None Remove="ModuloCompartilhado\**" />
   </ItemGroup>
 
   <ItemGroup>
