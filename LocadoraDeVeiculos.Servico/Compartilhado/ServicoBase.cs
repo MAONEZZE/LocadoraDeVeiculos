@@ -4,7 +4,8 @@ using Serilog;
 
 namespace LocadoraDeVeiculos.Servico.Compartilhado
 {
-    public abstract class ServicoBase<T, TValidador> where TValidador : AbstractValidator<T>, new()
+    public abstract class ServicoBase<T, TValidador> 
+        where TValidador : AbstractValidator<T>, new()
     {
         protected virtual Result Validar(T obj)
         {
