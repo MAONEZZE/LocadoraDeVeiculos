@@ -41,7 +41,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
 
             var parceiro = repositorioParceiro.SelecionarPorId(id);
 
-            var opcao = MessageBox.Show($"Confirma excluir o parceiro {parceiro}?", "Excluir Parceiro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var opcao = MessageBox.Show($"Confirma excluir o parceiro {parceiro.Nome}?", "Excluir Parceiro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (opcao == DialogResult.No) return;
 
@@ -66,6 +66,10 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
             if (id == default) return;
 
             var parceiro = repositorioParceiro.SelecionarPorId(id);
+
+            var opcao = MessageBox.Show($"Confirma editar o parceiro {parceiro.Nome}?", "Editar Parceiro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcao == DialogResult.No) return;
 
             var telaParceiro = new TelaParceiroForm()
             {

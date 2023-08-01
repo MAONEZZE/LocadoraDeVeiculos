@@ -47,7 +47,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
 
             var cupom = repositorioCupom.SelecionarPorId(id);
 
-            var opcao = MessageBox.Show($"Confirma editar o cupom Id: {cupom.Id}?", "Editar Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var opcao = MessageBox.Show($"Confirma editar o cupom: {cupom.Nome}?", "Editar Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (opcao == DialogResult.No) return;
 
@@ -78,7 +78,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
 
             var cupom = repositorioCupom.SelecionarPorId(id);
 
-            var opcao = MessageBox.Show($"Confirma excluír o cupom Id: {cupom.Id}?", "Excluír Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var opcao = MessageBox.Show($"Confirma excluír o cupom: {cupom.Nome}?", "Excluír Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (opcao == DialogResult.No) return;
 

@@ -1,9 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
 {
@@ -11,6 +6,10 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
     {
         private IRepositorioTaxaServico repositorioTaxaServico;
 
+        public override void Editar()
+        {
+            throw new NotImplementedException();
+        }
 
         public override void Excluir()
         {
