@@ -43,7 +43,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
         {
             var id = tabelaCupom.ObtemIdSelecionado();
 
-            if (id == 0) return;
+            if (id == default) return;
 
             var cupom = repositorioCupom.SelecionarPorId(id);
 
@@ -74,7 +74,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
         {
             var id = tabelaCupom.ObtemIdSelecionado();
 
-            if (id == 0) return;
+            if (id == default) return;
 
             var cupom = repositorioCupom.SelecionarPorId(id);
 

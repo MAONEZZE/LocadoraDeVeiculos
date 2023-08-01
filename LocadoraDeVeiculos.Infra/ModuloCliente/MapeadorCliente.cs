@@ -9,7 +9,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloCliente
 
             builder.ToTable("TBCliente");
 
-            builder.Property(c => c.Id).HasColumnName("Id").ValueGeneratedOnAdd();
+            builder.Property(c => c.Id).HasColumnName("Id").ValueGeneratedNever();
 
             builder.Property(c => c.Nome).HasColumnType("varchar(250)").HasColumnName("Nome").IsRequired();
 

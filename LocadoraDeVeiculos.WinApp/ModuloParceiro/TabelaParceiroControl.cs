@@ -16,7 +16,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
         {
             var colunas = new DataGridViewColumn[]
             {
-                new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id", FillWeight=15F },
+                new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id", FillWeight=15F , Visible = false},
 
                 new DataGridViewTextBoxColumn { Name = "Nome", HeaderText = "Nome", FillWeight=85F }
             };
@@ -24,7 +24,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
             return colunas;
         }
 
-        public int ObtemIdSelecionado()
+        public Guid ObtemIdSelecionado()
         {
             return gridParceiro.SelecionarId();
         }

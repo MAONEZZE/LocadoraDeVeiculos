@@ -1,9 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloCupom;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocadoraDeVeiculos.Dominio.ModuloCliente
 {
@@ -25,7 +20,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
             base.TipoCliente = tipoCliente;
             this.Endereco = endereco;
         }
-        public Cliente(int id, string nome, string email, string telefone, Endereco endereco, TipoClienteEnum tipoCliente, string documento) : this()
+        public Cliente(Guid id, string nome, string email, string telefone, Endereco endereco, TipoClienteEnum tipoCliente, string documento) : this()
         {
             base.Id = id;
             base.Nome = nome;

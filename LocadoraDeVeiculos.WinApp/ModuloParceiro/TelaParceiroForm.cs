@@ -8,29 +8,23 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
 
         Parceiro parceiro;
 
-        int id; 
-
         public TelaParceiroForm()
         {
             InitializeComponent();
 
-            this.ConfigurarDialog();                 
+            this.ConfigurarDialog();
         }
 
         public void ConfigurarParceiro(Parceiro parceiro)
         {
-            id = parceiro.Id;
-
             txtNome.Text = parceiro.Nome;
 
             this.parceiro = parceiro;
         }
 
-       
+
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
-            parceiro.Id = id;
-
             parceiro.Nome = txtNome.Text;
 
             Result resultado = onGravarRegistro(parceiro);

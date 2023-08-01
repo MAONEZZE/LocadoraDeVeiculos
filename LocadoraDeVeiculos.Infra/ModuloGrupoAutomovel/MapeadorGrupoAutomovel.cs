@@ -8,7 +8,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloGrupoAutomovel
         {
             builder.ToTable("TBGrupoAutomovel");
 
-            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.Property(x => x.Id).ValueGeneratedNever();
 
             builder.Property(x => x.Nome).HasColumnType("varchar(250)").IsRequired();
         }

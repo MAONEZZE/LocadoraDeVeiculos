@@ -37,7 +37,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
         {
             var id = tabelaParceiro.ObtemIdSelecionado();
 
-            if (id == 0) return;
+            if (id == default) return;
 
             var parceiro = repositorioParceiro.SelecionarPorId(id);
 
@@ -63,7 +63,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
 
             var id = tabelaParceiro.ObtemIdSelecionado();
 
-            if (id == 0) return;
+            if (id == default) return;
 
             var parceiro = repositorioParceiro.SelecionarPorId(id);
 

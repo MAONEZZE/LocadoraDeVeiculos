@@ -39,7 +39,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel
         {
             var id = tabelaGrupo.ObtemIdSelecionado();
 
-            if (id == 0) return;
+            if (id == default) return;
 
             var grupoSelecionado = repositorioGrupo.SelecionarPorId(id);
 
@@ -67,7 +67,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel
         {
             var id = tabelaGrupo.ObtemIdSelecionado();
 
-            if (id == 0) return;
+            if (id == default) return;
 
             var grupoSelecionado = repositorioGrupo.SelecionarPorId(id);
 

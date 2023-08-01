@@ -8,7 +8,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloCupom
         {
             builder.ToTable("TBCupom");
 
-            builder.Property(c => c.Id).ValueGeneratedOnAdd();
+            builder.Property(c => c.Id).ValueGeneratedNever();
 
             builder.Property(c => c.Nome).HasColumnType("varchar(250)").IsRequired();
 

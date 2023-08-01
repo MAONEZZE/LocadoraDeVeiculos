@@ -8,7 +8,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel
 
         private GrupoAutomovel grupo;
 
-        private int id;
+      
 
         public TelaGrupoAutomovelForm()
         {
@@ -19,8 +19,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel
 
         public void ConfigurarGrupo(GrupoAutomovel grupo)
         {
-            id = grupo.Id;
-
+           
             txtNome.Text = grupo.Nome;
 
             this.grupo = grupo;
@@ -28,9 +27,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel
 
 
         private void BtnSalvar_Click(object sender, EventArgs e)
-        {
-            grupo.Id = id;
-
+        {         
             grupo.Nome = txtNome.Text;
 
             Result resultado = onGravarRegistro(grupo);

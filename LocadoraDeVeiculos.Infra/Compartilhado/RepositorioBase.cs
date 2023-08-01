@@ -41,7 +41,7 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
             return registros.Contains(registro);
         }
 
-        public virtual T SelecionarPorId(int id)
+        public virtual T SelecionarPorId(Guid id)
         {
             return registros.SingleOrDefault(t=>t.Id == id);
         }

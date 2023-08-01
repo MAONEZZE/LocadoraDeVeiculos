@@ -100,6 +100,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
                 string msg;
 
                 if (ex.Message.Contains("'Parceiro' and 'Cupom'") ||
+
                     ex.InnerException.Message.Contains("FK_TBCupom_TBParceiro_ParceiroId"))
                 {
                     msg = "Este parceiro está relacionado com um cupom e não pode ser excluído.";
@@ -129,6 +130,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
                 erros.AddRange(resultado.Errors.Select(e => e.Message));
             }
             var ehValido = repositorioParceiro.EhValido(parceiro);
+
             if (!ehValido)
                 erros.Add($"Este nome '{parceiro.Nome}' já está sendo utilizado");
 
