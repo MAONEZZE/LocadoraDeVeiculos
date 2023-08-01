@@ -38,13 +38,57 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
             }
         }
 
+        public override void Editar()
+        {
+            var id = tabelaCupom.ObtemIdSelecionado();
+
+            var cupom = repositorioCupom.SelecionarPorId(id);
+
+            var opcao = MessageBox.Show($"Confirma editar o cupom {cupom}?", "Editar Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcao == DialogResult.No) return;
+
+            var telaCupom = new TelaCupomForm
+            {
+                Text = "Editar Cupom"
+            };
+
+            telaCupom.OnObterParceiro_ += repositorioParceiro.SelecionarTodos;
+
+            telaCupom.onGravarRegistro += servicoCupom.Editar;
+
+            telaCupom.ConfigurarCupom(cupom);
+
+            if (telaCupom.ShowDialog() == DialogResult.OK)
+            {
+                AtualizarListagem();
+            }
+        }
+
 
 
         public override void Excluir()
         {
-            throw new NotImplementedException();
-        }
+            var id = tabelaCupom.ObtemIdSelecionado();
 
+            var cupom = repositorioCupom.SelecionarPorId(id);
+
+            var opcao = MessageBox.Show($"Confirma excluír o cupom {cupom}?", "Excluír Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcao == DialogResult.No) return;
+
+            var result = servicoCupom.Excluir(cupom);
+
+            if (result.IsFailed)
+            {
+                var erros = result.Errors.Select(x => x.Message).ToList();
+
+                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
+            }
+
+            else
+                AtualizarListagem();
+        }
 
 
         public override UserControl ObtemListagem()

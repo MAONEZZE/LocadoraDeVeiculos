@@ -1,7 +1,5 @@
-﻿using FluentResults;
-using LocadoraDeVeiculos.Dominio.ModuloParceiro;
-using Serilog;
-using System.Data.SqlClient;
+﻿using LocadoraDeVeiculos.Dominio.ModuloParceiro;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 {
@@ -29,11 +27,16 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 Log.Debug("Parceiro {parceiroId} inserido com sucesso", parceiro.Id);
 
+                repositorioParceiro.SalvarAlteracoes();
+
                 return Result.Ok();
             }
-            catch (SqlException)
+
+            catch (DbUpdateException)
             {
                 string msg = $"Falha ao tentar inserir parceiro {parceiro}";
+
+                repositorioParceiro.DesfazerAlteracoes();
 
                 Log.Error(msg, parceiro);
 
@@ -57,11 +60,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 Log.Debug("Parceiro {parceiroId} editado com sucesso", parceiro.Id);
 
+                repositorioParceiro.SalvarAlteracoes();
+
                 return Result.Ok();
             }
-            catch (SqlException)
+            catch (DbUpdateException)
             {
                 string msg = $"Falha ao tentar editar parceiro {parceiro}";
+
+                repositorioParceiro.DesfazerAlteracoes();
 
                 Log.Error(msg, parceiro);
 
@@ -90,23 +97,28 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 Log.Debug("Parceiro {parceiroId} excluído com sucesso", parceiro.Id);
 
+                repositorioParceiro.SalvarAlteracoes();
+
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex)
             {
                 string msg;
 
-                if (ex.Message.Contains("FK_TBPARCEIRO_TBCUPOM"))
+                if (ex.InnerException!.Message.Contains("FK_TBCupom_TBParceiro_ParceiroId"))
                 {
-                    msg = "Este parceiro está relacionado com um cupom e nãp pode ser excluído";
+                    msg = "Este parceiro está relacionado com um cupom e não pode ser excluído. DbUpDateException";
                 }
                 else
-                    msg = $"Falha ao tentar exlcui parceiro {parceiro}";
+                    msg = $"Falha ao tentar excluír parceiro {parceiro}";
+
+                repositorioParceiro.DesfazerAlteracoes();
 
                 Log.Error(msg, parceiro);
 
                 return Result.Fail(msg);
             }
+           
 
 
         }

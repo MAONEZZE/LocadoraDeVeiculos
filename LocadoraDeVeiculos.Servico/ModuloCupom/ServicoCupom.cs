@@ -1,6 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloCupom;
-
-
+using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraDeVeiculos.Servico.ModuloCupom
 {
@@ -29,11 +28,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
 
                 Log.Debug("Cupom {cupomId} inserido com sucesso", cupom.Id);
 
+                repositorioCupom.SalvarAlteracoes();
+
                 return Result.Ok();
             }
-            catch (SqlException)
+            catch (DbUpdateException)
             {
                 string msg = $"Falha ao tentar inserir cupom {cupom}";
+
+                repositorioCupom.DesfazerAlteracoes();
 
                 Log.Error(msg, cupom);
 
@@ -55,20 +58,22 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             {
                 repositorioCupom.Editar(cupom);
 
+                repositorioCupom.SalvarAlteracoes();
+
                 Log.Debug("Cupom {cupomId} editado com sucesso", cupom.Id);
 
                 return Result.Ok();
             }
-            catch (SqlException)
+            catch (DbUpdateException)
             {
                 string msg = $"Falha ao tentar editar cupom {cupom}";
+
+                repositorioCupom.DesfazerAlteracoes();
 
                 Log.Error(msg, cupom);
 
                 return Result.Fail(msg);
             }
-
-
         }
 
         public Result Excluir(Cupom cupom)
@@ -88,20 +93,24 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
 
                 repositorioCupom.Excluir(cupom);
 
+                repositorioCupom.SalvarAlteracoes();
+
                 Log.Debug("Cupom {cupomId} excluído com sucesso", cupom.Id);
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex)
             {
-                string msg;
-
-                if (ex.Message.Contains("FK_TBCUPOM_TBALUGUEL"))
+                string msg;                  // aguaradar nome fk aluguel _ cupom
+                                            // nao pode excluir cupom relacionado a aluguel..
+                if (ex.InnerException!.Message.Contains(""))
                 {
                     msg = "Este cupom está relacionado com um aluguel e pode ser excluído";
                 }
                 else
                     msg = $"Falha ao tentar excluir cupom {cupom}";
+
+                repositorioCupom.DesfazerAlteracoes();
 
                 Log.Error(msg, cupom);
 

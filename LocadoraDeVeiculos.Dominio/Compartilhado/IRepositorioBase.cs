@@ -14,6 +14,10 @@
 
         T SelecionarPorId(int id);
 
+        void SalvarAlteracoes();
+
+        void DesfazerAlteracoes();
+
 
 
     }
