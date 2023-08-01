@@ -37,6 +37,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
         {
             var id = tabelaParceiro.ObtemIdSelecionado();
 
+            if (id == 0) return;
+
             var parceiro = repositorioParceiro.SelecionarPorId(id);
 
             var opcao = MessageBox.Show($"Confirma excluir o parceiro {parceiro}?","Excluir Parceiro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -60,6 +62,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
         {
 
             var id = tabelaParceiro.ObtemIdSelecionado();
+
+            if (id == 0) return;
 
             var parceiro = repositorioParceiro.SelecionarPorId(id);
 
@@ -106,7 +110,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
         {
             var sufixo = listagem.Count > 1 ? "s" : "";
 
-            mensagemRodape = $"Visualizando {listagem.Count} parceiro{sufixo}";
+            mensagemRodape = $"Visualizando {listagem.Count} parceiro{sufixo}.";
 
             TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }

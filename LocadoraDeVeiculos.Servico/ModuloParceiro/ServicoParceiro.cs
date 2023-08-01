@@ -27,12 +27,10 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 Log.Debug("Parceiro {parceiroId} inserido com sucesso", parceiro.Id);
 
-                repositorioParceiro.SalvarAlteracoes();
-
                 return Result.Ok();
             }
 
-            catch (DbUpdateException)
+            catch
             {
                 string msg = $"Falha ao tentar inserir parceiro {parceiro}";
 
@@ -60,11 +58,9 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 Log.Debug("Parceiro {parceiroId} editado com sucesso", parceiro.Id);
 
-                repositorioParceiro.SalvarAlteracoes();
-
                 return Result.Ok();
             }
-            catch (DbUpdateException)
+            catch
             {
                 string msg = $"Falha ao tentar editar parceiro {parceiro}";
 
@@ -97,17 +93,16 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 Log.Debug("Parceiro {parceiroId} excluído com sucesso", parceiro.Id);
 
-                repositorioParceiro.SalvarAlteracoes();
-
                 return Result.Ok();
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
                 string msg;
 
-                if (ex.InnerException!.Message.Contains("FK_TBCupom_TBParceiro_ParceiroId"))
+                if (ex.Message.Contains("'Parceiro' and 'Cupom'") ||
+                    ex.InnerException.Message.Contains("FK_TBCupom_TBParceiro_ParceiroId"))
                 {
-                    msg = "Este parceiro está relacionado com um cupom e não pode ser excluído. DbUpDateException";
+                    msg = "Este parceiro está relacionado com um cupom e não pode ser excluído.";
                 }
                 else
                     msg = $"Falha ao tentar excluír parceiro {parceiro}";
@@ -118,7 +113,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 return Result.Fail(msg);
             }
-           
+
 
 
         }

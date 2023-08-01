@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloCupom;
-using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraDeVeiculos.Servico.ModuloCupom
 {
@@ -25,14 +24,12 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             try
             {
                 repositorioCupom.Inserir(cupom);
-
+            
                 Log.Debug("Cupom {cupomId} inserido com sucesso", cupom.Id);
-
-                repositorioCupom.SalvarAlteracoes();
 
                 return Result.Ok();
             }
-            catch (DbUpdateException)
+            catch
             {
                 string msg = $"Falha ao tentar inserir cupom {cupom}";
 
@@ -57,14 +54,12 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             try
             {
                 repositorioCupom.Editar(cupom);
-
-                repositorioCupom.SalvarAlteracoes();
-
+              
                 Log.Debug("Cupom {cupomId} editado com sucesso", cupom.Id);
 
                 return Result.Ok();
             }
-            catch (DbUpdateException)
+            catch
             {
                 string msg = $"Falha ao tentar editar cupom {cupom}";
 
@@ -92,14 +87,12 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
                 }
 
                 repositorioCupom.Excluir(cupom);
-
-                repositorioCupom.SalvarAlteracoes();
-
+             
                 Log.Debug("Cupom {cupomId} excluído com sucesso", cupom.Id);
 
                 return Result.Ok();
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
                 string msg;                  // aguaradar nome fk aluguel _ cupom
                                             // nao pode excluir cupom relacionado a aluguel..

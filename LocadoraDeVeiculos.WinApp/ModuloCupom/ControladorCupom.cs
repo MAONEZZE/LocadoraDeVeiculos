@@ -42,9 +42,11 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
         {
             var id = tabelaCupom.ObtemIdSelecionado();
 
+            if (id == 0) return;
+
             var cupom = repositorioCupom.SelecionarPorId(id);
 
-            var opcao = MessageBox.Show($"Confirma editar o cupom {cupom}?", "Editar Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var opcao = MessageBox.Show($"Confirma editar o cupom Id: {cupom.Id}?", "Editar Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (opcao == DialogResult.No) return;
 
@@ -71,9 +73,11 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
         {
             var id = tabelaCupom.ObtemIdSelecionado();
 
+            if (id == 0) return;
+
             var cupom = repositorioCupom.SelecionarPorId(id);
 
-            var opcao = MessageBox.Show($"Confirma excluír o cupom {cupom}?", "Excluír Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var opcao = MessageBox.Show($"Confirma excluír o cupom Id: {cupom.Id}?", "Excluír Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (opcao == DialogResult.No) return;
 
@@ -113,7 +117,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
         {
             var sufixo = listagem.Count > 1 ? "ns" : "m";
 
-            mensagemRodape = $"Visualizando {listagem.Count} cupo{sufixo}";
+            mensagemRodape = $"Visualizando {listagem.Count} cupo{sufixo}.";
 
             TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }
