@@ -14,9 +14,21 @@ namespace LocadoraDeVeiculos.Dominio.ModuloTaxaServico
 
         public EnumTipoCalculo TipoCalculo { get; set; }
 
+        public TaxaServico()
+        {
+
+        }
+
         public TaxaServico(int id, string nome, int preco, EnumTipoCalculo tipoCalculo)
         {
             Id = id;
+            Nome = nome;
+            Preco = preco;
+            TipoCalculo = tipoCalculo;
+        }
+
+        public TaxaServico(string nome, int preco, EnumTipoCalculo tipoCalculo)
+        {
             Nome = nome;
             Preco = preco;
             TipoCalculo = tipoCalculo;
