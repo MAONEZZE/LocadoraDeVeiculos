@@ -43,9 +43,9 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
             return CapacidadeDeCombustivel - quantidadeAtual;
         }
 
-        public void AtualizarQuilometragem(int quilometragemAtual)
-        {
-            Quilometragem = quilometragemAtual;
+        public void AtualizarQuilometragem(int quilometragemPercorrida)
+        {         
+            Quilometragem += quilometragemPercorrida;
         }
 
         public override void AlterarInformacoes(Automovel entidade)
@@ -74,17 +74,5 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
                    CapacidadeDeCombustivel == automovel.CapacidadeDeCombustivel &&
                    Foto == automovel.Foto;
         }
-
-
-
-
-        /* O registro é composto por placa do automóvel, marca, cor, modelo, tipo de combustível, capacidade de combustível e ano.
-Deve ter a quilometragem
-Deve ser possível cadastrar uma foto do veículo
-Deve pertencer a um grupo de automóveis.
-Tamanho da foto não deve ultrapassar 2mb;
-Tamanho da placa formato antigo (3 letras seguidas de 4 algarismos) e novo (3 letras, um algarismo, uma letra e 3 algarismos);*/
     }
-
-
 }
