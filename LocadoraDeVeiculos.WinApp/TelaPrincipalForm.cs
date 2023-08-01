@@ -114,8 +114,13 @@ namespace LocadoraDeVeiculos.WinApp
         #endregion
 
         #region click - escolha dos menus
-      
+
         private void ParceiroMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+        }
+
+        private void CategoriaMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
@@ -124,6 +129,7 @@ namespace LocadoraDeVeiculos.WinApp
         {
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
+
         private void BtnGerarPdf_Click(object sender, EventArgs e)
         {
 

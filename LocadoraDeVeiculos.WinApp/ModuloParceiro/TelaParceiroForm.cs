@@ -1,6 +1,4 @@
-﻿
-
-using LocadoraDeVeiculos.Dominio.ModuloParceiro;
+﻿using LocadoraDeVeiculos.Dominio.ModuloParceiro;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
 {
@@ -19,7 +17,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
             this.ConfigurarDialog();                 
         }
 
-        public void ConfiguararParceiro(Parceiro parceiro)
+        public void ConfigurarParceiro(Parceiro parceiro)
         {
             id = parceiro.Id;
 

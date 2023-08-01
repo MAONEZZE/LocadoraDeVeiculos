@@ -6,12 +6,13 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
 {
     public class ControladorCupom : ControladorBase
     {
+        private readonly ServicoCupom servicoCupom;
 
-        ServicoCupom servicoCupom;
-        IRepositorioCupom repositorioCupom;
-        IRepositorioParceiro repositorioParceiro;
+        private readonly IRepositorioCupom repositorioCupom;
 
-        TabelaCupomControl tabelaCupom;
+        private readonly IRepositorioParceiro repositorioParceiro;
+
+        private TabelaCupomControl tabelaCupom;
 
         public ControladorCupom(ServicoCupom servicoCupom, IRepositorioCupom repositorioCupom, IRepositorioParceiro repositorioParceiro)
         {

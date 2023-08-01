@@ -5,11 +5,11 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
 {
     internal class ControladorParceiro : ControladorBase
     {
-        ServicoParceiro servicoParceiro;
+        private readonly ServicoParceiro servicoParceiro;
 
-        IRepositorioParceiro repositorioParceiro;
+        private readonly IRepositorioParceiro repositorioParceiro;
 
-        TabelaParceiroControl tabelaParceiro;
+        private TabelaParceiroControl tabelaParceiro;
 
         public ControladorParceiro(ServicoParceiro servicoParceiro, IRepositorioParceiro repositorioParceiro)
         {
@@ -24,7 +24,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
                 Text = "Cadastrar Parceiro"
             };
 
-            telaParceiro.ConfiguararParceiro(new Parceiro());
+            telaParceiro.ConfigurarParceiro(new Parceiro());
 
             telaParceiro.onGravarRegistro += servicoParceiro.Inserir;
 
@@ -41,7 +41,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
 
             var parceiro = repositorioParceiro.SelecionarPorId(id);
 
-            var opcao = MessageBox.Show($"Confirma excluir o parceiro {parceiro}?","Excluir Parceiro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var opcao = MessageBox.Show($"Confirma excluir o parceiro {parceiro}?", "Excluir Parceiro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (opcao == DialogResult.No) return;
 
@@ -51,9 +51,9 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
             {
                 var erros = result.Errors.Select(x => x.Message).ToList();
 
-                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]); 
+                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
             }
-               
+
             else
                 AtualizarListagem();
         }
@@ -69,10 +69,10 @@ namespace LocadoraDeVeiculos.WinApp.ModuloParceiro
 
             var telaParceiro = new TelaParceiroForm()
             {
-                Text = "Editar Parceiro",               
+                Text = "Editar Parceiro",
             };
 
-            telaParceiro.ConfiguararParceiro(parceiro);
+            telaParceiro.ConfigurarParceiro(parceiro);
 
             telaParceiro.onGravarRegistro += servicoParceiro.Editar;
 

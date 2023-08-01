@@ -6,7 +6,7 @@
 
         public abstract void Inserir();
 
-        public virtual void Editar() { }
+        public abstract void Editar();
 
         public abstract void Excluir();
 
