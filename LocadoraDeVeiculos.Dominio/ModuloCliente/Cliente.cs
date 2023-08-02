@@ -27,7 +27,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
             this.TipoCliente = tipoCliente;
             this.Endereco = endereco;
         }
-        public Cliente(int id, string nome, string email, string telefone, TipoClienteEnum tipoCliente, Endereco endereco, string documento) : this()
+        public Cliente(Guid id, string nome, string email, string telefone, TipoClienteEnum tipoCliente, Endereco endereco, string documento) : this()
         {
             base.Id = id;
             base.Nome = nome;

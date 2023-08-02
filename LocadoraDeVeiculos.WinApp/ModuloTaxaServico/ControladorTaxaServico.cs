@@ -1,14 +1,5 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCupom;
-using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
-using LocadoraDeVeiculos.Infra.ModuloCupom;
-using LocadoraDeVeiculos.Infra.ModuloTaxaServico;
+﻿using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloTaxaServico;
-using LocadoraDeVeiculos.WinApp.ModuloCupom;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
 {

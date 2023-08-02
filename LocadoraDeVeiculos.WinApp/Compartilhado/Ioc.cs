@@ -6,11 +6,13 @@ using LocadoraDeVeiculos.Infra.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Infra.ModuloParceiro;
 using LocadoraDeVeiculos.Infra.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloAutomovel;
+using LocadoraDeVeiculos.Servico.ModuloCliente;
 using LocadoraDeVeiculos.Servico.ModuloCupom;
 using LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Servico.ModuloParceiro;
 using LocadoraDeVeiculos.Servico.ModuloTaxaServico;
 using LocadoraDeVeiculos.WinApp.ModuloAutomovel;
+using LocadoraDeVeiculos.WinApp.ModuloCliente;
 using LocadoraDeVeiculos.WinApp.ModuloCupom;
 using LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.WinApp.ModuloParceiro;
@@ -58,6 +60,10 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var repositorioCliente = new RepositorioCliente(dbContext);
 
+            var servicoCliente = new ServicoCliente(repositorioCliente);
+
+            var controladorCliente = new ControladorCliente(repositorioCliente, servicoCliente);
+
             var repositorioTaxaServico = new RepositorioTaxaServico(dbContext);
 
             var servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServico);
@@ -69,6 +75,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             controladores.Add("Cupom", controladorCupom);
             controladores.Add("Categoria", controladorGrupoAutomovel);
             controladores.Add("Veículo", controladorAutomovel);
+            controladores.Add("Cliente", controladorCliente);
             controladores.Add("Taxas ou Serviços", controladorTaxaServico);
         }
 

@@ -16,8 +16,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
         {
             var colunas = new DataGridViewColumn[]
             {
-                new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id" },
-
                 new DataGridViewTextBoxColumn { Name = "Nome", HeaderText = "Nome" },
 
                 new DataGridViewTextBoxColumn { Name = "Email", HeaderText = "Email"},
@@ -38,7 +36,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
             return colunas;
         }
 
-        public int ObtemIdSelecionado()
+        public Guid ObtemIdSelecionado()
         {
             return grid.SelecionarId();
         }
@@ -49,7 +47,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 
             foreach (Cliente cliente in listaCliente)
             {
-                grid.Rows.Add(cliente.Id, cliente.Nome, cliente.Email, cliente.Telefone,cliente.TipoCliente.ToString(), cliente.Documento, cliente.Endereco.Cep, cliente.Endereco.Numero, cliente.Endereco.Cidade);
+                grid.Rows.Add(cliente.Nome, cliente.Email, cliente.Telefone,cliente.TipoCliente.ToString(), cliente.Documento, cliente.Endereco.Cep, cliente.Endereco.Numero, cliente.Endereco.Cidade);
             }
         }
     }

@@ -1,6 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Servico.ModuloCliente;
-using LocadoraDeVeiculos.WinApp.ModuloCupom;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 {
@@ -36,17 +35,59 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 
         public override void Editar()
         {
-            
+            var id = tabelaCliente.ObtemIdSelecionado();
+
+            if (id == default) return;
+
+            var cliente = repCliente.SelecionarPorId(id);
+
+            var opcao = MessageBox.Show($"Confirma editar o cupom: {cliente.Nome}?", "Editar Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcao == DialogResult.No) return;
+
+            var telaCliente = new TelaClienteForm
+            {
+                Text = "Editar Cliente"
+            };
+
+            telaCliente.onGravarRegistro += servicoCliente.Editar;
+
+            telaCliente.ConfigurarCliente(cliente);
+
+            if (telaCliente.ShowDialog() == DialogResult.OK)
+            {
+                AtualizarListagem();
+            }
         }
 
         public override void Excluir()
         {
-            throw new NotImplementedException();
+            var id = tabelaCliente.ObtemIdSelecionado();
+
+            if (id == default) return;
+
+            var cliente = repCliente.SelecionarPorId(id);
+
+            var opcao = MessageBox.Show($"Confirma excluír o cliente: {cliente.Nome}?", "Excluír cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcao == DialogResult.No) return;
+
+            var result = servicoCliente.Excluir(cliente);
+
+            if (result.IsFailed)
+            {
+                var erros = result.Errors.Select(x => x.Message).ToList();
+
+                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
+            }
+
+            else
+                AtualizarListagem();
         }
 
         public override ConfiguracaoToolboxBase ObtemConfiguracaoToolbox()
         {
-            return new ConfiguracaoToolBoxCupom();
+            return new ConfiguracaoToolBoxCliente();
         }
 
         public override UserControl ObtemListagem()

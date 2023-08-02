@@ -1,15 +1,6 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloParceiro;
-using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
-using System;
-using System.Collections.Generic;
+﻿using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
 {
