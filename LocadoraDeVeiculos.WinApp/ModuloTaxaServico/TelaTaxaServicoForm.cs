@@ -19,7 +19,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
         {
             txtNome.Text = taxaServico.Nome;
 
-            txtPreco.Text = taxaServico.Preco.ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
+            txtPreco.Text = (taxaServico.Preco/100).ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
 
             if (taxaServico.TipoCalculo == EnumTipoCalculo.Fixo)
             {
