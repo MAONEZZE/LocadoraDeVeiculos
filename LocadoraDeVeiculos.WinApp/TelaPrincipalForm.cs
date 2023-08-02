@@ -89,7 +89,7 @@ namespace LocadoraDeVeiculos.WinApp
             BtnEditar.Enabled = configuracao.EditarHabilitado;
             BtnExcluir.Enabled = configuracao.ExcluirHabilitado;
             BtnFiltrar.Enabled = configuracao.FiltrarHabilitado;
-            BtnDetalhes.Enabled = configuracao.VisualizarHabilitado;           
+            BtnDetalhes.Enabled = configuracao.VisualizarHabilitado;
         }
         #endregion
 
@@ -143,9 +143,13 @@ namespace LocadoraDeVeiculos.WinApp
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
 
-       
+        private void TaxaServicoMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+        }
 
         #endregion
+
 
     }
 }
