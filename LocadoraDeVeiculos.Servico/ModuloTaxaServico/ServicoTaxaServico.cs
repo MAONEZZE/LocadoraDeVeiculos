@@ -91,13 +91,13 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
                 return Result.Ok();
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 List<string> erros = new();
 
                 string msgErro;
 
-                if (ex.InnerException!.Message.Contains("FK"))
+                if (ex.Message.Contains("FK"))
                 {
                     msgErro = "Não é possível excluir essa taxa ou serviço, pois ela está sendo usada em outros lugares";
                 }
@@ -116,19 +116,6 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
             }
         }
 
-        private bool NomeDuplicado(TaxaServico taxaServico)
-        {
-            TaxaServico taxaServicoEncontrado = repositorioTaxaServico.BuscarPorNome(taxaServico.Nome);
-
-            if (taxaServicoEncontrado != null &&
-                taxaServicoEncontrado.Id != taxaServico.Id &&
-                taxaServicoEncontrado.Nome == taxaServico.Nome)
-            {
-                return true;
-            }
-            return false;
-        }
-
         private List<string> ValidarTaxaServico(TaxaServico taxaServico)
         {
             var resultadoValidacao = Validar(taxaServico);
@@ -144,12 +131,26 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
             {
                 erros.Add($"Já existe uma Taxa ou Serviço com o nome '{taxaServico.Nome}'");
             }
+
             foreach(string erro in erros)
             {
                 Log.Warning(erro);
             }
 
             return erros;
+        }
+
+        private bool NomeDuplicado(TaxaServico taxaServico)
+        {
+            TaxaServico taxaServicoEncontrado = repositorioTaxaServico.BuscarPorNome(taxaServico.Nome);
+
+            if (taxaServicoEncontrado != null &&
+                taxaServicoEncontrado.Id != taxaServico.Id &&
+                taxaServicoEncontrado.Nome == taxaServico.Nome)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
