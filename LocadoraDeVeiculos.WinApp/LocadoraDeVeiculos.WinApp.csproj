@@ -45,4 +45,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ModuloCondutor\" />
+    <Folder Include="ModuloPlanoDeCobranca\" />
+  </ItemGroup>
+
 </Project>

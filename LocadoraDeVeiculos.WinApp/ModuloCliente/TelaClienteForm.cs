@@ -85,29 +85,30 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 
         public void ConfigurarCliente(Cliente cliente)
         {
-            if (cliente == null)
-            {
-                txb_nome.Text = cliente.Nome;
-                txb_email.Text = cliente.Email;
-                mtxb_telefone.Text = cliente.Telefone;
-                txb_bairro.Text = cliente.Endereco.Bairro;
-                txb_cep.Text = cliente.Endereco.Cep;
-                txb_cidade.Text = cliente.Endereco.Cidade;
-                txb_estado.Text = cliente.Endereco.Estado;
-                txb_logradouro.Text = cliente.Endereco.Logradouro;
-                txb_numero.Text = cliente.Endereco.Numero.ToString();
 
-                if (cliente.TipoCliente == TipoClienteEnum.CPF)
-                {
-                    rdb_cpf.Checked = true;
-                    mtxb_cpf.Text = cliente.Documento;
-                }
-                else if (cliente.TipoCliente == TipoClienteEnum.CNPJ)
-                {
-                    rdb_cnpj.Checked = true;
-                    txb_cnpj.Text = cliente.Documento;
-                }
+            txb_nome.Text = cliente.Nome;
+            txb_email.Text = cliente.Email;
+            mtxb_telefone.Text = cliente.Telefone;
+
+            txb_bairro.Text = cliente.Endereco.Bairro;
+            mtxb_cep.Text = cliente.Endereco.Cep;
+            txb_cidade.Text = cliente.Endereco.Cidade;
+            txb_estado.Text = cliente.Endereco.Estado;
+            txb_logradouro.Text = cliente.Endereco.Logradouro;
+            txb_numero.Text = cliente.Endereco.Numero.ToString();
+            txb_comp.Text = cliente.Endereco.Complemento;
+
+            if (cliente.TipoCliente == TipoClienteEnum.CPF)
+            {
+                rdb_cpf.Checked = true;
+                mtxb_cpf.Text = cliente.Documento;
             }
+            else if (cliente.TipoCliente == TipoClienteEnum.CNPJ)
+            {
+                rdb_cnpj.Checked = true;
+                txb_cnpj.Text = cliente.Documento;
+            }
+
             this.cliente = cliente;
         }
     }
