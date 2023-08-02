@@ -1,20 +1,114 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 {
     public partial class TelaClienteForm : Form
     {
+        public event GravarRegistroDelegate<Cliente> onGravarRegistro;
+        private Cliente cliente;
+
         public TelaClienteForm()
         {
             InitializeComponent();
+            mtxb_cpf.Enabled = false;
+            txb_cnpj.Enabled = false;
+            MaskedTextBox txt_mask = new MaskedTextBox();
+            this.ConfigurarDialog();
+        }
+
+        private void BtnSalvar_Click(object sender, EventArgs e)
+        {
+            cliente.Nome = txb_nome.Text;
+            cliente.Email = txb_email.Text;
+            cliente.Telefone = mtxb_telefone.Text;
+
+            cliente.Endereco.Bairro = txb_bairro.Text;
+            cliente.Endereco.Cep = mtxb_cep.Text;
+            cliente.Endereco.Cidade = txb_cidade.Text;
+            cliente.Endereco.Estado = txb_estado.Text;
+            cliente.Endereco.Logradouro = txb_logradouro.Text;
+            cliente.Endereco.Numero = Convert.ToInt32(txb_numero.Text);
+            cliente.Endereco.Complemento = txb_comp.Text;
+
+            if (rdb_cpf.Checked)
+            {
+                cliente.Documento = mtxb_cpf.Text;
+                cliente.TipoCliente = TipoClienteEnum.CPF;
+            }
+            else if (rdb_cnpj.Checked)
+            {
+                cliente.Documento = txb_cnpj.Text;
+                cliente.TipoCliente = TipoClienteEnum.CNPJ;
+            }
+            else
+            {
+                cliente.TipoCliente = TipoClienteEnum.Outro;
+            }
+
+            Result resultado = onGravarRegistro(cliente);
+
+            if (resultado.IsFailed)
+            {
+                string erro = resultado.Errors[0].Message;
+
+                TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+
+                DialogResult = DialogResult.None;
+            }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+            foreach (RadioButton rdb in rdbGroup.Controls)
+            {
+                rdb.Click += EscolhaRDB;
+            }
+        }
+
+        private void EscolhaRDB(object? sender, EventArgs e)
+        {
+            RadioButton rdb = (RadioButton)sender;
+
+            switch (rdb.Name)
+            {
+                case "rdb_cpf":
+                    mtxb_cpf.Enabled = true;
+                    txb_cnpj.Enabled = false;
+                    break;
+
+                case "rdb_cnpj":
+                    mtxb_cpf.Enabled = false;
+                    txb_cnpj.Enabled = true;
+                    break;
+            }
+        }
+
+        public void ConfigurarCliente(Cliente cliente)
+        {
+            if (cliente == null)
+            {
+                txb_nome.Text = cliente.Nome;
+                txb_email.Text = cliente.Email;
+                mtxb_telefone.Text = cliente.Telefone;
+                txb_bairro.Text = cliente.Endereco.Bairro;
+                txb_cep.Text = cliente.Endereco.Cep;
+                txb_cidade.Text = cliente.Endereco.Cidade;
+                txb_estado.Text = cliente.Endereco.Estado;
+                txb_logradouro.Text = cliente.Endereco.Logradouro;
+                txb_numero.Text = cliente.Endereco.Numero.ToString();
+
+                if (cliente.TipoCliente == TipoClienteEnum.CPF)
+                {
+                    rdb_cpf.Checked = true;
+                    mtxb_cpf.Text = cliente.Documento;
+                }
+                else if (cliente.TipoCliente == TipoClienteEnum.CNPJ)
+                {
+                    rdb_cnpj.Checked = true;
+                    txb_cnpj.Text = cliente.Documento;
+                }
+            }
+            this.cliente = cliente;
         }
     }
 }

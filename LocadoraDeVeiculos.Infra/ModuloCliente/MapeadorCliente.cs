@@ -19,25 +19,18 @@ namespace LocadoraDeVeiculos.Infra.ModuloCliente
 
             builder.Property(c => c.Documento).HasColumnType("varchar(50)").HasColumnName("Documento do Cliente").IsRequired();
 
-            builder.Property(c => c.TipoCliente).HasColumnType("varchar(250)").HasColumnName("Tipo de Cliente").IsRequired();
+            builder.Property(c => c.TipoCliente).HasColumnType("varchar(30)").HasColumnName("Tipo de Cliente").IsRequired();
 
-            builder.Ignore(c => c.Endereco);
-
-            //builder.HasNoKey().Property(c => c.Endereco).IsRequired();
-
-            //builder.Property(c => c.endereco.logradouro).HasColumnType("varchar(250)").HasColumnName("Logradouro").IsRequired();
-
-            //builder.Property(c => c.endereco.bairro).HasColumnType("varchar(100)").HasColumnName("Bairro").IsRequired();
-
-            //builder.Property(c => c.endereco.cidade).HasColumnType("varchar(30)").HasColumnName("Cidade").IsRequired();
-
-            //builder.Property(c => c.endereco.estado).HasColumnType("varchar(30)").HasColumnName("Estado").IsRequired();
-
-            //builder.Property(c => c.endereco.cep).HasColumnType("varchar(30)").HasColumnName("CEP").IsRequired();
-
-            //builder.Property(c => c.endereco.numero).HasColumnName("Número").IsRequired();
-
-            //builder.Property(c => c.endereco.complemento).HasColumnType("varchar(30)").HasColumnName("Complemento").IsRequired();
+            builder.OwnsOne(c => c.Endereco, endereco =>
+            {
+                endereco.Property(e => e.Logradouro).HasColumnType("varchar(250)").HasColumnName("Logradouro").IsRequired();
+                endereco.Property(e => e.Bairro).HasColumnType("varchar(100)").HasColumnName("Bairro").IsRequired();
+                endereco.Property(e => e.Cidade).HasColumnType("varchar(30)").HasColumnName("Cidade").IsRequired();
+                endereco.Property(e => e.Estado).HasColumnType("varchar(30)").HasColumnName("Estado").IsRequired();
+                endereco.Property(e => e.Cep).HasColumnType("varchar(30)").HasColumnName("CEP").IsRequired();
+                endereco.Property(e => e.Numero).HasColumnName("Número").IsRequired();
+                endereco.Property(e => e.Complemento).HasColumnType("varchar(30)").HasColumnName("Complemento").IsRequired();
+            });
         }
     }
 }

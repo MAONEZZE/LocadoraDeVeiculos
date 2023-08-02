@@ -114,7 +114,7 @@ namespace LocadoraDeVeiculos.WinApp
         #endregion
 
         #region click - escolha dos menus
-      
+
         private void ParceiroMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
@@ -130,8 +130,9 @@ namespace LocadoraDeVeiculos.WinApp
         }
         #endregion
 
-
-
-
+        private void clienteMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+        }
     }
 }

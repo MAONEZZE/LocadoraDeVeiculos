@@ -2,8 +2,10 @@
 using LocadoraDeVeiculos.Infra.ModuloCliente;
 using LocadoraDeVeiculos.Infra.ModuloCupom;
 using LocadoraDeVeiculos.Infra.ModuloParceiro;
+using LocadoraDeVeiculos.Servico.ModuloCliente;
 using LocadoraDeVeiculos.Servico.ModuloCupom;
 using LocadoraDeVeiculos.Servico.ModuloParceiro;
+using LocadoraDeVeiculos.WinApp.ModuloCliente;
 using LocadoraDeVeiculos.WinApp.ModuloCupom;
 using LocadoraDeVeiculos.WinApp.ModuloParceiro;
 using Microsoft.EntityFrameworkCore;
@@ -24,24 +26,20 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             AtualizarBancoDados(dbContext);
 
             var repositorioParceiro = new RepositorioParceiro(dbContext);
-
             var servicoParceiro = new ServicoParceiro(repositorioParceiro);
-
             var controladorParceiro = new ControladorParceiro(servicoParceiro,repositorioParceiro);
 
             var repositorioCupom = new RepositorioCupom(dbContext);
-
             var servicoCupom = new ServicoCupom(repositorioCupom);
-
             var controladorCupom = new ControladorCupom(servicoCupom, repositorioCupom, repositorioParceiro);
 
             var repositorioCliente = new RepositorioCliente(dbContext);
-
-            
-
+            var servicoCliente = new ServicoCliente(repositorioCliente);
+            var controladorCliente = new ControladorCliente(repositorioCliente, servicoCliente);
          
             controladores.Add("Parceiro", controladorParceiro);
             controladores.Add("Cupom", controladorCupom);
+            controladores.Add("Cliente", controladorCliente);
         }
 
         public static ControladorBase ObterControlador(object sender)
