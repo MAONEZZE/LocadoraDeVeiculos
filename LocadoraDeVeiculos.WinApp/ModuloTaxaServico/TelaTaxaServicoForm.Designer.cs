@@ -71,7 +71,7 @@
             txtPreco.Name = "txtPreco";
             txtPreco.Size = new Size(135, 23);
             txtPreco.TabIndex = 4;
-            txtPreco.Validating += txtPreco_Validating;
+            txtPreco.KeyPress += txtPreco_KeyPress;
             // 
             // groupBox1
             // 

@@ -146,9 +146,18 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
         {
             Funcionario funcionarioEncontrado = repositorioFuncionario.BuscarPorNome(funcionario.Nome);
 
-            if (funcionarioEncontrado != null &&
-                funcionarioEncontrado.Id != funcionario.Id &&
-                funcionarioEncontrado.Nome == funcionario.Nome)
+            if(funcionarioEncontrado == null)
+            {
+                return false;
+            }
+
+
+            if(funcionarioEncontrado.Id == funcionario.Id)
+            {
+                return false;
+            }
+
+            if (funcionarioEncontrado.Nome == funcionario.Nome)
             {
                 return true;
             }

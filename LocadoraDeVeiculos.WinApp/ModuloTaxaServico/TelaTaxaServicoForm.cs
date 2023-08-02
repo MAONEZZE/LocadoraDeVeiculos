@@ -13,11 +13,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
         public TelaTaxaServicoForm()
         {
             InitializeComponent();
-
-            taxaServico = new();
-            txtPreco.TextAlign = HorizontalAlignment.Right;
-            txtPreco.ValidatingType = typeof(decimal);
-            txtPreco.Validating += new System.ComponentModel.CancelEventHandler(txtPreco_Validating);
+            this.ConfigurarDialog();
         }
         public void ConfigurarTela(TaxaServico taxaServico)
         {
@@ -37,33 +33,22 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
             this.taxaServico = taxaServico;
 
         }
-        private void txtPreco_Validating(object sender, CancelEventArgs e)
-        {
-            decimal valor;
-            if (!decimal.TryParse(txtPreco.Text, NumberStyles.Currency, CultureInfo.GetCultureInfo("pt-BR"), out valor))
-            {
-                MessageBox.Show("Valor monetário inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                e.Cancel = true;
-            }
-            else
-            {
-                txtPreco.Text = valor.ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
-            }
-        }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            taxaServico ??= new TaxaServico();
+
             taxaServico.Nome = txtNome.Text;
 
             double preco = double.Parse(txtPreco.Text, NumberStyles.Currency, CultureInfo.GetCultureInfo("pt-BR")) * 100;
 
             taxaServico.Preco = Convert.ToInt32(preco);
 
-            if(rbnFixo.Checked)
+            if (rbnFixo.Checked)
             {
                 taxaServico.TipoCalculo = EnumTipoCalculo.Fixo;
             }
-            else if(rbnDiario.Checked)
+            else if (rbnDiario.Checked)
             {
                 taxaServico.TipoCalculo = EnumTipoCalculo.Diario;
             }
@@ -77,6 +62,20 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
                 TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
                 DialogResult = DialogResult.None;
+            }
+        }
+
+        private void txtPreco_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != ','))
+            {
+                e.Handled = true;
+            }
+
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            {
+                e.Handled = true;
             }
         }
     }
