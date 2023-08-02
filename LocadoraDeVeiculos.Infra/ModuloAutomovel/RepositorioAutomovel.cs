@@ -17,5 +17,33 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
 
             return false;
         }
+
+        public override List<Automovel> SelecionarTodos()
+        {
+            return registros
+                .Include(x => x.GrupoAutomovel)
+                .Select(automovel => new Automovel
+                {
+                    Id = automovel.Id,
+                    Marca = automovel.Marca,
+                    Modelo = automovel.Modelo,
+                    Cor = automovel.Cor,
+                    Combustivel = automovel.Combustivel,
+                    Ano = automovel.Ano,
+                    Placa = automovel.Placa,
+                    Quilometragem = automovel.Quilometragem,
+                    CapacidadeDeCombustivel = automovel.CapacidadeDeCombustivel,
+                    GrupoAutomovel = automovel.GrupoAutomovel
+                   
+                }).ToList();
+
+        }
+
+        public override Automovel SelecionarPorId(Guid id)
+        {
+            return registros
+                .Include(x => x.GrupoAutomovel)
+                .SingleOrDefault(x => x.Id == id)!;
+        }
     }
 }

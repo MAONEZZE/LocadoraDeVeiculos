@@ -53,7 +53,7 @@
             toolStripSeparator1 = new ToolStripSeparator();
             BtnFiltrar = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
-            BtnGerarPdf = new ToolStripButton();
+            BtnDetalhes = new ToolStripButton();
             statusStrip = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
             panelRegistros = new Panel();
@@ -115,6 +115,7 @@
             veiculoMenuItem.Name = "veiculoMenuItem";
             veiculoMenuItem.Size = new Size(294, 54);
             veiculoMenuItem.Text = "Veículo";
+            veiculoMenuItem.Click += VeiculoMenuItem_Click;
             // 
             // categoriaMenuItem
             // 
@@ -223,7 +224,7 @@
             txtMenu.BackColor = SystemColors.InactiveCaption;
             txtMenu.Enabled = false;
             txtMenu.ImageScalingSize = new Size(20, 20);
-            txtMenu.Items.AddRange(new ToolStripItem[] { BtnInserir, toolStripSeparator4, BtnEditar, toolStripSeparator3, BtnExcluir, toolStripSeparator1, BtnFiltrar, toolStripSeparator2, BtnGerarPdf });
+            txtMenu.Items.AddRange(new ToolStripItem[] { BtnInserir, toolStripSeparator4, BtnEditar, toolStripSeparator3, BtnExcluir, toolStripSeparator1, BtnFiltrar, toolStripSeparator2, BtnDetalhes });
             txtMenu.Location = new Point(0, 47);
             txtMenu.Name = "txtMenu";
             txtMenu.Size = new Size(914, 47);
@@ -295,15 +296,17 @@
             toolStripSeparator2.Name = "toolStripSeparator2";
             toolStripSeparator2.Size = new Size(6, 47);
             // 
-            // BtnGerarPdf
+            // BtnDetalhes
             // 
-            BtnGerarPdf.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            BtnGerarPdf.Image = Properties.Resources.pdf;
-            BtnGerarPdf.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnGerarPdf.ImageTransparentColor = Color.Magenta;
-            BtnGerarPdf.Name = "BtnGerarPdf";
-            BtnGerarPdf.Size = new Size(29, 44);
-            BtnGerarPdf.Click += BtnGerarPdf_Click;
+            BtnDetalhes.Font = new Font("Lucida Sans Unicode", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            BtnDetalhes.Image = Properties.Resources.pdf;
+            BtnDetalhes.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnDetalhes.ImageTransparentColor = Color.Magenta;
+            BtnDetalhes.Name = "BtnDetalhes";
+            BtnDetalhes.Size = new Size(114, 44);
+            BtnDetalhes.Text = "Detalhes";
+            BtnDetalhes.ToolTipText = " ";
+            BtnDetalhes.Click += BtnDetalhes_Click;
             // 
             // statusStrip
             // 
@@ -379,7 +382,7 @@
         private ToolStripStatusLabel labelRodape;
         private ToolStripButton BtnFiltrar;
         private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton BtnGerarPdf;
+        private ToolStripButton BtnDetalhes;
         private ToolStripLabel toolStripLocadora;
         private ToolStripLabel labelTipoCadastro;
         private Panel panelRegistros;

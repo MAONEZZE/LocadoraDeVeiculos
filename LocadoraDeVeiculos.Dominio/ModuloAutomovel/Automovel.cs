@@ -14,29 +14,18 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
 
         public int Ano { get; set; }
 
+        public string Cor { get; set; }
+
         public TipoCombustivelEnum Combustivel { get; set; }
 
         public GrupoAutomovel GrupoAutomovel { get; set; }
 
+        public ImagemVeiculo Foto { get; set; }
+
         public int CapacidadeDeCombustivel { get; set; }
 
-        public string Foto { get; set; }
-
-
-        public Automovel(int quilometragem, string placa, string marca, string modelo, int ano,
-            TipoCombustivelEnum combustivel, int capacidadeDeCombustivel, string foto, GrupoAutomovel grupoAutomovel)
-        {
-            Quilometragem = quilometragem;
-            Placa = placa;
-            Marca = marca;
-            Modelo = modelo;
-            Ano = ano;
-            Combustivel = combustivel;
-            CapacidadeDeCombustivel = capacidadeDeCombustivel;
-            Foto = foto;
-            GrupoAutomovel = grupoAutomovel;
-        }
-
+        public Automovel() { }
+       
 
         public int Abastecer(int quantidadeAtual)
         {
@@ -44,8 +33,18 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
         }
 
         public void AtualizarQuilometragem(int quilometragemPercorrida)
-        {         
+        {       
             Quilometragem += quilometragemPercorrida;
+        }
+
+        public void IncluirFoto(byte[] imagemBytes)
+        {
+            Foto = new ImagemVeiculo(imagemBytes);
+        }
+
+        public void EditarFoto(byte[] imagemBytes)
+        {
+            Foto.ImagemBytes = imagemBytes;
         }
 
         public override void AlterarInformacoes(Automovel entidade)

@@ -20,7 +20,25 @@
 
             RuleFor(a => a.Combustivel).NotNull();
 
+            RuleFor(a => a.Foto.ImagemBytes).Custom(ValidarArrayBytes());
+
         
+        }
+
+        private Action<byte[], ValidationContext<Automovel>> ValidarArrayBytes()
+        {
+            return (bytes, context) =>
+            {
+                if(bytes == null)
+                {
+                    context.AddFailure("A imagem é obrigatório");
+                }
+
+                else if (bytes.Length > Math.Pow(2, 21))
+                {
+                    context.AddFailure("O tamanho da imagem é superior ao máximo de 2mb");
+                }
+            };
         }
 
         private static Action<string, ValidationContext<Automovel>> ValidarPlaca()
