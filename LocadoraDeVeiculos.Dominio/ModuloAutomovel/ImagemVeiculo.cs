@@ -1,5 +1,4 @@
-﻿using System;
-namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
+﻿namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
 {
     public class ImagemVeiculo
     {
