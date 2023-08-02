@@ -25,7 +25,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
         {
             repositorioTaxaServicoMoq = new Mock<IRepositorioTaxaServico>();
             validadorMock = new Mock<IValidadorTaxaServico>();
-            servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServicoMoq.Object, validadorMock.Object);
+            servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServicoMoq.Object);
             taxaServico = new TaxaServico("Limpeza", 10, EnumTipoCalculo.Diario);
 
              guidId = Guid.NewGuid();
@@ -76,7 +76,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
             //assert
             resultado.Should().BeFailure();
 
-            resultado.Reasons[0].Message.Should().Be($"Já existe uma taxa ou serviço com o nome '{taxaServico.Nome}'");
+            resultado.Reasons[0].Message.Should().Be($"Já existe uma Taxa ou Serviço com o nome '{taxaServico.Nome}'");
 
             repositorioTaxaServicoMoq.Verify(x => x.Inserir(taxaServico), Times.Never);
         }

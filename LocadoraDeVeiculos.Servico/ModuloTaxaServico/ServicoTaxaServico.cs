@@ -6,14 +6,10 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
     public class ServicoTaxaServico : ServicoBase<TaxaServico, ValidadorTaxaServico>
     {
         private IRepositorioTaxaServico repositorioTaxaServico;
-        private IValidadorTaxaServico validadorTaxaServico;
 
-        public ServicoTaxaServico(
-            IRepositorioTaxaServico repositorioTaxaServico,
-            IValidadorTaxaServico validadorTaxaServico)
+        public ServicoTaxaServico(IRepositorioTaxaServico repositorioTaxaServico)
         {
             this.repositorioTaxaServico = repositorioTaxaServico;
-            this.validadorTaxaServico = validadorTaxaServico;
         }
 
 
@@ -101,7 +97,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
                 string msgErro;
 
-                if (ex.InnerException!.Message.Contains(""))
+                if (ex.InnerException!.Message.Contains("FK"))
                 {
                     msgErro = "Não é possível excluir essa taxa ou serviço, pois ela está sendo usada em outros lugares";
                 }
@@ -135,13 +131,13 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
         private List<string> ValidarTaxaServico(TaxaServico taxaServico)
         {
-            var resultadoValidacao = validadorTaxaServico.Validate(taxaServico);
+            var resultadoValidacao = Validar(taxaServico);
 
             List<string> erros = new();
 
             if(resultadoValidacao != null)
             {
-                erros.AddRange(resultadoValidacao.Errors.Select(e => e.ErrorMessage));
+                erros.AddRange(resultadoValidacao.Errors.Select(e => e.Message));
             }
 
             if(NomeDuplicado(taxaServico))
