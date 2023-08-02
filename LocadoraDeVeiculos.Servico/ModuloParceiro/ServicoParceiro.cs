@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloParceiro;
-using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 {
@@ -70,8 +69,6 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 return Result.Fail(msg);
             }
-
-
         }
 
         public Result Excluir(Parceiro parceiro)
@@ -86,7 +83,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
                 {
                     Log.Warning("Parceiro {parceiroId} não encontrado para excluir", parceiro.Id);
 
-                    return Result.Fail("Parceiro não encontrada");
+                    return Result.Fail("Parceiro não encontrado");
                 }
 
                 repositorioParceiro.Excluir(parceiro);
@@ -114,8 +111,6 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 return Result.Fail(msg);
             }
-
-
 
         }
 

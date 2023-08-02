@@ -6,13 +6,13 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
     {
 
         ManipuladorImagem manipulador;
-        public TelaDetalhesAutomovelForm(Automovel automovel)
+        public TelaDetalhesAutomovelForm(ManipuladorImagem manipuladorImagem, Automovel automovel)
         {
             InitializeComponent();
 
             this.ConfigurarDialog();
 
-            manipulador = new();
+            manipulador = manipuladorImagem;
 
             txtGrupo.Text = automovel.GrupoAutomovel.Nome;
             pictureBoxFoto.Image = manipulador.ConverterParaImagem(automovel.Foto.ImagemBytes);

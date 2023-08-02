@@ -2,10 +2,10 @@
 {
     public enum TipoCombustivelEnum
     {
-        ALCOOL,
-        GASOLINA,
-        DIESEL,
-        FLEX
+        Etanol,
+        Gasolina,
+        Diesel,
+        Flex
     }
 
 

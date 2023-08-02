@@ -15,5 +15,12 @@
         {
             return Nome;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is GrupoAutomovel automovel &&
+                   Id== automovel.Id &&
+                   Nome == automovel.Nome;
+        }
     }
 }
