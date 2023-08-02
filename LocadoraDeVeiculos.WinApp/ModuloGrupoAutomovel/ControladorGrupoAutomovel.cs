@@ -43,7 +43,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel
 
             var grupoSelecionado = repositorioGrupo.SelecionarPorId(id);
 
-            var opcao = MessageBox.Show($"Confirma editar o grupo Id: {grupoSelecionado.Id}?", "Editar Grupo de Automóvel", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var opcao = MessageBox.Show($"Confirma editar o grupo: {grupoSelecionado.Nome}?", "Editar Grupo de Automóvel", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (opcao == DialogResult.No) return;
 
@@ -71,7 +71,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel
 
             var grupoSelecionado = repositorioGrupo.SelecionarPorId(id);
 
-            var opcao = MessageBox.Show($"Confirma excluír o grupo Id: {grupoSelecionado.Id}?", "Editar Grupo de Automóvel", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var opcao = MessageBox.Show($"Confirma excluír o grupo: {grupoSelecionado.Nome}?", "Editar Grupo de Automóvel", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (opcao == DialogResult.No) return;
 

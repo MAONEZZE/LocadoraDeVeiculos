@@ -4,6 +4,7 @@ using FluentResults.Extensions.FluentAssertions;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloTaxaServico;
 using Moq;
+using System;
 
 
 namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
@@ -18,12 +19,16 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
 
         TaxaServico taxaServico;
 
+        Guid guidId;
+
         public ServicoTaxaServicoTest()
         {
             repositorioTaxaServicoMoq = new Mock<IRepositorioTaxaServico>();
             validadorMock = new Mock<IValidadorTaxaServico>();
             servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServicoMoq.Object, validadorMock.Object);
             taxaServico = new TaxaServico("Limpeza", 10, EnumTipoCalculo.Diario);
+
+             guidId = Guid.NewGuid();
         }
         #region Inserir
         [TestMethod]
@@ -62,7 +67,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
             repositorioTaxaServicoMoq.Setup(x => x.BuscarPorNome(nomeTaxaServico))
                 .Returns(() =>
                 {
-                    return new TaxaServico(2, nomeTaxaServico, 10, EnumTipoCalculo.Diario);
+                    return new TaxaServico(default, nomeTaxaServico, 10, EnumTipoCalculo.Diario);
                 });
 
             //action
@@ -95,8 +100,10 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
         [TestMethod]
         public void Deve_Editar_TaxaServico_Caso_Valido()
         {
+          
+
             //arrange
-            taxaServico = new TaxaServico(1, "Limpeza", 10, EnumTipoCalculo.Diario);
+            taxaServico = new TaxaServico(guidId, "Limpeza", 10, EnumTipoCalculo.Diario);
 
             //action
             Result resultado = servicoTaxaServico.Editar(taxaServico);
@@ -110,7 +117,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
         public void Nao_Deve_Editar_TaxaServico_Caso_Invalido()
         {
             //arrange
-            taxaServico = new TaxaServico(1, "", 10, EnumTipoCalculo.Diario);
+            taxaServico = new TaxaServico(guidId, "", 10, EnumTipoCalculo.Diario);
 
             //action
             Result resultado = servicoTaxaServico.Editar(taxaServico);
@@ -129,10 +136,10 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
             repositorioTaxaServicoMoq.Setup(x => x.BuscarPorNome(nomeTaxaServico))
                 .Returns(() =>
                 {
-                    return new TaxaServico(id, nomeTaxaServico, 10, EnumTipoCalculo.Diario);
+                    return new TaxaServico(guidId, nomeTaxaServico, 10, EnumTipoCalculo.Diario);
                 });
 
-            TaxaServico outraTaxaServico = new(id, nomeTaxaServico, 10, EnumTipoCalculo.Diario);
+            TaxaServico outraTaxaServico = new(guidId, nomeTaxaServico, 10, EnumTipoCalculo.Diario);
 
             //action
             Result resultado = servicoTaxaServico.Editar(outraTaxaServico);
@@ -140,7 +147,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
             //assert
             resultado.Should().BeSuccess();
 
-            repositorioTaxaServicoMoq.Verify(x => x.Editar(outraTaxaServico), Times.Once);   
+            repositorioTaxaServicoMoq.Verify(x => x.Editar(outraTaxaServico), Times.Once);
         }
         [TestMethod]
         public void Nao_Deve_Editar_TaxaServico_Caso_Nome_Seja_Repetido()
@@ -151,10 +158,12 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
             repositorioTaxaServicoMoq.Setup(x => x.BuscarPorNome(nomeTaxaServico))
                 .Returns(() =>
                 {
-                    return new TaxaServico(1, nomeTaxaServico, 10, EnumTipoCalculo.Diario);
+                    return new TaxaServico(guidId, nomeTaxaServico, 10, EnumTipoCalculo.Diario);
                 });
 
-            TaxaServico novoTaxaServico = new(2, nomeTaxaServico, 10, EnumTipoCalculo.Diario);
+            var novoId = Guid.NewGuid();
+
+            TaxaServico novoTaxaServico = new(novoId, nomeTaxaServico, 10, EnumTipoCalculo.Diario);
 
             //action
             Result resultado = servicoTaxaServico.Editar(novoTaxaServico);
@@ -169,7 +178,8 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
         {
             //arrange
             repositorioTaxaServicoMoq.Setup(x => x.Editar(It.IsAny<TaxaServico>()))
-                .Throws(() => {
+                .Throws(() =>
+                {
                     return new Exception();
                 });
 
@@ -187,7 +197,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
         public void Nao_Deve_Excluir_TaxaServico_Caso_Ela_Nao_Exista()
         {
             //arrange
-            TaxaServico novataxaServico = new(1, "Limpeza", 10, EnumTipoCalculo.Diario);
+            TaxaServico novataxaServico = new(guidId, "Limpeza", 10, EnumTipoCalculo.Diario);
 
             repositorioTaxaServicoMoq.Setup(x => x.Existe(novataxaServico))
                 .Returns(() =>
@@ -200,14 +210,14 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
 
             //assert
             resultado.Should().BeFailure();
-            
+
             repositorioTaxaServicoMoq.Verify(x => x.Excluir(novataxaServico), Times.Never);
         }
         [TestMethod]
         public void Deve_Tratar_Erros_Caso_Ocorra_Ao_Tentar_Excluir()
         {
             //arrange
-            taxaServico = new TaxaServico(1, "Limpeza", 10, EnumTipoCalculo.Diario);
+            taxaServico = new TaxaServico(guidId, "Limpeza", 10, EnumTipoCalculo.Diario);
 
             repositorioTaxaServicoMoq.Setup(x => x.Existe(taxaServico))
                 .Throws(() =>

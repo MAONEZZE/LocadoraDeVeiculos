@@ -10,5 +10,10 @@
         {
            Nome = entidade.Nome;
         }
+
+        public override string ToString()
+        {
+            return Nome;
+        }
     }
 }

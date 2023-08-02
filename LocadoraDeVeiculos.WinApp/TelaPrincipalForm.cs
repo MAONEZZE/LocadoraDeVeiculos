@@ -80,6 +80,7 @@ namespace LocadoraDeVeiculos.WinApp
             BtnEditar.ToolTipText = configuracao.TooltipEditar;
             BtnExcluir.ToolTipText = configuracao.TooltipExcluir;
             BtnFiltrar.ToolTipText = configuracao.TooltipFiltrar;
+            BtnDetalhes.ToolTipText = configuracao.TooltipVisualizar;
         }
 
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
@@ -88,6 +89,7 @@ namespace LocadoraDeVeiculos.WinApp
             BtnEditar.Enabled = configuracao.EditarHabilitado;
             BtnExcluir.Enabled = configuracao.ExcluirHabilitado;
             BtnFiltrar.Enabled = configuracao.FiltrarHabilitado;
+            BtnDetalhes.Enabled = configuracao.VisualizarHabilitado;           
         }
         #endregion
 
@@ -111,6 +113,12 @@ namespace LocadoraDeVeiculos.WinApp
         {
             controlador.Filtrar();
         }
+
+        private void BtnDetalhes_Click(object sender, EventArgs e)
+        {
+            controlador.Visualizar();
+        }
+
         #endregion
 
         #region click - escolha dos menus
@@ -130,19 +138,14 @@ namespace LocadoraDeVeiculos.WinApp
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
 
-        private void BtnGerarPdf_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void TaxaServicoMenuItem_Click(object sender, EventArgs e)
+        private void VeiculoMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
+
+       
+
         #endregion
-
-
-
-
 
     }
 }
