@@ -1,6 +1,4 @@
-﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
-
-namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
+﻿namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
 {
     public class Aluguel : EntidadeBase<Aluguel>
     {
