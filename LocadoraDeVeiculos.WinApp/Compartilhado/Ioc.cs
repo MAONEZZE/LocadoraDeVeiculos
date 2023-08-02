@@ -4,14 +4,17 @@ using LocadoraDeVeiculos.Infra.ModuloCliente;
 using LocadoraDeVeiculos.Infra.ModuloCupom;
 using LocadoraDeVeiculos.Infra.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Infra.ModuloParceiro;
+using LocadoraDeVeiculos.Infra.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloAutomovel;
 using LocadoraDeVeiculos.Servico.ModuloCupom;
 using LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Servico.ModuloParceiro;
+using LocadoraDeVeiculos.Servico.ModuloTaxaServico;
 using LocadoraDeVeiculos.WinApp.ModuloAutomovel;
 using LocadoraDeVeiculos.WinApp.ModuloCupom;
 using LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.WinApp.ModuloParceiro;
+using LocadoraDeVeiculos.WinApp.ModuloTaxaServico;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -55,11 +58,18 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var repositorioCliente = new RepositorioCliente(dbContext);
 
-                    
+            var repositorioTaxaServico = new RepositorioTaxaServico(dbContext);
+
+            var servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServico);
+
+            var controladorTaxaServico = new ControladorTaxaServico(servicoTaxaServico, repositorioTaxaServico);
+
+
             controladores.Add("Parceiro", controladorParceiro);
             controladores.Add("Cupom", controladorCupom);
             controladores.Add("Categoria", controladorGrupoAutomovel);
             controladores.Add("Veículo", controladorAutomovel);
+            controladores.Add("Taxas ou Serviços", controladorTaxaServico);
         }
 
         public static ControladorBase ObterControlador(object sender)
