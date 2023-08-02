@@ -1,4 +1,7 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
+﻿using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
+using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
+using LocadoraDeVeiculos.Infra.ModuloFuncionario;
+using LocadoraDeVeiculos.Servico.ModuloFuncionario;
 using LocadoraDeVeiculos.Servico.ModuloTaxaServico;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
@@ -52,7 +55,38 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
 
         public override void Excluir()
         {
-            throw new NotImplementedException();
+            Guid guidTaxaServico = tabelaTaxaServico.ObterIdSelecionado();
+
+            if (guidTaxaServico == default(Guid))
+            {
+                MessageBox.Show($"Selecione uma Taxa ou Serviço para excluir!",
+                                  "Exclusão de Taxa ou Serviço",
+                MessageBoxButtons.OK,
+                                   MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            TaxaServico taxaServicoSelecionado = repositorioTaxaServico.SelecionarPorId(guidTaxaServico);
+
+            DialogResult opcaoEscolhida = MessageBox.Show($"Tem certeza que deseja excluir a Taxa ou Serviço: [{taxaServicoSelecionado.Nome}] ?",
+                                                            "Exclusão de Taxa ou Serviço",
+                                                             MessageBoxButtons.YesNo,
+                                                             MessageBoxIcon.Question);
+            if (opcaoEscolhida == DialogResult.Yes)
+            {
+                Result resultado = servicoTaxaServico.Excluir(taxaServicoSelecionado);
+
+                if (resultado.IsFailed)
+                {
+                    string[] erros = resultado.Errors.Select(e => e.Message).ToArray();
+
+                    TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
+
+                    return;
+                }
+
+                AtualizarListagem();
+            }
         }
 
         public override void Inserir()
@@ -63,7 +97,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
                 Text = "Cadastrar Taxa ou Serviço"
             };
 
-            telaTaxaServico.onGravarRegistro += servicoTaxaServico.Editar;
+            telaTaxaServico.onGravarRegistro += servicoTaxaServico.Inserir;
 
             DialogResult resultado = telaTaxaServico.ShowDialog();
 

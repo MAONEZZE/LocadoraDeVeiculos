@@ -97,6 +97,7 @@
             funcionarioMenuItem.Name = "funcionarioMenuItem";
             funcionarioMenuItem.Size = new Size(237, 54);
             funcionarioMenuItem.Text = "Funcionário";
+            funcionarioMenuItem.Click += funcionarioMenuItem_Click;
             // 
             // automóvelToolStripMenuItem
             // 
