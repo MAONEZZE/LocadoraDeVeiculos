@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 {
     public partial class TelaClienteForm : Form
     {
+        public event GravarRegistroDelegate<Cliente> onGravarRegistro;
+        private Cliente cliente;
+
         public TelaClienteForm()
         {
             InitializeComponent();
             mtxb_cpf.Enabled = false;
             txb_cnpj.Enabled = false;
+            MaskedTextBox txt_mask = new MaskedTextBox();
             this.ConfigurarDialog();
         }
 

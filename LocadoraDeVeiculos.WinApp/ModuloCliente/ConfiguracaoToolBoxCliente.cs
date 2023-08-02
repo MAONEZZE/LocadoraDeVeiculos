@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LocadoraDeVeiculos.WinApp.ModuloCliente
+﻿namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 {
     public class ConfiguracaoToolBoxCliente : ConfiguracaoToolboxBase
     {

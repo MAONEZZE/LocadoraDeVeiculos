@@ -26,7 +26,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
                 .NotEmpty()
                 .Custom(VerificadorEndereco);
 
-            RuleFor(x => x.TipoCliente)
+            RuleFor(x => x.TipoCliente.ToString())
                 .NotEmpty()
                 .NotNull();
 
