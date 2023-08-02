@@ -10,6 +10,10 @@
                 .MaximumLength(250)
                 .MinimumLength(2)
                 .NaoPodeCaracteresEspeciais();
+            RuleFor(x => x.Preco)
+                .NotEmpty()
+                .NotNull()
+                .GreaterThan(0);
         }
     }
 }

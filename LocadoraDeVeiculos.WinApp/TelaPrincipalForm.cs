@@ -134,7 +134,12 @@ namespace LocadoraDeVeiculos.WinApp
         {
 
         }
+        private void TaxaServicoMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+        }
         #endregion
+
 
 
 
