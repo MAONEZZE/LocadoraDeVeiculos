@@ -148,6 +148,11 @@ namespace LocadoraDeVeiculos.WinApp
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
 
+        private void clienteMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+        }
+
         #endregion
 
 

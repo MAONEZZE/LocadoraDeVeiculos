@@ -42,6 +42,7 @@
             parceiroMenuItem = new ToolStripMenuItem();
             cupomMenuItem = new ToolStripMenuItem();
             aluguelMenuItem = new ToolStripMenuItem();
+            TaxaServicoMenuItem = new ToolStripMenuItem();
             toolStripLocadora = new ToolStripLabel();
             labelTipoCadastro = new ToolStripLabel();
             txtMenu = new ToolStrip();
@@ -57,7 +58,6 @@
             statusStrip = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
             panelRegistros = new Panel();
-            TaxaServicoMenuItem = new ToolStripMenuItem();
             toolStrip.SuspendLayout();
             txtMenu.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -144,6 +144,7 @@
             clienteMenuItem.Name = "clienteMenuItem";
             clienteMenuItem.Size = new Size(237, 54);
             clienteMenuItem.Text = "Cliente";
+            clienteMenuItem.Click += clienteMenuItem_Click;
             // 
             // planoDeCobrançaMenuItem
             // 
@@ -201,6 +202,16 @@
             aluguelMenuItem.Name = "aluguelMenuItem";
             aluguelMenuItem.Size = new Size(237, 54);
             aluguelMenuItem.Text = "Aluguel";
+            // 
+            // TaxaServicoMenuItem
+            // 
+            TaxaServicoMenuItem.Image = Properties.Resources.taxaeservicos;
+            TaxaServicoMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
+            TaxaServicoMenuItem.ImageScaling = ToolStripItemImageScaling.None;
+            TaxaServicoMenuItem.Name = "TaxaServicoMenuItem";
+            TaxaServicoMenuItem.Size = new Size(237, 54);
+            TaxaServicoMenuItem.Text = "Taxas ou Serviços";
+            TaxaServicoMenuItem.Click += TaxaServicoMenuItem_Click;
             // 
             // toolStripLocadora
             // 
@@ -334,16 +345,6 @@
             panelRegistros.Name = "panelRegistros";
             panelRegistros.Size = new Size(800, 334);
             panelRegistros.TabIndex = 3;
-            // 
-            // TaxaServicoMenuItem
-            // 
-            TaxaServicoMenuItem.Image = Properties.Resources.taxaeservicos;
-            TaxaServicoMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
-            TaxaServicoMenuItem.ImageScaling = ToolStripItemImageScaling.None;
-            TaxaServicoMenuItem.Name = "TaxaServicoMenuItem";
-            TaxaServicoMenuItem.Size = new Size(237, 54);
-            TaxaServicoMenuItem.Text = "Taxas ou Serviços";
-            TaxaServicoMenuItem.Click += TaxaServicoMenuItem_Click;
             // 
             // TelaPrincipalForm
             // 
