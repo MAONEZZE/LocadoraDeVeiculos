@@ -13,17 +13,19 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
 
         Image imagem;
 
+        bool alterouImagem;
+
         public OnBuscarGrupoDelegate onBuscarGrupo;
 
         public GravarRegistroDelegate<Automovel> gravarRegistroDelegate;
 
-        public TelaAutomovelForm()
+        public TelaAutomovelForm(ManipuladorImagem manipuladorImagem)
         {
             InitializeComponent();
 
             this.ConfigurarDialog();
 
-            manipulador = new ManipuladorImagem();
+            manipulador = manipuladorImagem;
 
         }
 
@@ -32,17 +34,17 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
         {
             this.automovel = automovel;
 
-            if (automovel.GrupoAutomovel != null)
-                comboBoxGrupo.SelectedItem = automovel.GrupoAutomovel;
-
-            if (automovel.Foto != null)
-                pictureBoxFoto.Image = manipulador.ConverterParaImagem(automovel.Foto.ImagemBytes);
-
             comboBoxGrupo.DataSource = onBuscarGrupo();
 
             comboBoxCombustivel.DataSource = Enum.GetValues<TipoCombustivelEnum>();
 
-            comboBoxCombustivel.SelectedItem = automovel.GrupoAutomovel;
+            SelecionarCombustivel(automovel);
+
+            if (automovel.GrupoAutomovel != null)
+                SelecionarGrupoAutomovel(automovel);
+
+            if (automovel.Foto != null)
+                SelecionarFoto(automovel);
 
             txtAno.Value = automovel.Ano;
             txtCor.Text = automovel.Cor;
@@ -53,16 +55,48 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
             txtPlaca.Text = automovel.Placa;
         }
 
+        private void SelecionarFoto(Automovel automovel)
+        {
+            pictureBoxFoto.Image = manipulador.ConverterParaImagem(automovel.Foto.ImagemBytes);
+        }
+
+        private void SelecionarCombustivel(Automovel automovel)
+        {
+            foreach (var item in comboBoxCombustivel.Items)
+            {
+                if (automovel.Combustivel.Equals(item))
+                    comboBoxCombustivel.SelectedItem = item;
+            }
+        }
+
+
+        private void SelecionarGrupoAutomovel(Automovel automovel)
+        {
+            foreach (var item in comboBoxGrupo.Items)
+            {
+                if (automovel.GrupoAutomovel.Equals(item))
+                    comboBoxGrupo.SelectedItem = item;
+            }
+
+        }
 
         private void BntBuscarFoto_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                imagem = manipulador.RedimensionarImagem(openFileDialog.FileName);
+                try
+                {
+                    imagem = manipulador.RedimensionarImagem(openFileDialog.FileName);
 
-                pictureBoxFoto.Image = imagem;
+                    pictureBoxFoto.Image = imagem;
+
+                    alterouImagem = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-
         }
 
         private void BtnSalvar_Click(object sender, EventArgs e)
@@ -79,7 +113,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
 
             if (automovel.Foto == null)
                 automovel.IncluirFoto(manipulador.ConverterParaBytes(imagem));
-            else
+
+            else if (alterouImagem)
                 automovel.EditarFoto(manipulador.ConverterParaBytes(imagem));
 
             var result = gravarRegistroDelegate(automovel);
@@ -93,7 +128,5 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
                 DialogResult = DialogResult.None;
             }
         }
-
-
     }
 }

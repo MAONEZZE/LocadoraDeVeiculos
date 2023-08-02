@@ -41,7 +41,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 
             var cliente = repCliente.SelecionarPorId(id);
 
-            var opcao = MessageBox.Show($"Confirma editar o cupom: {cliente.Nome}?", "Editar Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var opcao = MessageBox.Show($"Confirma editar o cliente: {cliente.Nome}?", "Editar Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (opcao == DialogResult.No) return;
 

@@ -8,6 +8,19 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
         {
         }
 
+        public bool EstaDisponivel(Automovel automovel)
+        {
+            return registros.Any(x => x.Id == automovel.Id && x.Alugado == false);
+        }
+
+
+        public override Automovel SelecionarPorId(Guid id)
+        {
+            return registros
+                .Include(x => x.GrupoAutomovel)
+                .SingleOrDefault(x => x.Id == id)!;
+        }
+
         public bool EhValido(Automovel automovel)
         {
             var encontrado = registros.SingleOrDefault(x => x.Placa == automovel.Placa)!;
@@ -34,16 +47,9 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
                     Quilometragem = automovel.Quilometragem,
                     CapacidadeDeCombustivel = automovel.CapacidadeDeCombustivel,
                     GrupoAutomovel = automovel.GrupoAutomovel
-                   
+
                 }).ToList();
 
-        }
-
-        public override Automovel SelecionarPorId(Guid id)
-        {
-            return registros
-                .Include(x => x.GrupoAutomovel)
-                .SingleOrDefault(x => x.Id == id)!;
         }
     }
 }

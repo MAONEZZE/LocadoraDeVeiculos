@@ -23,6 +23,12 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
 
         public Image RedimensionarImagem(string imagePath)
         {
+            if (!imagePath.EndsWith(".jpg") && !imagePath.EndsWith(".png"))
+            {
+               throw new Exception("A imagem deve ser em formato jpg ou png.");
+            }
+
+
             Image imageSelecionada = Image.FromFile(imagePath);
 
             const int novaLargura = 200;

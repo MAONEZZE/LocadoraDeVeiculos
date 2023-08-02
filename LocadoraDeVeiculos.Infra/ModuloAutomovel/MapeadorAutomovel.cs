@@ -9,24 +9,26 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
         {
             builder.ToTable("TBAutomovel");
 
-            builder.Property(a=>a.Id).ValueGeneratedNever().IsRequired();
+            builder.Property(a => a.Id).ValueGeneratedNever().IsRequired();
 
             builder.Property(a => a.Ano).IsRequired();
 
+            builder.Property(a => a.Alugado).IsRequired();
+
             builder.Property(a => a.Combustivel).IsRequired();
-
-            builder.Property(a=>a.Cor).HasColumnType("varchar(50)").IsRequired();
-
-            builder.Property(a=>a.Marca).HasColumnType("varchar(50)").IsRequired();
-
-            builder.Property(a=>a.Modelo).HasColumnType("varchar(50)").IsRequired();
-
-            builder.Property(a=>a.Placa).HasColumnType("varchar(10)").IsRequired();
 
             builder.Property(a => a.Quilometragem).IsRequired();
 
             builder.Property(a => a.CapacidadeDeCombustivel).IsRequired();
 
+            builder.Property(a => a.Cor).HasColumnType("varchar(50)").IsRequired();
+
+            builder.Property(a => a.Marca).HasColumnType("varchar(50)").IsRequired();
+
+            builder.Property(a => a.Modelo).HasColumnType("varchar(50)").IsRequired();
+
+            builder.Property(a => a.Placa).HasColumnType("varchar(10)").IsRequired();
+                   
             builder.HasOne(a=>a.GrupoAutomovel).WithMany().IsRequired()
             .OnDelete(DeleteBehavior.NoAction);
 

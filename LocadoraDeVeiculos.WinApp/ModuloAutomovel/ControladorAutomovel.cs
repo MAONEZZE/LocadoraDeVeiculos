@@ -27,7 +27,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
 
         public override void Inserir()
         {
-            var telaAutomovel = new TelaAutomovelForm()
+            var telaAutomovel = new TelaAutomovelForm(new ManipuladorImagem())
             {
                 Text = "Cadastrar Automóvel"
             };
@@ -46,12 +46,63 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
 
         public override void Editar()
         {
-            throw new NotImplementedException();
+
+            var id = tabelaAutomovel.ObtemIdSelecionado();
+
+            if (id == default) return;
+
+            var automovel = repositorioAutomovel.SelecionarPorId(id);
+
+            if (!repositorioAutomovel.EstaDisponivel(automovel))
+            {
+                MessageBox.Show($"Este automóvel placa: '{automovel.Placa}' já está sendo utilizado em um aluguel.");
+                return;
+            }
+
+            var opcao = MessageBox.Show($"Confirma editar o automóvel placa: {automovel.Placa}?", "Editar Automóvel", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcao == DialogResult.No) return;
+
+            var telaAutomovel = new TelaAutomovelForm(new ManipuladorImagem())
+            {
+                Text = "Editar Automóvel"
+            };
+
+            telaAutomovel.gravarRegistroDelegate += servicoAutomovel.Editar;
+
+            telaAutomovel.onBuscarGrupo += repositorioGrupoAutomovel.SelecionarTodos;
+
+            telaAutomovel.ConfigurarAutomovel(automovel);
+
+            if (telaAutomovel.ShowDialog() == DialogResult.OK)
+            {
+                AtualizarListagem();
+            }
         }
 
         public override void Excluir()
         {
-            throw new NotImplementedException();
+            var id = tabelaAutomovel.ObtemIdSelecionado();
+
+            if (id == default) return;
+
+            var automovel = repositorioAutomovel.SelecionarPorId(id);
+
+            var opcao = MessageBox.Show($"Confirma excluír o automóvel placa: {automovel.Placa}?", "Excluír Automóvel", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcao == DialogResult.No) return;
+
+            var result = servicoAutomovel.Excluir(automovel);
+
+            if (result.IsFailed)
+            {
+                var erros = result.Errors.Select(x => x.Message).ToList();
+
+                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
+            }
+
+            else
+                AtualizarListagem();
         }
 
         public override void Visualizar()
@@ -62,7 +113,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
 
             var automovel = repositorioAutomovel.SelecionarPorId(id);
 
-            var telaDetalhes = new TelaDetalhesAutomovelForm(automovel)
+            var telaDetalhes = new TelaDetalhesAutomovelForm(new ManipuladorImagem(), automovel)
             {
                 Text = "Detalhes Automóvel"
             };

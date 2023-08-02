@@ -3,26 +3,38 @@
     public class ValidadorAutomovel : AbstractValidator<Automovel>, IValidadorAutomovel
     {
         public ValidadorAutomovel()
-        {
+        {                    
             RuleFor(a => a.Id).NotNull();
 
+            RuleFor(a => a.Combustivel).NotNull();
+
+            RuleFor(a => a.GrupoAutomovel).NotNull();
+
+            RuleFor(a => a.Placa).Custom(ValidarPlaca());
+
             RuleFor(a => a.Marca).NotNull().MinimumLength(2);
+
+            RuleFor(a => a.Modelo).NotNull().MinimumLength(2);
 
             RuleFor(a => a.Ano.ToString()).Length(4).NotEmpty();
 
             RuleFor(a => a.CapacidadeDeCombustivel).GreaterThan(0);
-
-            RuleFor(a => a.Placa).Custom(ValidarPlaca());
-
-            RuleFor(a=>a.Modelo).NotNull().MinimumLength(2);
-
-            RuleFor(a => a.GrupoAutomovel).NotNull();
-
-            RuleFor(a => a.Combustivel).NotNull();
-
+    
             RuleFor(a => a.Foto.ImagemBytes).Custom(ValidarArrayBytes());
 
-        
+            RuleFor(a => a.Foto.NomeArquivo).Custom(ValidarTipoArquivo());
+      
+        }
+
+        private Action<string, ValidationContext<Automovel>> ValidarTipoArquivo()
+        {
+            return (nome, context) =>
+            {
+                if (!nome.EndsWith(".jpg") && !nome.EndsWith(".png"))
+                {
+                    context.AddFailure("A imagem deve ser em formato jpg ou png.");
+                }
+            };
         }
 
         private Action<byte[], ValidationContext<Automovel>> ValidarArrayBytes()
@@ -33,7 +45,7 @@
                 {
                     context.AddFailure("A imagem é obrigatório");
                 }
-
+               
                 else if (bytes.Length > Math.Pow(2, 21))
                 {
                     context.AddFailure("O tamanho da imagem é superior ao máximo de 2mb");
