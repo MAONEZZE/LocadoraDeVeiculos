@@ -26,23 +26,31 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
 
         public bool Alugado { get; set; }
 
-        public Automovel() 
+        public Automovel()
         {
             Alugado = false;
         }
-       
+
         public void AlterarStatus()
         {
             Alugado = !Alugado;
         }
 
-        public int Abastecer(int quantidadeAtual)
+        public double ObterLitrosAbastecidos(NivelCombustivelEnum nivelAtual)
         {
-            return CapacidadeDeCombustivel - quantidadeAtual;
+            if (nivelAtual == NivelCombustivelEnum.Vazio)
+                return CapacidadeDeCombustivel;
+
+            double valorEmLitros = CapacidadeDeCombustivel / (double)nivelAtual;
+
+            return Math.Round(CapacidadeDeCombustivel - valorEmLitros, 2);
         }
 
         public void AtualizarQuilometragem(int quilometragemPercorrida)
-        {       
+        {
+            if (quilometragemPercorrida < 0)
+                return;
+
             Quilometragem += quilometragemPercorrida;
         }
 
@@ -82,5 +90,8 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
                    CapacidadeDeCombustivel == automovel.CapacidadeDeCombustivel &&
                    Foto == automovel.Foto;
         }
+
+
     }
+
 }
