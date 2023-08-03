@@ -12,7 +12,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
             InitializeComponent();
             mtxb_cpf.Enabled = false;
             txb_cnpj.Enabled = false;
-            MaskedTextBox txt_mask = new MaskedTextBox();
             this.ConfigurarDialog();
         }
 

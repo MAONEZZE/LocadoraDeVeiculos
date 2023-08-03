@@ -32,5 +32,10 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
             this.TipoCliente = tipoCliente;
             this.Endereco = endereco;
         }
+
+        public override string ToString()
+        {
+            return Nome;
+        }
     }
 }

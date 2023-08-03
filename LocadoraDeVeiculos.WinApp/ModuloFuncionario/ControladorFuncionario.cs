@@ -1,6 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
-using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
-using LocadoraDeVeiculos.Infra.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloFuncionario;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloFuncionario

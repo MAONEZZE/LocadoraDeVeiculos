@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
-using LocadoraDeVeiculos.Dominio.ModuloCupom;
 
 namespace LocadoraDeVeiculos.Servico.ModuloCliente
 {
@@ -25,7 +24,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloCliente
             {
                 repCliente.Inserir(cliente);
 
-                Log.Debug("Cliente {cupomId} inserido com sucesso", cliente.Id);
+                Log.Debug("Cliente {clienteId} inserido com sucesso", cliente.Id);
 
                 return Result.Ok();
             }
@@ -94,7 +93,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloCliente
             {
                 string msg;
 
-                if (ex.Message.Contains("FK_TBCLIENTE_TBCONDUTOR"))
+                if (ex.Message.Contains("FK_TBCondutor_TBCliente_ClienteId"))
                 {
                     msg = "Este cliente está relacionado com um Condutor e não pode ser excluído";
                 }

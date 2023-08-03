@@ -7,7 +7,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
     {
         private IRepositorioCliente repCliente = null!;
         private ServicoCliente servicoCliente = null!;
-        
         private TabelaClienteControl tabelaCliente = null!;
 
         public ControladorCliente(IRepositorioCliente repCliente, ServicoCliente servicoCliente)

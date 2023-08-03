@@ -26,7 +26,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCondutor
                 .NotNull()
                 .NotEmpty();
 
-            RuleFor(x => x.Validade)
+            RuleFor(x => x.ValidadeCnh)
                 .NotNull()
                 .NotEmpty();
 

@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
-using System.ComponentModel.DataAnnotations;
 
 namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 {
