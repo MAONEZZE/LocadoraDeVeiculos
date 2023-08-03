@@ -15,6 +15,7 @@ using LocadoraDeVeiculos.Servico.ModuloParceiro;
 using LocadoraDeVeiculos.Servico.ModuloTaxaServico;
 using LocadoraDeVeiculos.WinApp.ModuloAutomovel;
 using LocadoraDeVeiculos.WinApp.ModuloCliente;
+using LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco;
 using LocadoraDeVeiculos.WinApp.ModuloCupom;
 using LocadoraDeVeiculos.WinApp.ModuloFuncionario;
 using LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel;
@@ -33,6 +34,8 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
         static Ioc()
         {
+            var jsonString = ObterArquivoJsonPrecoCombustivel();
+
             var dbContext = InicializarContexto();
 
             AtualizarBancoDados(dbContext);
@@ -41,7 +44,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var servicoParceiro = new ServicoParceiro(repositorioParceiro);
 
-            var controladorParceiro = new ControladorParceiro(servicoParceiro,repositorioParceiro);
+            var controladorParceiro = new ControladorParceiro(servicoParceiro, repositorioParceiro);
 
             var repositorioCupom = new RepositorioCupom(dbContext);
 
@@ -78,6 +81,8 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             var servicoFuncionario = new ServicoFuncionario(repositorioFuncionario);
 
             var controladorFuncionario = new ControladorFuncionario(servicoFuncionario, repositorioFuncionario);
+
+           var repPrecoComb = new RepositorioPrecoCombustivel(jsonString);
 
 
             controladores.Add("Parceiro", controladorParceiro);
@@ -118,6 +123,18 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             return configuracao.GetConnectionString("SqlServer")!;
         }
+
+        private static string ObterArquivoJsonPrecoCombustivel()
+        {
+            var configuracao = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+            return configuracao["ArquivoJson:ConfiguracaoPreco"]!;
+        }
+
+
 
         private static void AtualizarBancoDados(DbContext db)
         {

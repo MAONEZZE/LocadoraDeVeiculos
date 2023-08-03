@@ -6,5 +6,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
         bool EhValido(Automovel automovel);
 
         bool EstaDisponivel(Automovel automovel);
+
+        List<Automovel> SelecionarDisponiveis();
     }
 }
