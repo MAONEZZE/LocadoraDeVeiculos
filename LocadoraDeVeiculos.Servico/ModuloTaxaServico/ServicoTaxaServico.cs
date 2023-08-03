@@ -91,7 +91,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 List<string> erros = new();
 
@@ -103,7 +103,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
                 }
                 else
                 {
-                    msgErro = "Erro desconhecido. Falha ao tentar excluir Taxa ou Serviço";
+                    msgErro = "Erro desconhecido. Falha ao tentar excluir Taxa ou Serviço.";
                 }
 
                 repositorioTaxaServico.DesfazerAlteracoes();

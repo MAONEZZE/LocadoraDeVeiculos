@@ -49,7 +49,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
         public void AtualizarQuilometragem(int quilometragemPercorrida)
         {
             if (quilometragemPercorrida < 0)
-                return;
+                throw new Exception("A quilometragem percorrida não pode ser menor que zero.");
 
             Quilometragem += quilometragemPercorrida;
         }

@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 
+
 namespace LocadoraDeVeiculos.TestesUnitarios._2___Dominio.ModuloAutomovel
 {
 
@@ -62,6 +63,19 @@ namespace LocadoraDeVeiculos.TestesUnitarios._2___Dominio.ModuloAutomovel
             automovel.AtualizarQuilometragem(kmPercorrido);
 
             automovel.Quilometragem.Should().Be(16800);
+        }
+
+        [TestMethod]
+        public void Deve_enviar_excessao_se_km_informado_menor_que_zero()
+        {
+            automovel.Quilometragem = 15000;
+
+            var kmPercorrido = -180;
+
+           Action act = () => automovel.AtualizarQuilometragem(kmPercorrido);
+
+            act.Should().Throw<Exception>()
+                .WithMessage("A quilometragem percorrida não pode ser menor que zero.");
         }
 
         [TestMethod]

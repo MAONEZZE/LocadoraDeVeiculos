@@ -28,7 +28,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
             servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServicoMoq.Object);
             taxaServico = new TaxaServico("Limpeza", 10, EnumTipoCalculo.Diario);
 
-             guidId = Guid.NewGuid();
+            guidId = Guid.NewGuid();
         }
         #region Inserir
         [TestMethod]
@@ -100,7 +100,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
         [TestMethod]
         public void Deve_Editar_TaxaServico_Caso_Valido()
         {
-          
+
 
             //arrange
             taxaServico = new TaxaServico(guidId, "Limpeza", 10, EnumTipoCalculo.Diario);
@@ -216,17 +216,17 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
         [TestMethod]
         public void Deve_Tratar_Erros_Caso_Ocorra_Ao_Tentar_Excluir()
         {
-            //arrange
-            taxaServico = new TaxaServico(guidId, "Limpeza", 10, EnumTipoCalculo.Diario);
+            //arrange           
+            repositorioTaxaServicoMoq.Setup(x => x.Existe(It.IsAny<TaxaServico>()))
+                .Returns(() => true);
 
-            repositorioTaxaServicoMoq.Setup(x => x.Existe(taxaServico))
-                .Throws(() =>
+            repositorioTaxaServicoMoq.Setup(x => x.Excluir(It.IsAny<TaxaServico>()))
+                .Throws(() => 
                 {
                     return new Exception();
                 });
 
             //action
-
             Result resultado = servicoTaxaServico.Excluir(taxaServico);
 
             //assert
