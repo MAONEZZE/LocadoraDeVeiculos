@@ -20,8 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="ModuloCondutor\" />
-    <Folder Include="ModuloPlanoDeCobranca\" />
   </ItemGroup>
 
 </Project>

@@ -17,9 +17,11 @@ namespace LocadoraDeVeiculos.Infra.ModuloCliente
 
             builder.Property(c => c.Email).HasColumnType("varchar(50)").HasColumnName("Email").IsRequired();
 
-            builder.Property(c => c.Documento).HasColumnType("varchar(50)").HasColumnName("Documento do Cliente").IsRequired();
+            builder.Property(c => c.Documento).HasColumnType("varchar(50)").HasColumnName("Documento_do_Cliente").IsRequired();
 
-            builder.Property(c => c.TipoCliente).HasColumnType("varchar(30)").HasColumnName("Tipo de Cliente").IsRequired();
+            builder.Property(c => c.TipoCliente).HasColumnType("varchar(30)").HasColumnName("Tipo_de_Cliente").IsRequired();
+
+            builder.HasMany(c => c.ListaCupons).WithMany().UsingEntity(x => x.ToTable("TBCliente_TBCupom"));
 
             builder.OwnsOne(c => c.Endereco, endereco =>
             {
