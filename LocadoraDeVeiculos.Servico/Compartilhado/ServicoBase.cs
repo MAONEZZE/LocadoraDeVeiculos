@@ -1,6 +1,4 @@
-﻿using FluentResults;
-using FluentValidation;
-using Serilog;
+﻿using FluentValidation;
 
 namespace LocadoraDeVeiculos.Servico.Compartilhado
 {
