@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="2 - Dominio\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LocadoraDeVeiculos.Dominio\LocadoraDeVeiculos.Dominio.csproj" />
     <ProjectReference Include="..\LocadoraDeVeiculos.Servico\LocadoraDeVeiculos.Servico.csproj" />
   </ItemGroup>

@@ -97,13 +97,13 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
                 string msgErro;
 
-                if (ex.InnerException!.Message.Contains("FK"))
+                if (ex.Message.Contains("FK"))
                 {
                     msgErro = "Não é possível excluir essa taxa ou serviço, pois ela está sendo usada em outros lugares";
                 }
                 else
                 {
-                    msgErro = "Erro desconhecido. Falha ao tentar excluir Taxa ou Serviço";
+                    msgErro = "Erro desconhecido. Falha ao tentar excluir Taxa ou Serviço.";
                 }
 
                 repositorioTaxaServico.DesfazerAlteracoes();
@@ -114,19 +114,6 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
                 return Result.Fail(erros);
             }
-        }
-
-        private bool NomeDuplicado(TaxaServico taxaServico)
-        {
-            TaxaServico taxaServicoEncontrado = repositorioTaxaServico.BuscarPorNome(taxaServico.Nome);
-
-            if (taxaServicoEncontrado != null &&
-                taxaServicoEncontrado.Id != taxaServico.Id &&
-                taxaServicoEncontrado.Nome == taxaServico.Nome)
-            {
-                return true;
-            }
-            return false;
         }
 
         private List<string> ValidarTaxaServico(TaxaServico taxaServico)
@@ -144,12 +131,26 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
             {
                 erros.Add($"Já existe uma Taxa ou Serviço com o nome '{taxaServico.Nome}'");
             }
+
             foreach(string erro in erros)
             {
                 Log.Warning(erro);
             }
 
             return erros;
+        }
+
+        private bool NomeDuplicado(TaxaServico taxaServico)
+        {
+            TaxaServico taxaServicoEncontrado = repositorioTaxaServico.BuscarPorNome(taxaServico.Nome);
+
+            if (taxaServicoEncontrado != null &&
+                taxaServicoEncontrado.Id != taxaServico.Id &&
+                taxaServicoEncontrado.Nome == taxaServico.Nome)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

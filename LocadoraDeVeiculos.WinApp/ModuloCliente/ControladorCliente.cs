@@ -5,14 +5,16 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 {
     public class ControladorCliente : ControladorBase
     {
-        private IRepositorioCliente repCliente;
-        private ServicoCliente servicoCliente;
-        private TabelaClienteControl tabelaCliente;
+        private IRepositorioCliente repCliente = null!;
+        private ServicoCliente servicoCliente = null!;
+        
+        private TabelaClienteControl tabelaCliente = null!;
 
         public ControladorCliente(IRepositorioCliente repCliente, ServicoCliente servicoCliente)
         {
             this.repCliente = repCliente;
             this.servicoCliente = servicoCliente;
+            
         }
 
         public override void Inserir()

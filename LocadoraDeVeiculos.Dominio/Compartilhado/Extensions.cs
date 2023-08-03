@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace LocadoraDeVeiculos.Dominio.Compartilhado
 {

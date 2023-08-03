@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 
 namespace LocadoraDeVeiculos.Dominio.ModuloCliente
 {
@@ -21,6 +20,10 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
                 .NotNull()
                 .NotEmpty();
 
+            RuleFor(x => x.Documento)
+                .NotNull()
+                .NotEmpty();
+
             RuleFor(x => x.Endereco)
                 .NotNull() 
                 .NotEmpty()
@@ -30,9 +33,6 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
                 .NotEmpty()
                 .NotNull();
 
-            RuleFor(x => x.Documento)
-                .NotNull()
-                .NotEmpty();
         }
 
         private void VerificadorEndereco(Endereco endereco, ValidationContext<Cliente> ctx)

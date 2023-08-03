@@ -36,6 +36,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
 
                 new DataGridViewTextBoxColumn { Name = "Capacidade Combustivel", HeaderText = "Tanque em Litros"},
 
+                new DataGridViewTextBoxColumn { Name = "Status", HeaderText = "Status"},
+
 
             };
 
@@ -56,7 +58,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
                 gridAutomovel.Rows.Add(automovel.Id, automovel.GrupoAutomovel.Nome,
                     automovel.Marca, automovel.Modelo, automovel.Cor,
                     automovel.Combustivel, automovel.Ano, automovel.Placa,
-                    automovel.Quilometragem, automovel.CapacidadeDeCombustivel);
+                    automovel.Quilometragem, automovel.CapacidadeDeCombustivel,
+                    automovel.Alugado ? "Alugado":"Disponível");
             }
         }
     }

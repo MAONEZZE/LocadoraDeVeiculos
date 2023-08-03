@@ -2,18 +2,22 @@
 using LocadoraDeVeiculos.Infra.ModuloAutomovel;
 using LocadoraDeVeiculos.Infra.ModuloCliente;
 using LocadoraDeVeiculos.Infra.ModuloCupom;
+using LocadoraDeVeiculos.Infra.ModuloFuncionario;
 using LocadoraDeVeiculos.Infra.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Infra.ModuloParceiro;
 using LocadoraDeVeiculos.Infra.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloAutomovel;
 using LocadoraDeVeiculos.Servico.ModuloCliente;
 using LocadoraDeVeiculos.Servico.ModuloCupom;
+using LocadoraDeVeiculos.Servico.ModuloFuncionario;
 using LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Servico.ModuloParceiro;
 using LocadoraDeVeiculos.Servico.ModuloTaxaServico;
 using LocadoraDeVeiculos.WinApp.ModuloAutomovel;
 using LocadoraDeVeiculos.WinApp.ModuloCliente;
+using LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco;
 using LocadoraDeVeiculos.WinApp.ModuloCupom;
+using LocadoraDeVeiculos.WinApp.ModuloFuncionario;
 using LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.WinApp.ModuloParceiro;
 using LocadoraDeVeiculos.WinApp.ModuloTaxaServico;
@@ -30,6 +34,8 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
         static Ioc()
         {
+            var jsonString = ObterArquivoJsonPrecoCombustivel();
+
             var dbContext = InicializarContexto();
 
             AtualizarBancoDados(dbContext);
@@ -38,7 +44,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var servicoParceiro = new ServicoParceiro(repositorioParceiro);
 
-            var controladorParceiro = new ControladorParceiro(servicoParceiro,repositorioParceiro);
+            var controladorParceiro = new ControladorParceiro(servicoParceiro, repositorioParceiro);
 
             var repositorioCupom = new RepositorioCupom(dbContext);
 
@@ -70,6 +76,14 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var controladorTaxaServico = new ControladorTaxaServico(servicoTaxaServico, repositorioTaxaServico);
 
+            var repositorioFuncionario = new RepositorioFuncionario(dbContext);
+
+            var servicoFuncionario = new ServicoFuncionario(repositorioFuncionario);
+
+            var controladorFuncionario = new ControladorFuncionario(servicoFuncionario, repositorioFuncionario);
+
+           var repPrecoComb = new RepositorioPrecoCombustivel(jsonString);
+
 
             controladores.Add("Parceiro", controladorParceiro);
             controladores.Add("Cupom", controladorCupom);
@@ -77,6 +91,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             controladores.Add("Veículo", controladorAutomovel);
             controladores.Add("Cliente", controladorCliente);
             controladores.Add("Taxas ou Serviços", controladorTaxaServico);
+            controladores.Add("Funcionário", controladorFuncionario);
         }
 
         public static ControladorBase ObterControlador(object sender)
@@ -108,6 +123,18 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             return configuracao.GetConnectionString("SqlServer")!;
         }
+
+        private static string ObterArquivoJsonPrecoCombustivel()
+        {
+            var configuracao = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+            return configuracao["ArquivoJson:ConfiguracaoPreco"]!;
+        }
+
+
 
         private static void AtualizarBancoDados(DbContext db)
         {

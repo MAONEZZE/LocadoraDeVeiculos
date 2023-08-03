@@ -45,11 +45,19 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
                     Ano = automovel.Ano,
                     Placa = automovel.Placa,
                     Quilometragem = automovel.Quilometragem,
+                    Alugado = automovel.Alugado,
                     CapacidadeDeCombustivel = automovel.CapacidadeDeCombustivel,
                     GrupoAutomovel = automovel.GrupoAutomovel
 
                 }).ToList();
 
+        }
+
+        public override Automovel SelecionarPorId(Guid id)
+        {
+            return registros
+                .Include(x => x.GrupoAutomovel)
+                .SingleOrDefault(x => x.Id == id)!;
         }
     }
 }

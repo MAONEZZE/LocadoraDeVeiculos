@@ -37,7 +37,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
 
             foreach (TaxaServico taxaServico in listaTaxaServico)
             {
-                grid.Rows.Add(taxaServico.Id, taxaServico.Nome, $"R$ {taxaServico.Preco}");
+                grid.Rows.Add(taxaServico.Id, taxaServico.Nome, $"R$ {taxaServico.Preco/100}");
             }
         }
     }
