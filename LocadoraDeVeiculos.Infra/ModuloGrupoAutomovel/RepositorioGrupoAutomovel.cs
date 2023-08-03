@@ -1,5 +1,4 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCupom;
-using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
+﻿using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 
 namespace LocadoraDeVeiculos.Infra.ModuloGrupoAutomovel
 {

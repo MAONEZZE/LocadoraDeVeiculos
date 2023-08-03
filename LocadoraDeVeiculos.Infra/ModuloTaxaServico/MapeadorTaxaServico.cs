@@ -1,6 +1,4 @@
-﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
-using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
-using System;
+﻿using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 
 namespace LocadoraDeVeiculos.Infra.ModuloTaxaServico
 {

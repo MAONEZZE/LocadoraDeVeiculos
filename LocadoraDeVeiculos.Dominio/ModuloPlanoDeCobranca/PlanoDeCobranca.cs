@@ -10,7 +10,8 @@ namespace LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca
         public TipoPlanoEnum TipoPlano { get; set; }
         public GrupoAutomovel GrupoAutomovel { get; set; }
 
-        public PlanoDeCobranca(Guid id, int kmDisponivel, decimal precoKm, decimal precoDiaria, TipoPlanoEnum tipoPlano, GrupoAutomovel grupoAutomovel)
+        public PlanoDeCobranca() { }
+        public PlanoDeCobranca(Guid id, int kmDisponivel, decimal precoKm, decimal precoDiaria, TipoPlanoEnum tipoPlano, GrupoAutomovel grupoAutomovel) : this()
         {
             base.Id = id;
             this.KmDisponivel = kmDisponivel;
@@ -20,7 +21,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca
             this.GrupoAutomovel = grupoAutomovel;
         }
 
-        public PlanoDeCobranca(int kmDisponivel, decimal precoKm, decimal precoDiaria, TipoPlanoEnum tipoPlano, GrupoAutomovel grupoAutomovel)
+        public PlanoDeCobranca(int kmDisponivel, decimal precoKm, decimal precoDiaria, TipoPlanoEnum tipoPlano, GrupoAutomovel grupoAutomovel) : this()
         {
             this.KmDisponivel = kmDisponivel;
             this.PrecoKm = precoKm;
@@ -32,6 +33,17 @@ namespace LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca
         public override void AlterarInformacoes(PlanoDeCobranca entidade)
         {
             throw new NotImplementedException();
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is PlanoDeCobranca planoC 
+                && Id == planoC.Id 
+                && KmDisponivel == planoC.KmDisponivel
+                && PrecoKm == planoC.PrecoKm
+                && PrecoDiaria == planoC.PrecoDiaria
+                && TipoPlano == planoC.TipoPlano
+                && GrupoAutomovel == planoC.GrupoAutomovel;
         }
     }
 }
