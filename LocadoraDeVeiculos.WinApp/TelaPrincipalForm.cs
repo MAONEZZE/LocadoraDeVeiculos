@@ -168,15 +168,20 @@ namespace LocadoraDeVeiculos.WinApp
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
 
+        private void condutorMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+        }
+
         private void AluguelMenuItem_Click(object sender, EventArgs e)
         {
-           var control = (ControladorAluguel)Ioc.ObterControlador(sender);
+            var control = (ControladorAluguel)Ioc.ObterControlador(sender);
 
             controlador = control;
 
             control.ConfigurarPrecoCombustivel();
 
-           // ConfigurarTelaPrincipal();
+            // ConfigurarTelaPrincipal();
         }
 
         #endregion
@@ -193,5 +198,6 @@ namespace LocadoraDeVeiculos.WinApp
         }
 
         #endregion
+
     }
 }

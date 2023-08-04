@@ -2,6 +2,7 @@
 using LocadoraDeVeiculos.Infra.ModuloAluguel;
 using LocadoraDeVeiculos.Infra.ModuloAutomovel;
 using LocadoraDeVeiculos.Infra.ModuloCliente;
+using LocadoraDeVeiculos.Infra.ModuloCondutor;
 using LocadoraDeVeiculos.Infra.ModuloCupom;
 using LocadoraDeVeiculos.Infra.ModuloFuncionario;
 using LocadoraDeVeiculos.Infra.ModuloGrupoAutomovel;
@@ -11,6 +12,7 @@ using LocadoraDeVeiculos.Infra.PrecosCombustiveis.ModuloPrecoCombustivel;
 using LocadoraDeVeiculos.Servico.ModuloAluguel;
 using LocadoraDeVeiculos.Servico.ModuloAutomovel;
 using LocadoraDeVeiculos.Servico.ModuloCliente;
+using LocadoraDeVeiculos.Servico.ModuloCondutor;
 using LocadoraDeVeiculos.Servico.ModuloCupom;
 using LocadoraDeVeiculos.Servico.ModuloFuncionario;
 using LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel;
@@ -19,6 +21,7 @@ using LocadoraDeVeiculos.Servico.ModuloTaxaServico;
 using LocadoraDeVeiculos.WinApp.ModuloAluguel;
 using LocadoraDeVeiculos.WinApp.ModuloAutomovel;
 using LocadoraDeVeiculos.WinApp.ModuloCliente;
+using LocadoraDeVeiculos.WinApp.ModuloCondutor;
 using LocadoraDeVeiculos.WinApp.ModuloCupom;
 using LocadoraDeVeiculos.WinApp.ModuloFuncionario;
 using LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel;
@@ -72,6 +75,12 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var controladorCliente = new ControladorCliente(repositorioCliente, servicoCliente);
 
+            var repositorioCondutor = new RepositorioCondutor(dbContext);
+
+            var servicoCondutor = new ServicoCondutor(repositorioCondutor);
+
+            var controladorCondutor = new ControladorCondutor(repositorioCondutor,repositorioCliente, servicoCondutor);
+
             var repositorioTaxaServico = new RepositorioTaxaServico(dbContext);
 
             var servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServico);
@@ -98,6 +107,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             controladores.Add("Categoria", controladorGrupoAutomovel);
             controladores.Add("Veículo", controladorAutomovel);
             controladores.Add("Cliente", controladorCliente);
+            controladores.Add("Condutor", controladorCondutor);
             controladores.Add("Taxas ou Serviços", controladorTaxaServico);
             controladores.Add("Funcionário", controladorFuncionario);
             controladores.Add("Aluguel", controladorAluguel);

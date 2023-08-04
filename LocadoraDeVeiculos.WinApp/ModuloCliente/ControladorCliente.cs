@@ -13,7 +13,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
         {
             this.repCliente = repCliente;
             this.servicoCliente = servicoCliente;
-            
         }
 
         public override void Inserir()

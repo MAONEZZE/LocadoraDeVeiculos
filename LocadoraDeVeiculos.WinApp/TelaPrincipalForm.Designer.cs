@@ -72,7 +72,7 @@
             toolStrip.Items.AddRange(new ToolStripItem[] { toolStripSplit, BtnMudarCor, toolStripLocadora, labelTipoCadastro });
             toolStrip.Location = new Point(0, 0);
             toolStrip.Name = "toolStrip";
-            toolStrip.Size = new Size(914, 47);
+            toolStrip.Size = new Size(800, 47);
             toolStrip.TabIndex = 0;
             toolStrip.Text = "toolStrip1";
             // 
@@ -97,7 +97,7 @@
             funcionarioMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             funcionarioMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             funcionarioMenuItem.Name = "funcionarioMenuItem";
-            funcionarioMenuItem.Size = new Size(278, 54);
+            funcionarioMenuItem.Size = new Size(237, 54);
             funcionarioMenuItem.Text = "Funcionário";
             funcionarioMenuItem.Click += FuncionarioMenuItem_Click;
             // 
@@ -108,7 +108,7 @@
             automóvelToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             automóvelToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             automóvelToolStripMenuItem.Name = "automóvelToolStripMenuItem";
-            automóvelToolStripMenuItem.Size = new Size(278, 54);
+            automóvelToolStripMenuItem.Size = new Size(237, 54);
             automóvelToolStripMenuItem.Text = "Automóvel";
             // 
             // veiculoMenuItem
@@ -117,7 +117,7 @@
             veiculoMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             veiculoMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             veiculoMenuItem.Name = "veiculoMenuItem";
-            veiculoMenuItem.Size = new Size(204, 54);
+            veiculoMenuItem.Size = new Size(175, 54);
             veiculoMenuItem.Text = "Veículo";
             veiculoMenuItem.Click += VeiculoMenuItem_Click;
             // 
@@ -127,7 +127,7 @@
             categoriaMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             categoriaMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             categoriaMenuItem.Name = "categoriaMenuItem";
-            categoriaMenuItem.Size = new Size(204, 54);
+            categoriaMenuItem.Size = new Size(175, 54);
             categoriaMenuItem.Text = "Categoria";
             categoriaMenuItem.Click += CategoriaMenuItem_Click;
             // 
@@ -137,7 +137,7 @@
             clienteMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             clienteMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             clienteMenuItem.Name = "clienteMenuItem";
-            clienteMenuItem.Size = new Size(278, 54);
+            clienteMenuItem.Size = new Size(237, 54);
             clienteMenuItem.Text = "Cliente";
             clienteMenuItem.Click += ClienteMenuItem_Click;
             // 
@@ -147,7 +147,7 @@
             planoDeCobrançaMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             planoDeCobrançaMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             planoDeCobrançaMenuItem.Name = "planoDeCobrançaMenuItem";
-            planoDeCobrançaMenuItem.Size = new Size(278, 54);
+            planoDeCobrançaMenuItem.Size = new Size(237, 54);
             planoDeCobrançaMenuItem.Text = "Plano de Cobrança";
             // 
             // condutorMenuItem
@@ -156,8 +156,9 @@
             condutorMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             condutorMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             condutorMenuItem.Name = "condutorMenuItem";
-            condutorMenuItem.Size = new Size(278, 54);
+            condutorMenuItem.Size = new Size(237, 54);
             condutorMenuItem.Text = "Condutor";
+            condutorMenuItem.Click += condutorMenuItem_Click;
             // 
             // descontoToolStripMenuItem
             // 
@@ -166,7 +167,7 @@
             descontoToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             descontoToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             descontoToolStripMenuItem.Name = "descontoToolStripMenuItem";
-            descontoToolStripMenuItem.Size = new Size(278, 54);
+            descontoToolStripMenuItem.Size = new Size(237, 54);
             descontoToolStripMenuItem.Text = "Desconto";
             // 
             // parceiroMenuItem
@@ -175,7 +176,7 @@
             parceiroMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             parceiroMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             parceiroMenuItem.Name = "parceiroMenuItem";
-            parceiroMenuItem.Size = new Size(190, 54);
+            parceiroMenuItem.Size = new Size(164, 54);
             parceiroMenuItem.Text = "Parceiro";
             parceiroMenuItem.Click += ParceiroMenuItem_Click;
             // 
@@ -185,7 +186,7 @@
             cupomMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             cupomMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             cupomMenuItem.Name = "cupomMenuItem";
-            cupomMenuItem.Size = new Size(190, 54);
+            cupomMenuItem.Size = new Size(164, 54);
             cupomMenuItem.Text = "Cupom";
             cupomMenuItem.Click += CupomMenuItem_Click;
             // 
@@ -195,7 +196,7 @@
             aluguelMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             aluguelMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             aluguelMenuItem.Name = "aluguelMenuItem";
-            aluguelMenuItem.Size = new Size(278, 54);
+            aluguelMenuItem.Size = new Size(237, 54);
             aluguelMenuItem.Text = "Aluguel";
             aluguelMenuItem.Click += AluguelMenuItem_Click;
             // 
@@ -205,7 +206,7 @@
             TaxaServicoMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             TaxaServicoMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             TaxaServicoMenuItem.Name = "TaxaServicoMenuItem";
-            TaxaServicoMenuItem.Size = new Size(278, 54);
+            TaxaServicoMenuItem.Size = new Size(237, 54);
             TaxaServicoMenuItem.Text = "Taxas ou Serviços";
             TaxaServicoMenuItem.Click += TaxaServicoMenuItem_Click;
             // 
@@ -228,7 +229,7 @@
             toolStripLocadora.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             toolStripLocadora.ForeColor = SystemColors.ButtonFace;
             toolStripLocadora.Name = "toolStripLocadora";
-            toolStripLocadora.Size = new Size(308, 44);
+            toolStripLocadora.Size = new Size(250, 44);
             toolStripLocadora.Text = "         Locadora de Veículos                  ";
             toolStripLocadora.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -237,7 +238,7 @@
             labelTipoCadastro.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             labelTipoCadastro.ForeColor = SystemColors.ButtonFace;
             labelTipoCadastro.Name = "labelTipoCadastro";
-            labelTipoCadastro.Size = new Size(156, 44);
+            labelTipoCadastro.Size = new Size(106, 44);
             labelTipoCadastro.Text = "                        ";
             // 
             // txtMenu
@@ -248,7 +249,7 @@
             txtMenu.Items.AddRange(new ToolStripItem[] { BtnInserir, toolStripSeparator4, BtnEditar, toolStripSeparator3, BtnExcluir, toolStripSeparator1, BtnFiltrar, toolStripSeparator2, BtnDetalhes, toolStripSeparator5, btnPrecoCombustivel });
             txtMenu.Location = new Point(0, 47);
             txtMenu.Name = "txtMenu";
-            txtMenu.Size = new Size(914, 47);
+            txtMenu.Size = new Size(800, 47);
             txtMenu.TabIndex = 1;
             txtMenu.Text = "toolStrip2";
             // 
@@ -260,7 +261,7 @@
             BtnInserir.ImageScaling = ToolStripItemImageScaling.None;
             BtnInserir.ImageTransparentColor = Color.Magenta;
             BtnInserir.Name = "BtnInserir";
-            BtnInserir.Size = new Size(112, 44);
+            BtnInserir.Size = new Size(102, 44);
             BtnInserir.Text = "Incluir";
             BtnInserir.Click += BtnInserir_Click;
             // 
@@ -276,7 +277,7 @@
             BtnEditar.ImageAlign = ContentAlignment.MiddleLeft;
             BtnEditar.ImageTransparentColor = Color.Magenta;
             BtnEditar.Name = "BtnEditar";
-            BtnEditar.Size = new Size(88, 44);
+            BtnEditar.Size = new Size(78, 44);
             BtnEditar.Text = "Editar";
             BtnEditar.Click += BtnEditar_Click;
             // 
@@ -292,7 +293,7 @@
             BtnExcluir.ImageAlign = ContentAlignment.MiddleLeft;
             BtnExcluir.ImageTransparentColor = Color.Magenta;
             BtnExcluir.Name = "BtnExcluir";
-            BtnExcluir.Size = new Size(96, 44);
+            BtnExcluir.Size = new Size(86, 44);
             BtnExcluir.Text = "Excluír";
             BtnExcluir.Click += BtnExcluir_Click;
             // 
@@ -308,7 +309,7 @@
             BtnFiltrar.ImageAlign = ContentAlignment.MiddleLeft;
             BtnFiltrar.ImageTransparentColor = Color.Magenta;
             BtnFiltrar.Name = "BtnFiltrar";
-            BtnFiltrar.Size = new Size(90, 44);
+            BtnFiltrar.Size = new Size(80, 44);
             BtnFiltrar.Text = "Filtrar";
             BtnFiltrar.Click += BtnFiltrar_Click;
             // 
@@ -324,7 +325,7 @@
             BtnDetalhes.ImageAlign = ContentAlignment.MiddleLeft;
             BtnDetalhes.ImageTransparentColor = Color.Magenta;
             BtnDetalhes.Name = "BtnDetalhes";
-            BtnDetalhes.Size = new Size(114, 44);
+            BtnDetalhes.Size = new Size(99, 44);
             BtnDetalhes.Text = "Detalhes";
             BtnDetalhes.ToolTipText = " ";
             BtnDetalhes.Click += BtnDetalhes_Click;
@@ -341,7 +342,7 @@
             btnPrecoCombustivel.Image = Properties.Resources.combustivel;
             btnPrecoCombustivel.ImageTransparentColor = Color.Magenta;
             btnPrecoCombustivel.Name = "btnPrecoCombustivel";
-            btnPrecoCombustivel.Size = new Size(205, 44);
+            btnPrecoCombustivel.Size = new Size(176, 44);
             btnPrecoCombustivel.Text = "Preço Combustível";
             btnPrecoCombustivel.Click += BtnPrecoCombustivel_Click;
             // 
@@ -349,17 +350,16 @@
             // 
             statusStrip.ImageScalingSize = new Size(20, 20);
             statusStrip.Items.AddRange(new ToolStripItem[] { labelRodape });
-            statusStrip.Location = new Point(0, 574);
+            statusStrip.Location = new Point(0, 428);
             statusStrip.Name = "statusStrip";
-            statusStrip.Padding = new Padding(1, 0, 16, 0);
-            statusStrip.Size = new Size(914, 26);
+            statusStrip.Size = new Size(800, 22);
             statusStrip.TabIndex = 2;
             statusStrip.Text = "statusStrip1";
             // 
             // labelRodape
             // 
             labelRodape.Name = "labelRodape";
-            labelRodape.Size = new Size(88, 20);
+            labelRodape.Size = new Size(70, 17);
             labelRodape.Text = "Bem-Vindo!";
             // 
             // panelRegistros
@@ -367,20 +367,20 @@
             panelRegistros.BackColor = SystemColors.AppWorkspace;
             panelRegistros.Dock = DockStyle.Fill;
             panelRegistros.Location = new Point(0, 94);
+            panelRegistros.Margin = new Padding(3, 2, 3, 2);
             panelRegistros.Name = "panelRegistros";
-            panelRegistros.Size = new Size(914, 480);
+            panelRegistros.Size = new Size(800, 334);
             panelRegistros.TabIndex = 3;
             // 
             // TelaPrincipalForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(800, 450);
             Controls.Add(panelRegistros);
             Controls.Add(statusStrip);
             Controls.Add(txtMenu);
             Controls.Add(toolStrip);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "TelaPrincipalForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;

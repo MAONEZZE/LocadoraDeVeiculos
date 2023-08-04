@@ -1,7 +1,6 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
 using LocadoraDeVeiculos.Servico.ModuloAluguel;
-using LocadoraDeVeiculos.Servico.ModuloFuncionario;
 using LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
