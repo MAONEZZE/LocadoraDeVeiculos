@@ -31,13 +31,14 @@
             LabelNome = new Label();
             txtNome = new TextBox();
             label1 = new Label();
-            txtPreco = new MaskedTextBox();
             groupBox1 = new GroupBox();
             rbnDiario = new RadioButton();
             rbnFixo = new RadioButton();
             btnCancelar = new Button();
             btnSalvar = new Button();
+            txtPreco = new NumericUpDown();
             groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtPreco).BeginInit();
             SuspendLayout();
             // 
             // LabelNome
@@ -64,14 +65,6 @@
             label1.Size = new Size(40, 15);
             label1.TabIndex = 2;
             label1.Text = "Preço:";
-            // 
-            // txtPreco
-            // 
-            txtPreco.Location = new Point(80, 66);
-            txtPreco.Name = "txtPreco";
-            txtPreco.Size = new Size(135, 23);
-            txtPreco.TabIndex = 4;
-            txtPreco.KeyPress += txtPreco_KeyPress;
             // 
             // groupBox1
             // 
@@ -129,15 +122,24 @@
             btnSalvar.UseVisualStyleBackColor = true;
             btnSalvar.Click += btnSalvar_Click;
             // 
+            // txtPreco
+            // 
+            txtPreco.DecimalPlaces = 2;
+            txtPreco.Location = new Point(80, 66);
+            txtPreco.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            txtPreco.Name = "txtPreco";
+            txtPreco.Size = new Size(109, 23);
+            txtPreco.TabIndex = 11;
+            // 
             // TelaTaxaServicoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(410, 270);
+            Controls.Add(txtPreco);
             Controls.Add(btnCancelar);
             Controls.Add(btnSalvar);
             Controls.Add(groupBox1);
-            Controls.Add(txtPreco);
             Controls.Add(label1);
             Controls.Add(txtNome);
             Controls.Add(LabelNome);
@@ -145,6 +147,7 @@
             Text = "TelaTaxaServicoForm";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)txtPreco).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -154,11 +157,11 @@
         private Label LabelNome;
         private TextBox txtNome;
         private Label label1;
-        private MaskedTextBox txtPreco;
         private GroupBox groupBox1;
         private RadioButton rbnDiario;
         private RadioButton rbnFixo;
         private Button btnCancelar;
         private Button btnSalvar;
+        private NumericUpDown txtPreco;
     }
 }

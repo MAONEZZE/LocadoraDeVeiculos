@@ -4,7 +4,7 @@
     {
         public string Nome { get; set; }
 
-        public int Preco { get; set; }
+        public Decimal Preco { get; set; }
 
         public EnumTipoCalculo TipoCalculo { get; set; }
 

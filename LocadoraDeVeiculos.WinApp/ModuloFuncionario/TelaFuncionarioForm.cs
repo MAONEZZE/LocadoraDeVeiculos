@@ -24,8 +24,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloFuncionario
 
             txtDataAdmissao.Value = funcionario.DataAdmissao;
 
-            txtSalario.Text = (funcionario.Salario / 100).ToString();
-            //txtSalario.Text = (funcionario.Salario / 100).ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
+            txtSalario.Value = funcionario.Salario;
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -36,9 +35,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloFuncionario
 
             funcionario.DataAdmissao = txtDataAdmissao.Value;
 
-            double salario = double.Parse(txtSalario.Text, NumberStyles.Currency, CultureInfo.GetCultureInfo("pt-BR")) * 100;
 
-            funcionario.Salario = Convert.ToInt32(salario);
+            funcionario.Salario = txtSalario.Value;
 
             Result resultado = onGravarRegistro(funcionario);
 
@@ -49,18 +47,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloFuncionario
                 TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
                 DialogResult = DialogResult.None;
-            }
-        }
-        private void txtSalario_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
-            {
-                e.Handled = true;
-            }
-
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
-            {
-                e.Handled = true;
             }
         }
     }
