@@ -7,6 +7,7 @@ using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
+using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloAluguel;
 using LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco;
 
@@ -18,8 +19,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         private readonly ServicoAluguel servicoAluguel;
 
-        private readonly IRepositorioPrecoCombustivel repositorioPrecoCombustivel;
-
         private readonly IRepositorioFuncionario repositorioFuncionario;
 
         private readonly IRepositorioCliente repositorioCliente;
@@ -29,6 +28,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         private readonly IRepositorioGrupoAutomovel repositorioGrupoAutomovel;
 
         private readonly IRepositorioAutomovel repositorioAutomovel;
+
+        private readonly IRepositorioTaxaServico repositorioTaxaServico;
 
         private readonly IRepositorioPlanoDeCobranca repositorioPlanoDeCobranca;
 
@@ -40,24 +41,24 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         
         public ControladorAluguel(ServicoAluguel servicoAluguel, 
                                   IRepositorioAluguel repositorioAluguel, 
-                                  IRepositorioPrecoCombustivel repositorioPrecoCombustivel, 
                                   IRepositorioFuncionario repositorioFuncionario,
                                   IRepositorioCliente repositorioCliente,
                                   IRepositorioCondutor repositorioCondutor,
                                   IRepositorioGrupoAutomovel repositorioGrupoAutomovel,
                                   IRepositorioAutomovel repositorioAutomovel,
+                                  IRepositorioTaxaServico repositorioTaxaServico,
                                   IRepositorioPlanoDeCobranca repositorioPlanoDeCobranca,
                                   IRepositorioCupom repositorioCupom
                                     )
         {
             this.servicoAluguel = servicoAluguel;
             this.repositorioAluguel = repositorioAluguel;
-            this.repositorioPrecoCombustivel = repositorioPrecoCombustivel;
             this.repositorioFuncionario = repositorioFuncionario;
             this.repositorioCliente = repositorioCliente;
             this.repositorioCondutor = repositorioCondutor;
             this.repositorioGrupoAutomovel = repositorioGrupoAutomovel;
             this.repositorioAutomovel = repositorioAutomovel;
+            this.repositorioTaxaServico = repositorioTaxaServico;
             this.repositorioPlanoDeCobranca = repositorioPlanoDeCobranca;
             this.repositorioCupom = repositorioCupom;
 
@@ -158,11 +159,11 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         public void ConfigurarPrecoCombustivel()
         {
-            var configuracao = repositorioPrecoCombustivel.Buscar();
+            var configuracao = servicoAluguel.ObterConfiguracoesAtuais();
 
             var tela = new TelaPrecoCombustivelForm(configuracao);
 
-            tela.onGravarConfiguracao += repositorioPrecoCombustivel.Atualizar;
+            tela.onGravarConfiguracao += servicoAluguel.ConfigurarPrecoCombustiveis;
 
             if (tela.ShowDialog() == DialogResult.OK)
             {
