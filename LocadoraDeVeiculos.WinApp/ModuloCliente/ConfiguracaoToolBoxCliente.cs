@@ -9,5 +9,9 @@
         public override string TooltipEditar => "Editar Cliente";
 
         public override string TooltipExcluir => "Excluir Cliente";
+
+        public override string TooltipFiltrar => "Filtrar Cliente";
+
+        public override bool FiltrarHabilitado => true; //Filtrar por cpf e cnpj
     }
 }
