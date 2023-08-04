@@ -53,7 +53,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
             condutor.Telefone = mtxb_telefone.Text;
             condutor.Documento = mtxb_cpf.Text;
             condutor.Cnh = txb_cnh.Text;
-            condutor.ValidadeCnh = txb_data.Value;
+            condutor.Validade = txb_data.Value;
 
             Result resultado = onGravarRegistro(condutor);
 
@@ -75,7 +75,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
             mtxb_telefone.Text = condutor.Telefone;
             mtxb_cpf.Text = condutor.Documento;
             txb_cnh.Text = condutor.Cnh;
-            txb_data.Value = condutor.ValidadeCnh;
+            txb_data.Value = condutor.Validade;
 
             this.condutor = condutor;
         }

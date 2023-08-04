@@ -1,5 +1,4 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
-using LocadoraDeVeiculos.Dominio.ModuloCondutor;
+﻿using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
 {
@@ -44,7 +43,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
 
             foreach (Condutor condutor in listaCondutor)
             {
-                grid.Rows.Add(condutor.Id, condutor.Nome, condutor.Telefone, condutor.Documento, condutor.Cnh, condutor.ValidadeCnh);
+                grid.Rows.Add(condutor.Id, condutor.Nome, condutor.Telefone, condutor.Documento, condutor.Cnh, condutor.Validade);
             }
         }
     }

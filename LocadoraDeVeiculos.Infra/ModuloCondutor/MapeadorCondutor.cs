@@ -18,7 +18,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloCondutor
 
             builder.Property(c => c.Documento).HasColumnType("varchar(50)").HasColumnName("CPF_do_Condutor").IsRequired();
 
-            builder.Property(c => c.ValidadeCnh).HasColumnName("Validade_CNH").IsRequired();
+            builder.Property(c => c.Validade).HasColumnName("Validade").IsRequired();
 
             builder.Property(c => c.Cnh).HasColumnType("varchar(50)").HasColumnName("CNH").IsRequired();
 

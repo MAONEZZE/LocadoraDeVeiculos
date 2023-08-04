@@ -30,11 +30,11 @@
         {
             btnCancelar = new Button();
             btn_aplicar = new Button();
-            groupBox1 = new GroupBox();
-            rdb_filtroCpf = new RadioButton();
-            rdb_filtroCnpj = new RadioButton();
+            rdbGroup = new GroupBox();
             rdb_todos = new RadioButton();
-            groupBox1.SuspendLayout();
+            rdb_filtroCnpj = new RadioButton();
+            rdb_filtroCpf = new RadioButton();
+            rdbGroup.SuspendLayout();
             SuspendLayout();
             // 
             // btnCancelar
@@ -61,39 +61,18 @@
             btn_aplicar.Text = "Aplicar";
             btn_aplicar.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // rdbGroup
             // 
-            groupBox1.Controls.Add(rdb_todos);
-            groupBox1.Controls.Add(rdb_filtroCnpj);
-            groupBox1.Controls.Add(rdb_filtroCpf);
-            groupBox1.Location = new Point(12, 12);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(265, 146);
-            groupBox1.TabIndex = 14;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Tipo de Filtro";
-            // 
-            // rdb_filtroCpf
-            // 
-            rdb_filtroCpf.AutoSize = true;
-            rdb_filtroCpf.Location = new Point(17, 75);
-            rdb_filtroCpf.Name = "rdb_filtroCpf";
-            rdb_filtroCpf.Size = new Size(116, 19);
-            rdb_filtroCpf.TabIndex = 0;
-            rdb_filtroCpf.TabStop = true;
-            rdb_filtroCpf.Text = "Filtragem por cpf";
-            rdb_filtroCpf.UseVisualStyleBackColor = true;
-            // 
-            // rdb_filtroCnpj
-            // 
-            rdb_filtroCnpj.AutoSize = true;
-            rdb_filtroCnpj.Location = new Point(17, 109);
-            rdb_filtroCnpj.Name = "rdb_filtroCnpj";
-            rdb_filtroCnpj.Size = new Size(122, 19);
-            rdb_filtroCnpj.TabIndex = 1;
-            rdb_filtroCnpj.TabStop = true;
-            rdb_filtroCnpj.Text = "Filtragem por cnpj";
-            rdb_filtroCnpj.UseVisualStyleBackColor = true;
+            rdbGroup.Controls.Add(rdb_todos);
+            rdbGroup.Controls.Add(rdb_filtroCnpj);
+            rdbGroup.Controls.Add(rdb_filtroCpf);
+            rdbGroup.Location = new Point(12, 12);
+            rdbGroup.Name = "rdbGroup";
+            rdbGroup.Size = new Size(265, 146);
+            rdbGroup.TabIndex = 14;
+            rdbGroup.TabStop = false;
+            rdbGroup.Text = "Tipo de Filtro";
+            rdbGroup.Enter += groupBox1_Enter;
             // 
             // rdb_todos
             // 
@@ -106,18 +85,40 @@
             rdb_todos.Text = "Filtrar Todos";
             rdb_todos.UseVisualStyleBackColor = true;
             // 
+            // rdb_filtroCnpj
+            // 
+            rdb_filtroCnpj.AutoSize = true;
+            rdb_filtroCnpj.Location = new Point(17, 109);
+            rdb_filtroCnpj.Name = "rdb_filtroCnpj";
+            rdb_filtroCnpj.Size = new Size(122, 19);
+            rdb_filtroCnpj.TabIndex = 1;
+            rdb_filtroCnpj.TabStop = true;
+            rdb_filtroCnpj.Text = "Filtragem por cnpj";
+            rdb_filtroCnpj.UseVisualStyleBackColor = true;
+            // 
+            // rdb_filtroCpf
+            // 
+            rdb_filtroCpf.AutoSize = true;
+            rdb_filtroCpf.Location = new Point(17, 75);
+            rdb_filtroCpf.Name = "rdb_filtroCpf";
+            rdb_filtroCpf.Size = new Size(116, 19);
+            rdb_filtroCpf.TabIndex = 0;
+            rdb_filtroCpf.TabStop = true;
+            rdb_filtroCpf.Text = "Filtragem por cpf";
+            rdb_filtroCpf.UseVisualStyleBackColor = true;
+            // 
             // TelaFiltroClienteForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(290, 210);
-            Controls.Add(groupBox1);
+            Controls.Add(rdbGroup);
             Controls.Add(btnCancelar);
             Controls.Add(btn_aplicar);
             Name = "TelaFiltroClienteForm";
             Text = "TelaFiltroClienteForm";
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            rdbGroup.ResumeLayout(false);
+            rdbGroup.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -125,7 +126,7 @@
 
         private Button btnCancelar;
         private Button btn_aplicar;
-        private GroupBox groupBox1;
+        private GroupBox rdbGroup;
         private RadioButton rdb_filtroCnpj;
         private RadioButton rdb_filtroCpf;
         private RadioButton rdb_todos;
