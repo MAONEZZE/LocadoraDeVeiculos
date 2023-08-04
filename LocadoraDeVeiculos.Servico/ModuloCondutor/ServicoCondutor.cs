@@ -13,6 +13,11 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
             this.repCondutor = repCondutor;
         }
 
+        public List<Condutor> CondutoreRelacionadosCliente(Cliente cliente)
+        {
+            return repCondutor.SelecionarTodos().Where(x => x.Cliente.Equals(cliente)).ToList();
+        }
+
         public Result Inserir(Condutor condutor)
         {
             Log.Debug("Tentando inserir condutor {@c}", condutor);

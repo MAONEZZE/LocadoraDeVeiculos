@@ -37,5 +37,12 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
         {
             return Nome;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Cliente cliente
+                && Id == cliente.Id
+                && Documento == cliente.Documento;
+        }
     }
 }
