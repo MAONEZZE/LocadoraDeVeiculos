@@ -1,8 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
-<<<<<<< Updated upstream
-=======
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
->>>>>>> Stashed changes
 
 namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 {
