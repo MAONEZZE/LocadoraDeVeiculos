@@ -6,11 +6,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTbAluguel : Migration
+    public partial class addTBAluguel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameColumn(
+                name: "Validade",
+                table: "TBCondutor",
+                newName: "Validade_CNH");
+
             migrationBuilder.CreateTable(
                 name: "TBAluguel",
                 columns: table => new
@@ -22,7 +27,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     GrupoAutomovelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AutomovelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PlanoDeCobrancaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    KmAutomovelAtual = table.Column<int>(type: "int", nullable: false),
                     DataLocacao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataDevolucaoPrevista = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataDevolucao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CupomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EstaAberto = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
@@ -142,6 +149,11 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "TBAluguel");
+
+            migrationBuilder.RenameColumn(
+                name: "Validade_CNH",
+                table: "TBCondutor",
+                newName: "Validade");
         }
     }
 }
