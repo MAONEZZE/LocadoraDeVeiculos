@@ -35,5 +35,17 @@
             TipoCalculo = entidade.TipoCalculo;
         }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is TaxaServico servico
+                   && Id == servico.Id
+                   && Nome == servico.Nome;
+        }
+
+        public override string ToString()
+        {
+            return Nome;
+        }
+
     }
 }

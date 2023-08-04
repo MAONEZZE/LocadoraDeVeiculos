@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDeVeiculosDbContext))]
-    [Migration("20230804005526_AddTbAluguel")]
-    partial class AddTbAluguel
+    [Migration("20230804203217_addTBAluguel")]
+    partial class addTBAluguel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,6 +75,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<DateTime>("DataDevolucao")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DataDevolucaoPrevista")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DataLocacao")
                         .HasColumnType("datetime2");
 
@@ -88,6 +91,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     b.Property<Guid>("GrupoAutomovelId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("KmAutomovelAtual")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("PlanoDeCobrancaId")
                         .HasColumnType("uniqueidentifier");
@@ -230,9 +236,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("Telefone");
 
-                    b.Property<DateTime>("Validade")
+                    b.Property<DateTime>("ValidadeCnh")
                         .HasColumnType("datetime2")
-                        .HasColumnName("Validade");
+                        .HasColumnName("Validade_CNH");
 
                     b.HasKey("Id");
 

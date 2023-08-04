@@ -42,5 +42,17 @@ namespace LocadoraDeVeiculos.Dominio.ModuloFuncionario
 
             Salario = entidade.Salario;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Funcionario funcionario &&
+                   Id.Equals(funcionario.Id) &&
+                   Nome == funcionario.Nome;
+        }
+
+        public override string ToString()
+        {
+            return Nome;
+        }
     }
 }
