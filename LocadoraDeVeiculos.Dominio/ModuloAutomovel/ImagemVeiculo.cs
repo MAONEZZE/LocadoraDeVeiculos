@@ -13,5 +13,7 @@
 
             ImagemBytes = imagemBytes;
         }
+
+        public ImagemVeiculo() { }
     }
 }

@@ -78,29 +78,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._2___Dominio.ModuloAutomovel
                 .WithMessage("A quilometragem percorrida não pode ser menor que zero.");
         }
 
-        [TestMethod]
-        public void Deve_criar_automovel_com_status_disponivel()
-        {
-            automovel.Alugado.Should().BeFalse();
-        }
-
-        [TestMethod]
-        public void Deve_tornar_automovel_indisponivel()
-        {
-            automovel.AlterarStatus();
-
-            automovel.Alugado.Should().BeTrue();
-        }
-
-        [TestMethod]
-        public void Deve_tornar_automovel_disponivel()
-        {
-            automovel.Alugado = true;
-
-            automovel.AlterarStatus();
-
-            automovel.Alugado.Should().BeFalse();
-        }
+      
 
     }
 }

@@ -85,14 +85,14 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
                     return Result.Fail("Automóvel não encontrado");
                 }
 
-                if (!repositorioAutomovel.EstaDisponivel(automovel))
-                {
-                    string msg = $"Este automóvel placa: '{automovel.Placa}' já está sendo utilizado em um aluguel.";
+                //if (!repositorioAutomovel.EstaDisponivel(automovel))
+                //{
+                //    string msg = $"Este automóvel placa: '{automovel.Placa}' já está sendo utilizado em um aluguel.";
 
-                    Log.Warning(msg + " {automovelId}", automovel.Id);
+                //    Log.Warning(msg + " {automovelId}", automovel.Id);
 
-                    return Result.Fail(msg);
-                }
+                //    return Result.Fail(msg);
+                //}
 
                 repositorioAutomovel.Excluir(automovel);
 

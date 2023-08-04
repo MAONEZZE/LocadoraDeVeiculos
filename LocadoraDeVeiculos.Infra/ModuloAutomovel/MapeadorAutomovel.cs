@@ -13,8 +13,6 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
 
             builder.Property(a => a.Ano).IsRequired();
 
-            builder.Property(a => a.Alugado).IsRequired();
-
             builder.Property(a => a.Combustivel).IsRequired();
 
             builder.Property(a => a.Quilometragem).IsRequired();
@@ -28,14 +26,15 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
             builder.Property(a => a.Modelo).HasColumnType("varchar(50)").IsRequired();
 
             builder.Property(a => a.Placa).HasColumnType("varchar(10)").IsRequired();
-                   
-            builder.HasOne(a=>a.GrupoAutomovel).WithMany().IsRequired()
+
+            builder.HasOne(a => a.GrupoAutomovel).WithMany().IsRequired()
             .OnDelete(DeleteBehavior.NoAction);
 
             builder.OwnsOne(a => a.Foto, foto =>
             {
                 foto.Property(f => f.NomeArquivo).IsRequired();
                 foto.Property(f => f.ImagemBytes).IsRequired();
+
             });
         }
     }

@@ -24,18 +24,15 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
 
         public int CapacidadeDeCombustivel { get; set; }
 
-        public bool Alugado { get; set; }
-
-        public Automovel()
+     
+        public Automovel() 
         {
-            Alugado = false;
+            
         }
 
-        public void AlterarStatus()
-        {
-            Alugado = !Alugado;
-        }
+      
 
+       
         public double ObterLitrosAbastecidos(NivelCombustivelEnum nivelAtual)
         {
             if (nivelAtual == NivelCombustivelEnum.Vazio)

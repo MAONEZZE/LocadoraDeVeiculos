@@ -6,9 +6,9 @@ namespace LocadoraDeVeiculos.Infra.ModuloParceiro
     {
         public void Configure(EntityTypeBuilder<Parceiro> builder)
         {
-            builder.ToTable("TBParceiro"); 
+            builder.ToTable("TBParceiro");
 
-            builder.Property(p=>p.Id).ValueGeneratedNever();
+            builder.Property(p => p.Id).ValueGeneratedNever();
 
             builder.Property(p => p.Nome).HasColumnType("varchar(250)").IsRequired();
         }

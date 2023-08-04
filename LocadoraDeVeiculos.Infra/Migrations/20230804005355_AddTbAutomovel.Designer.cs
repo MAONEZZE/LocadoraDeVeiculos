@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDeVeiculosDbContext))]
-    [Migration("20230803183839_add-AtualizacaoTBCliente_e_TBPlanoCobranca_e_TBCondutor")]
-    partial class addAtualizacaoTBCliente_e_TBPlanoCobranca_e_TBCondutor
+    [Migration("20230804005355_AddTbAutomovel")]
+    partial class AddTbAutomovel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,9 +44,6 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Alugado")
-                        .HasColumnType("bit");
 
                     b.Property<int>("Ano")
                         .HasColumnType("int");

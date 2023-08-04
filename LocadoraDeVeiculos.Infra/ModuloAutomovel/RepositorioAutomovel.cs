@@ -8,12 +8,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
         {
         }
 
-        public bool EstaDisponivel(Automovel automovel)
-        {
-            return registros.Any(x => x.Id == automovel.Id && x.Alugado == false);
-        }
-
-
+     
         public override Automovel SelecionarPorId(Guid id)
         {
             return registros
@@ -44,12 +39,14 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
                     Combustivel = automovel.Combustivel,
                     Ano = automovel.Ano,
                     Placa = automovel.Placa,
-                    Quilometragem = automovel.Quilometragem,
+                    Quilometragem = automovel.Quilometragem,                
                     CapacidadeDeCombustivel = automovel.CapacidadeDeCombustivel,
                     GrupoAutomovel = automovel.GrupoAutomovel
 
                 }).ToList();
 
         }
+
+     
     }
 }
