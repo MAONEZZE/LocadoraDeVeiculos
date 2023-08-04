@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
 
 namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 {
@@ -6,9 +7,13 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
     {
         private IRepositorioAluguel repositorioAluguel;
 
-        public ServicoAluguel(IRepositorioAluguel repositorioAluguel)
+        private IRepositorioPrecoCombustivel repositorioPrecoCombustivel;
+
+        public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IRepositorioPrecoCombustivel repositorioPrecoCombustivel)
         {
             this.repositorioAluguel = repositorioAluguel;
+
+            this.repositorioPrecoCombustivel = repositorioPrecoCombustivel;
         }
 
         public Result Inserir(Aluguel aluguel)
@@ -40,7 +45,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             }
         }
 
-
+      
         public Result Editar(Aluguel aluguel)
         {
             Log.Debug($"Tentando editar Aluguel... {aluguel}", aluguel);
@@ -103,6 +108,40 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
                 return Result.Fail(erros);
             }
+        }
+
+        public Result ConfigurarPrecoCombustiveis(PrecoCombustivel precos) 
+        {
+            Log.Debug($"Tentando atualizar preços combustíves... {precos}", precos);
+
+            var result = precos.Validar();
+
+            if(result.IsFailed)
+            {
+                Log.Error("Não foi possivel atualizar os preços dos combustiveis");
+
+                return Result.Fail(result.Reasons.Select(i=>i.Message));
+            }
+
+            try
+            {
+                repositorioPrecoCombustivel.Atualizar(precos);
+
+                Log.Debug($"Preços dos combustiveis atualizado com sucesso... {precos}", precos);
+
+                return Result.Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Falha ao tentar atualizar os Preços dos combustiveis...\n{ex.Message} {precos}", precos);
+
+                return Result.Fail(result.Reasons.Select(i => i.Message));
+            }
+        }
+
+        public PrecoCombustivel ObterConfiguracoesAtuais()
+        {
+            return repositorioPrecoCombustivel.Buscar();
         }
 
         private List<String> ValidarAluguel(Aluguel aluguel)

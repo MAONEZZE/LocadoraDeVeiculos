@@ -44,9 +44,6 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
                     GrupoAutomovel = automovel.GrupoAutomovel
 
                 }).ToList();
-
-        }
-
-     
+        }    
     }
 }

@@ -33,5 +33,9 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCondutor
             this.Cliente = cliente;
         }
 
+        public override string ToString()
+        {
+            return Nome;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 
 namespace LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel
@@ -7,15 +8,19 @@ namespace LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel
     {
         IRepositorioGrupoAutomovel repositorioGrupoAutomovel;
 
-        public ServicoGrupoAutomovel(IRepositorioGrupoAutomovel repositorioGrupo)
+        IRepositorioAutomovel repositorioAutomovel;
+
+        public ServicoGrupoAutomovel(IRepositorioGrupoAutomovel repositorioGrupo, IRepositorioAutomovel repositorioAutomovel)
         {
             this.repositorioGrupoAutomovel = repositorioGrupo;
+
+            this.repositorioAutomovel = repositorioAutomovel;
         }
 
         public Result Inserir(GrupoAutomovel grupo)
         {
             Log.Debug("Tentando inserir grupo {@p}", grupo);
-
+            
             var erros = ValidarGrupo(grupo);
 
             if (erros.Any())
@@ -82,45 +87,48 @@ namespace LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel
             {
                 var existe = repositorioGrupoAutomovel.Existe(grupo);
 
+                var erros = ValidarGrupo(grupo);
+
+                if(erros.Any())
+                {
+                    Log.Warning("Esse grupo de veículo ja está sendo utilizado e nao pode ser excluido", grupo.Id);
+
+                    return Result.Fail(erros);
+                }
+
                 if (!existe)
                 {
-                    Log.Warning("Parceiro {parceiroId} não encontrado para excluir", grupo.Id);
+                    Log.Warning("Grupo de automóveis {parceiroId} não encontrado para excluir", grupo.Id);
 
                     return Result.Fail("Parceiro não encontrada");
                 }
 
                 repositorioGrupoAutomovel.Excluir(grupo);
 
-                Log.Debug("Parceiro {parceiroId} excluído com sucesso", grupo.Id);
+                Log.Debug("Grupo de automóveis {grupoId} excluído com sucesso", grupo.Id);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
-                string msg;
-
-                if (ex.Message.Contains("") ||
-                    ex.InnerException.Message.Contains(""))
-                {
-                    msg = "Este grupo está relacionado com um automóvel e não pode ser excluído.";
-                }
-                else
-                    msg = $"Falha ao tentar excluír grupo {grupo.Id}";
+                string msg = $"Falha ao tentar excluír grupo {grupo.Id}";
 
                 repositorioGrupoAutomovel.DesfazerAlteracoes();
 
-                Log.Error(msg, grupo);
+                Log.Error(msg +" "+ ex.Message, grupo);
 
                 return Result.Fail(msg);
             }
-
-
-
         }
 
         private List<string> ValidarGrupo(GrupoAutomovel grupo)
         {
             var erros = new List<string>();
+
+            var utilizado = repositorioAutomovel.SelecionarTodos().Where(a => a.GrupoAutomovel.Equals(grupo)).Any();
+
+            if (utilizado)
+                erros.Add("Esse grupo de veículo ja está sendo utilizado");
 
             var resultado = Validar(grupo);
 
