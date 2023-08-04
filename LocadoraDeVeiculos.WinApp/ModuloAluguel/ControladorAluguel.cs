@@ -1,6 +1,8 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
 using LocadoraDeVeiculos.Servico.ModuloAluguel;
 using LocadoraDeVeiculos.Servico.ModuloFuncionario;
+using LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 {
@@ -10,12 +12,15 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         private readonly ServicoAluguel servicoAluguel;
 
+        private readonly IRepositorioPrecoCombustivel repositorioPrecoCombustivel;
+
         private TabelaAluguelUserControl tabelaAluguel;
         
-        public ControladorAluguel(ServicoAluguel servicoAluguel, IRepositorioAluguel repositorioAluguel)
+        public ControladorAluguel(ServicoAluguel servicoAluguel, IRepositorioAluguel repositorioAluguel, IRepositorioPrecoCombustivel repositorioPrecoCombustivel)
         {
             this.servicoAluguel = servicoAluguel;
             this.repositorioAluguel = repositorioAluguel;
+            this.repositorioPrecoCombustivel = repositorioPrecoCombustivel;
         }
 
         public override void Editar()
@@ -100,6 +105,20 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             if (resultado == DialogResult.OK)
             {
                 AtualizarListagem();
+            }
+        }
+
+        public void ConfigurarPrecoCombustivel()
+        {
+            var configuracao = repositorioPrecoCombustivel.Buscar();
+
+            var tela = new TelaPrecoCombustivelForm(configuracao);
+
+            tela.onGravarConfiguracao += repositorioPrecoCombustivel.Atualizar;
+
+            if (tela.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Atualização de preços de combustível efetuada com sucesso.", "Configurar Preço", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

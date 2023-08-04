@@ -8,12 +8,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
         {
         }
 
-        public bool EstaDisponivel(Automovel automovel)
-        {
-            return registros.Any(x => x.Id == automovel.Id && x.Alugado == false);
-        }
-
-
+     
         public override Automovel SelecionarPorId(Guid id)
         {
             return registros
@@ -44,8 +39,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
                     Combustivel = automovel.Combustivel,
                     Ano = automovel.Ano,
                     Placa = automovel.Placa,
-                    Quilometragem = automovel.Quilometragem,
-                    Alugado = automovel.Alugado,
+                    Quilometragem = automovel.Quilometragem,                
                     CapacidadeDeCombustivel = automovel.CapacidadeDeCombustivel,
                     GrupoAutomovel = automovel.GrupoAutomovel
 
@@ -53,11 +47,9 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
 
         }
 
-        public override Automovel SelecionarPorId(Guid id)
+        public List<Automovel> SelecionarDisponiveis()
         {
-            return registros
-                .Include(x => x.GrupoAutomovel)
-                .SingleOrDefault(x => x.Id == id)!;
+            throw new NotImplementedException();
         }
     }
 }

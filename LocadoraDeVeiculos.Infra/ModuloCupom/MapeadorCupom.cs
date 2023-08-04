@@ -12,7 +12,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloCupom
 
             builder.Property(c => c.Nome).HasColumnType("varchar(250)").IsRequired();
 
-            builder.Property(c=>c.DataValidade).IsRequired();
+            builder.Property(c => c.DataValidade).IsRequired();
 
             builder.HasOne(c => c.Parceiro).WithMany().IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);

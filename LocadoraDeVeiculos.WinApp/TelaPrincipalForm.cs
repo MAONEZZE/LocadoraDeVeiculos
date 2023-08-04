@@ -1,4 +1,6 @@
 
+using LocadoraDeVeiculos.WinApp.ModuloAluguel;
+
 namespace LocadoraDeVeiculos.WinApp
 {
     public partial class TelaPrincipalForm : Form
@@ -81,6 +83,7 @@ namespace LocadoraDeVeiculos.WinApp
             BtnExcluir.ToolTipText = configuracao.TooltipExcluir;
             BtnFiltrar.ToolTipText = configuracao.TooltipFiltrar;
             BtnDetalhes.ToolTipText = configuracao.TooltipVisualizar;
+            btnPrecoCombustivel.ToolTipText = configuracao.TooltipPrecoCombustivel;
         }
 
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
@@ -90,6 +93,7 @@ namespace LocadoraDeVeiculos.WinApp
             BtnExcluir.Enabled = configuracao.ExcluirHabilitado;
             BtnFiltrar.Enabled = configuracao.FiltrarHabilitado;
             BtnDetalhes.Enabled = configuracao.VisualizarHabilitado;
+            btnPrecoCombustivel.Enabled = configuracao.PrecoCombustivelHabilitado;
         }
         #endregion
 
@@ -117,6 +121,13 @@ namespace LocadoraDeVeiculos.WinApp
         private void BtnDetalhes_Click(object sender, EventArgs e)
         {
             controlador.Visualizar();
+        }
+
+        private void BtnPrecoCombustivel_Click(object sender, EventArgs e)
+        {
+            if (controlador is ControladorAluguel control)
+                control.ConfigurarPrecoCombustivel();
+
         }
 
         #endregion
@@ -148,17 +159,39 @@ namespace LocadoraDeVeiculos.WinApp
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
 
-        private void clienteMenuItem_Click(object sender, EventArgs e)
+        private void ClienteMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
-        private void funcionarioMenuItem_Click(object sender, EventArgs e)
+        private void FuncionarioMenuItem_Click(object sender, EventArgs e)
         {
             ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
+
+        private void AluguelMenuItem_Click(object sender, EventArgs e)
+        {
+           var control = (ControladorAluguel)Ioc.ObterControlador(sender);
+
+            controlador = control;
+
+            control.ConfigurarPrecoCombustivel();
+
+           // ConfigurarTelaPrincipal();
+        }
+
         #endregion
 
+        #region mudar cor click
+        private void BtnMudarCor_Click(object sender, EventArgs e)
+        {
+            var cores = Enum.GetValues<KnownColor>().ToArray();
 
+            var cor = cores[new Random().Next(1, 167)];
 
+            toolStrip.BackColor = Color.FromKnownColor(cor);
+
+        }
+
+        #endregion
     }
 }

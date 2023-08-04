@@ -9,5 +9,9 @@
         public override string TooltipEditar => "Editar " + TipoCadastro;
 
         public override string TooltipExcluir => "Excluir " + TipoCadastro;
+
+        public override string TooltipPrecoCombustivel => "Preço Combustivel";
+
+        public override bool PrecoCombustivelHabilitado => true;
     }
 }

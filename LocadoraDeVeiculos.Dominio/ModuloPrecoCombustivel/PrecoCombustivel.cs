@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 
-namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
+namespace LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel
 {
 
     [Serializable]
@@ -12,6 +12,8 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
         public decimal Etanol { get; set; }
 
         public decimal Diesel { get; set; }
+
+        public decimal Gas { get; set; }
 
         public PrecoCombustivel()
         {
@@ -30,6 +32,8 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
                 combustivel = "Etanol";
             else if (Diesel <= 0)
                 combustivel = "Diesel";
+            else if (Gas <= 0)
+                combustivel = "Gás";
             else
                 return Result.Ok();
 

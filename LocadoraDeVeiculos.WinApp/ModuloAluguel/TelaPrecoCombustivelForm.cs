@@ -1,16 +1,16 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+﻿using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco
 {
     public delegate void onGravarConfiguracao(PrecoCombustivel conf);
 
-    public partial class TelaConfigurarPrecoForm : Form
+    public partial class TelaPrecoCombustivelForm : Form
     {
         public PrecoCombustivel configuracao;
 
         public onGravarConfiguracao onGravarConfiguracao;
 
-        public TelaConfigurarPrecoForm(PrecoCombustivel configuracao)
+        public TelaPrecoCombustivelForm(PrecoCombustivel configuracao)
         {
             InitializeComponent();
 
@@ -21,6 +21,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco
             txtGasolina.Value = this.configuracao.Gasolina;
             txtEtanol.Value = this.configuracao.Etanol;
             txtDiesel.Value = this.configuracao.Diesel;
+            txtGas.Value = this.configuracao.Gas;
+
         }
 
         private void ButtonSalvar_Click(object sender, EventArgs e)
@@ -28,6 +30,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco
             configuracao.Gasolina = txtGasolina.Value;
             configuracao.Etanol = txtEtanol.Value;
             configuracao.Diesel = txtDiesel.Value;
+            configuracao.Gas = txtGas.Value;
 
             var result = configuracao.Validar();
 
@@ -45,6 +48,5 @@ namespace LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco
             }
 
         }
-
     }
 }
