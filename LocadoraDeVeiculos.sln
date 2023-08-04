@@ -29,9 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraDeVeiculos.TestesUn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraDeVeiculos.TestesIntegracao", "LocadoraDeVeiculos.TestesIntegracao\LocadoraDeVeiculos.TestesIntegracao.csproj", "{CAD702FD-D95F-44D5-B007-1346B7BF28E0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModuloPrecoCombustivelJson", "ModuloPrecoCombustivelJson", "{07F9C234-CC71-46FD-A536-144D92325AA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraDeVeiculos.Infra.PrecosCombustiveis", "LocadoraDeVeiculos.Infra.PrecosCombustiveis\LocadoraDeVeiculos.Infra.PrecosCombustiveis.csproj", "{393158C9-D1C7-48F1-AE5B-6384EED06CFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocadoraDeVeiculos.Infra.PrecosCombustiveis", "LocadoraDeVeiculos.Infra.PrecosCombustiveis\LocadoraDeVeiculos.Infra.PrecosCombustiveis.csproj", "{393158C9-D1C7-48F1-AE5B-6384EED06CFF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 - InfraJson", "4.1 - InfraJson", "{D5D69214-A499-48ED-850C-844CF3E103AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,8 +80,8 @@ Global
 		{37BD0DBF-6799-4BBC-8FB4-2DF64E926F65} = {4092B4B5-7FF8-4079-8932-5C74990D04D7}
 		{32DB51CD-2A79-43A7-8A4F-CE9F656B5D34} = {D23C649F-E547-4114-B1A6-7A8A0B270C66}
 		{CAD702FD-D95F-44D5-B007-1346B7BF28E0} = {37BD0DBF-6799-4BBC-8FB4-2DF64E926F65}
-		{07F9C234-CC71-46FD-A536-144D92325AA0} = {FC31FF2E-E8F0-41F9-9DCD-574F4075D4FB}
-		{393158C9-D1C7-48F1-AE5B-6384EED06CFF} = {07F9C234-CC71-46FD-A536-144D92325AA0}
+		{393158C9-D1C7-48F1-AE5B-6384EED06CFF} = {D5D69214-A499-48ED-850C-844CF3E103AB}
+		{D5D69214-A499-48ED-850C-844CF3E103AB} = {FC31FF2E-E8F0-41F9-9DCD-574F4075D4FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B1FEFEE-FBC9-42CF-925D-3E4BD121A90A}
