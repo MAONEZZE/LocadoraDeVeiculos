@@ -15,6 +15,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
     public delegate List<TEntidade> SelecionarPorFiltroDelegate<TEntidade, TEntidadeFiltro>(TEntidadeFiltro filtro)
         where TEntidade : EntidadeBase<TEntidade>;
 
+
+
     public partial class TelaAluguelForm : Form
     {
         public event GravarRegistroDelegate<Aluguel> onGravarRegistro;
@@ -53,7 +55,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             tctrlTaxas.TabPages.Remove(tbTaxasAdicionais);
 
-            tctrlTaxas.TabPages.Add(tbTaxasAdicionais);
+            //tctrlTaxas.TabPages.Add(tbTaxasAdicionais);
         }
 
         public void ConfigurarRegistro(Aluguel aluguelSelecionado)
@@ -80,15 +82,21 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             cbxAutomovel.SelectedItem = aluguelSelecionado.Automovel;
 
-            cbxPlanoDeCobranca.DataSource = onSelecionarTodosPlanoDeCobranca();
+            //cbxPlanoDeCobranca.DataSource = onSelecionarTodosPlanoDeCobranca();
 
             cbxPlanoDeCobranca.SelectedItem = aluguelSelecionado.PlanoDeCobranca;
 
             txtQuilometragem.Text = aluguelSelecionado.KmAutomovelAtual.ToString();
 
-            txtDataLocacao.Value = aluguelSelecionado.DataLocacao;
+            if (aluguelSelecionado.DataLocacao != default(DateTime))
+            {
+                txtDataLocacao.Value = aluguelSelecionado.DataLocacao;
+            }
 
-            txtDevolucaoPrevista.Value = aluguelSelecionado.DataDevolucaoPrevista;
+            if (aluguelSelecionado.DataDevolucaoPrevista != default(DateTime))
+            {
+                txtDevolucaoPrevista.Value = aluguelSelecionado.DataDevolucaoPrevista;
+            }
 
             if (aluguel.Cupom != null)
             {
@@ -98,6 +106,19 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
                 btnCupom.Text = "Remover Cupom";
             }
+            cbxNivelTanque.DataSource = Enum.GetValues<NivelCombustivelEnum>();
+        }
+
+        public void ConfigurarDevolucao(Aluguel aluguelSelecionado)
+        {
+            ConfigurarRegistro(aluguelSelecionado);
+            
+            gbLocacao.Enabled = false;
+            
+            gbDevolucao.Enabled = true;
+
+
+
         }
     }
 }

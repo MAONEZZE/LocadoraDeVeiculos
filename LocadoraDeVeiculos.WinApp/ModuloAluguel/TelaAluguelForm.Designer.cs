@@ -51,23 +51,23 @@
             txtCupom = new TextBox();
             label10 = new Label();
             btnCupom = new Button();
-            dateTimePicker3 = new DateTimePicker();
+            txtDataDevolucao = new DateTimePicker();
             label11 = new Label();
-            comboBox6 = new ComboBox();
+            cbxNivelTanque = new ComboBox();
             label12 = new Label();
             label13 = new Label();
-            textBox2 = new TextBox();
+            txtKMPercorrido = new TextBox();
             tctrlTaxas = new TabControl();
             tbTaxasSelecionadas = new TabPage();
             clbxTaxasSelecionadas = new CheckedListBox();
             tbTaxasAdicionais = new TabPage();
             clbxTaxasAdicionais = new CheckedListBox();
-            groupBox1 = new GroupBox();
-            groupBox2 = new GroupBox();
+            gbDevolucao = new GroupBox();
+            gbLocacao = new GroupBox();
             tctrlTaxas.SuspendLayout();
             tbTaxasSelecionadas.SuspendLayout();
             tbTaxasAdicionais.SuspendLayout();
-            groupBox1.SuspendLayout();
+            gbDevolucao.SuspendLayout();
             SuspendLayout();
             // 
             // btnCancelar
@@ -108,7 +108,7 @@
             cbxFuncionario.Location = new Point(146, 25);
             cbxFuncionario.Name = "cbxFuncionario";
             cbxFuncionario.Size = new Size(196, 23);
-            cbxFuncionario.TabIndex = 13;
+            cbxFuncionario.TabIndex = 1;
             // 
             // cbxCliente
             // 
@@ -117,7 +117,7 @@
             cbxCliente.Location = new Point(146, 63);
             cbxCliente.Name = "cbxCliente";
             cbxCliente.Size = new Size(196, 23);
-            cbxCliente.TabIndex = 15;
+            cbxCliente.TabIndex = 2;
             // 
             // label2
             // 
@@ -135,7 +135,7 @@
             cbxGrupoAutomovel.Location = new Point(146, 101);
             cbxGrupoAutomovel.Name = "cbxGrupoAutomovel";
             cbxGrupoAutomovel.Size = new Size(196, 23);
-            cbxGrupoAutomovel.TabIndex = 17;
+            cbxGrupoAutomovel.TabIndex = 4;
             // 
             // label3
             // 
@@ -153,7 +153,7 @@
             cbxPlanoDeCobranca.Location = new Point(146, 139);
             cbxPlanoDeCobranca.Name = "cbxPlanoDeCobranca";
             cbxPlanoDeCobranca.Size = new Size(196, 23);
-            cbxPlanoDeCobranca.TabIndex = 19;
+            cbxPlanoDeCobranca.TabIndex = 6;
             // 
             // label4
             // 
@@ -171,7 +171,7 @@
             cbxCondutor.Location = new Point(463, 64);
             cbxCondutor.Name = "cbxCondutor";
             cbxCondutor.Size = new Size(196, 23);
-            cbxCondutor.TabIndex = 21;
+            cbxCondutor.TabIndex = 3;
             // 
             // label5
             // 
@@ -189,7 +189,7 @@
             cbxAutomovel.Location = new Point(463, 101);
             cbxAutomovel.Name = "cbxAutomovel";
             cbxAutomovel.Size = new Size(196, 23);
-            cbxAutomovel.TabIndex = 23;
+            cbxAutomovel.TabIndex = 5;
             // 
             // label6
             // 
@@ -216,6 +216,7 @@
             txtQuilometragem.ReadOnly = true;
             txtQuilometragem.Size = new Size(100, 23);
             txtQuilometragem.TabIndex = 25;
+            txtQuilometragem.TabStop = false;
             // 
             // label8
             // 
@@ -232,7 +233,7 @@
             txtDataLocacao.Location = new Point(146, 177);
             txtDataLocacao.Name = "txtDataLocacao";
             txtDataLocacao.Size = new Size(196, 23);
-            txtDataLocacao.TabIndex = 27;
+            txtDataLocacao.TabIndex = 7;
             // 
             // txtDevolucaoPrevista
             // 
@@ -240,7 +241,7 @@
             txtDevolucaoPrevista.Location = new Point(463, 178);
             txtDevolucaoPrevista.Name = "txtDevolucaoPrevista";
             txtDevolucaoPrevista.Size = new Size(196, 23);
-            txtDevolucaoPrevista.TabIndex = 29;
+            txtDevolucaoPrevista.TabIndex = 8;
             // 
             // label9
             // 
@@ -256,7 +257,7 @@
             txtCupom.Location = new Point(146, 216);
             txtCupom.Name = "txtCupom";
             txtCupom.Size = new Size(100, 23);
-            txtCupom.TabIndex = 30;
+            txtCupom.TabIndex = 9;
             // 
             // label10
             // 
@@ -272,17 +273,17 @@
             btnCupom.Location = new Point(260, 210);
             btnCupom.Name = "btnCupom";
             btnCupom.Size = new Size(96, 32);
-            btnCupom.TabIndex = 32;
+            btnCupom.TabIndex = 10;
             btnCupom.Text = "Aplicar Cupom";
             btnCupom.UseVisualStyleBackColor = true;
             // 
-            // dateTimePicker3
+            // txtDataDevolucao
             // 
-            dateTimePicker3.Format = DateTimePickerFormat.Short;
-            dateTimePicker3.Location = new Point(110, 19);
-            dateTimePicker3.Name = "dateTimePicker3";
-            dateTimePicker3.Size = new Size(196, 23);
-            dateTimePicker3.TabIndex = 34;
+            txtDataDevolucao.Format = DateTimePickerFormat.Short;
+            txtDataDevolucao.Location = new Point(110, 19);
+            txtDataDevolucao.Name = "txtDataDevolucao";
+            txtDataDevolucao.Size = new Size(196, 23);
+            txtDataDevolucao.TabIndex = 11;
             // 
             // label11
             // 
@@ -293,14 +294,14 @@
             label11.Text = "Data Devolução:";
             label11.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // comboBox6
+            // cbxNivelTanque
             // 
-            comboBox6.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox6.FormattingEnabled = true;
-            comboBox6.Location = new Point(110, 57);
-            comboBox6.Name = "comboBox6";
-            comboBox6.Size = new Size(196, 23);
-            comboBox6.TabIndex = 36;
+            cbxNivelTanque.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxNivelTanque.FormattingEnabled = true;
+            cbxNivelTanque.Location = new Point(110, 57);
+            cbxNivelTanque.Name = "cbxNivelTanque";
+            cbxNivelTanque.Size = new Size(196, 23);
+            cbxNivelTanque.TabIndex = 13;
             // 
             // label12
             // 
@@ -320,12 +321,12 @@
             label13.Text = "KM Percorrido:";
             label13.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // textBox2
+            // txtKMPercorrido
             // 
-            textBox2.Location = new Point(427, 20);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 37;
+            txtKMPercorrido.Location = new Point(427, 20);
+            txtKMPercorrido.Name = "txtKMPercorrido";
+            txtKMPercorrido.Size = new Size(100, 23);
+            txtKMPercorrido.TabIndex = 12;
             // 
             // tctrlTaxas
             // 
@@ -336,7 +337,6 @@
             tctrlTaxas.SelectedIndex = 0;
             tctrlTaxas.Size = new Size(613, 160);
             tctrlTaxas.TabIndex = 39;
-            tctrlTaxas.Visible = false;
             // 
             // tbTaxasSelecionadas
             // 
@@ -378,37 +378,37 @@
             clbxTaxasAdicionais.Size = new Size(599, 126);
             clbxTaxasAdicionais.TabIndex = 0;
             // 
-            // groupBox1
+            // gbDevolucao
             // 
-            groupBox1.Controls.Add(label11);
-            groupBox1.Controls.Add(dateTimePicker3);
-            groupBox1.Controls.Add(label13);
-            groupBox1.Controls.Add(label12);
-            groupBox1.Controls.Add(textBox2);
-            groupBox1.Controls.Add(comboBox6);
-            groupBox1.Enabled = false;
-            groupBox1.Location = new Point(40, 250);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(543, 91);
-            groupBox1.TabIndex = 40;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Devolução";
+            gbDevolucao.Controls.Add(label11);
+            gbDevolucao.Controls.Add(txtDataDevolucao);
+            gbDevolucao.Controls.Add(label13);
+            gbDevolucao.Controls.Add(label12);
+            gbDevolucao.Controls.Add(txtKMPercorrido);
+            gbDevolucao.Controls.Add(cbxNivelTanque);
+            gbDevolucao.Enabled = false;
+            gbDevolucao.Location = new Point(40, 250);
+            gbDevolucao.Name = "gbDevolucao";
+            gbDevolucao.Size = new Size(543, 91);
+            gbDevolucao.TabIndex = 40;
+            gbDevolucao.TabStop = false;
+            gbDevolucao.Text = "Devolução";
             // 
-            // groupBox2
+            // gbLocacao
             // 
-            groupBox2.Location = new Point(7, 3);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(669, 241);
-            groupBox2.TabIndex = 41;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Locação";
+            gbLocacao.Location = new Point(7, 3);
+            gbLocacao.Name = "gbLocacao";
+            gbLocacao.Size = new Size(669, 241);
+            gbLocacao.TabIndex = 41;
+            gbLocacao.TabStop = false;
+            gbLocacao.Text = "Locação";
             // 
             // TelaAluguelForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(676, 577);
-            Controls.Add(groupBox1);
+            Controls.Add(gbDevolucao);
             Controls.Add(tctrlTaxas);
             Controls.Add(btnCupom);
             Controls.Add(label10);
@@ -433,14 +433,14 @@
             Controls.Add(label1);
             Controls.Add(btnCancelar);
             Controls.Add(btnSalvar);
-            Controls.Add(groupBox2);
+            Controls.Add(gbLocacao);
             Name = "TelaAluguelForm";
             Text = "TelaAluguelForm";
             tctrlTaxas.ResumeLayout(false);
             tbTaxasSelecionadas.ResumeLayout(false);
             tbTaxasAdicionais.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            gbDevolucao.ResumeLayout(false);
+            gbDevolucao.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -470,18 +470,18 @@
         private TextBox txtCupom;
         private Label label10;
         private Button btnCupom;
-        private DateTimePicker dateTimePicker3;
+        private DateTimePicker txtDataDevolucao;
         private Label label11;
-        private ComboBox comboBox6;
+        private ComboBox cbxNivelTanque;
         private Label label12;
         private Label label13;
-        private TextBox textBox2;
+        private TextBox txtKMPercorrido;
         private TabControl tctrlTaxas;
         private TabPage tbTaxasAdicionais;
         private TabPage tbTaxasSelecionadas;
         private CheckedListBox clbxTaxasSelecionadas;
         private CheckedListBox clbxTaxasAdicionais;
-        private GroupBox groupBox1;
-        private GroupBox groupBox2;
+        private GroupBox gbDevolucao;
+        private GroupBox gbLocacao;
     }
 }

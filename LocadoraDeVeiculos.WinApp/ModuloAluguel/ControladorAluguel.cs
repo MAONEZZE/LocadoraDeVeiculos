@@ -145,7 +145,15 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             telaAluguel.onSelecionarTodosClientes += repositorioCliente.SelecionarTodos;
 
-            //telaAluguel.onSelecionarCondutorPorCliente += repositorioCondutor.SelecionarPorCliente;
+            telaAluguel.onSelecionarCondutorPorCliente += repositorioCondutor.SelecionarPorCliente;
+
+            telaAluguel.onSelecionarTodosGrupoAutomovel += repositorioGrupoAutomovel.SelecionarTodos;
+
+            telaAluguel.onSelecionarAutomovelPorGrupoAutomovel += repositorioAutomovel.SelecionarPorGrupoAutomovel;
+
+            telaAluguel.onSelecionarTodosClientes += repositorioCliente.SelecionarTodos;
+
+            telaAluguel.onSelecionarCondutorPorCliente += repositorioCondutor.SelecionarPorCliente;
 
             telaAluguel.ConfigurarRegistro(new Aluguel());
 
