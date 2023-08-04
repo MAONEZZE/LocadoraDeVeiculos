@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 
 namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
 {
@@ -6,9 +7,13 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
     {
         IRepositorioAutomovel repositorioAutomovel;
 
-        public ServicoAutomovel(IRepositorioAutomovel repositorioAutomovel)
+        IRepositorioAluguel repositorioAluguel;
+
+        public ServicoAutomovel(IRepositorioAutomovel repositorioAutomovel, IRepositorioAluguel repositorioAluguel)
         {
             this.repositorioAutomovel = repositorioAutomovel;
+
+            this.repositorioAluguel = repositorioAluguel;
         }
 
         public Result Inserir(Automovel automovel)
@@ -48,19 +53,23 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
             var erros = ValidarAutomovel(automovel);
 
             if (erros.Any())
-                return Result.Fail(erros);
+            {
+                Log.Warning("Não é possivel editar este automóvel {automovelId} pois esta sendo utilizado em um aluguel, ", automovel.Id);
 
+                return Result.Fail(erros);
+            }
+               
             try
             {
                 repositorioAutomovel.Editar(automovel);
 
-                Log.Debug("Automovel {automovelId} editado com sucesso", automovel.Id);
+                Log.Debug("Automóvel {automovelId} editado com sucesso", automovel.Id);
 
                 return Result.Ok();
             }
             catch
             {
-                string msg = $"Falha ao tentar editar automovel {automovel}";
+                string msg = $"Falha ao tentar editar automóvel {automovel}";
 
                 repositorioAutomovel.DesfazerAlteracoes();
 
@@ -72,7 +81,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
 
         public Result Excluir(Automovel automovel)
         {
-            Log.Debug("Tentando excluir automovel {@p}", automovel);
+            Log.Debug("Tentando excluir automóvel {@p}", automovel);
 
             try
             {
@@ -85,15 +94,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
                     return Result.Fail("Automóvel não encontrado");
                 }
 
-                //if (!repositorioAutomovel.EstaDisponivel(automovel))
-                //{
-                //    string msg = $"Este automóvel placa: '{automovel.Placa}' já está sendo utilizado em um aluguel.";
+                var erros = ValidarAutomovel(automovel);
 
-                //    Log.Warning(msg + " {automovelId}", automovel.Id);
+                if (erros.Any())
+                {
+                    Log.Warning("Não é possivel excluir este automóvel {automovelId} pois esta sendo utilizado em um aluguel, ", automovel.Id);
 
-                //    return Result.Fail(msg);
-                //}
-
+                    return Result.Fail(erros);
+                }
+                  
                 repositorioAutomovel.Excluir(automovel);
 
                 Log.Debug("Automóvel {automovelId} excluído com sucesso", automovel.Id);
@@ -110,14 +119,16 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
 
                 return Result.Fail(msg);
             }
-
-
-
         }
 
         private List<string> ValidarAutomovel(Automovel automovel)
         {
             var erros = new List<string>();
+
+            var alugado = repositorioAluguel.SelecionarTodos().Where(a => a.Automovel.Equals(automovel)).Any();
+
+            if (alugado)
+                erros.Add("Automóvel indisponível. Este automóvel está sendo utilizado em outro aluguel.");
 
             var resultado = Validar(automovel);
 

@@ -10,16 +10,13 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         private readonly IRepositorioAluguel repositorioAluguel;
 
         private readonly ServicoAluguel servicoAluguel;
-
-        private readonly IRepositorioPrecoCombustivel repositorioPrecoCombustivel;
-
+     
         private TabelaAluguelUserControl tabelaAluguel;
         
-        public ControladorAluguel(ServicoAluguel servicoAluguel, IRepositorioAluguel repositorioAluguel, IRepositorioPrecoCombustivel repositorioPrecoCombustivel)
+        public ControladorAluguel(ServicoAluguel servicoAluguel, IRepositorioAluguel repositorioAluguel)
         {
             this.servicoAluguel = servicoAluguel;
-            this.repositorioAluguel = repositorioAluguel;
-            this.repositorioPrecoCombustivel = repositorioPrecoCombustivel;
+            this.repositorioAluguel = repositorioAluguel;          
         }
 
         public override void Editar()
@@ -109,11 +106,11 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         public void ConfigurarPrecoCombustivel()
         {
-            var configuracao = repositorioPrecoCombustivel.Buscar();
+            var configuracao = servicoAluguel.ObterConfiguracoesAtuais();
 
             var tela = new TelaPrecoCombustivelForm(configuracao);
 
-            tela.onGravarConfiguracao += repositorioPrecoCombustivel.Atualizar;
+            tela.onGravarConfiguracao += servicoAluguel.ConfigurarPrecoCombustiveis;
 
             if (tela.ShowDialog() == DialogResult.OK)
             {

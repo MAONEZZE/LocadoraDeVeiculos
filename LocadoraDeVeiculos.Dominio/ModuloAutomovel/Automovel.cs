@@ -2,8 +2,10 @@
 
 namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
 {
+
     public class Automovel : EntidadeBase<Automovel>
     {
+      
         public int Quilometragem { get; set; }
 
         public string Placa { get; set; }
@@ -29,10 +31,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
         {
             
         }
-
-      
-
-       
+          
         public double ObterLitrosAbastecidos(NivelCombustivelEnum nivelAtual)
         {
             if (nivelAtual == NivelCombustivelEnum.Vazio)
@@ -53,7 +52,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
 
         public void IncluirFoto(byte[] imagemBytes)
         {
-            Foto = new ImagemVeiculo(imagemBytes);
+            Foto = new ImagemVeiculo(imagemBytes);        
         }
 
         public void EditarFoto(byte[] imagemBytes)
@@ -88,7 +87,5 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
                    Foto == automovel.Foto;
         }
 
-
     }
-
 }

@@ -7,6 +7,9 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
     {
         public byte[] ConverterParaBytes(Image image)
         {
+            if (image == null)
+                return null!;
+
             using var ms = new MemoryStream();
 
             image.Save(ms, ImageFormat.Jpeg);

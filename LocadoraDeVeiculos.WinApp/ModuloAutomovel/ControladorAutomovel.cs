@@ -6,7 +6,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
 {
     public class ControladorAutomovel : ControladorBase
     {
-
         private readonly IRepositorioAutomovel repositorioAutomovel;
 
         private readonly IRepositorioGrupoAutomovel repositorioGrupoAutomovel;
@@ -46,19 +45,12 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
 
         public override void Editar()
         {
-
             var id = tabelaAutomovel.ObtemIdSelecionado();
 
             if (id == default) return;
 
             var automovel = repositorioAutomovel.SelecionarPorId(id);
-
-            //if (!repositorioAutomovel.EstaDisponivel(automovel))
-            //{
-            //    MessageBox.Show($"Este automóvel placa: '{automovel.Placa}' já está sendo utilizado em um aluguel.");
-            //    return;
-            //}
-
+         
             var opcao = MessageBox.Show($"Confirma editar o automóvel placa: {automovel.Placa}?", "Editar Automóvel", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (opcao == DialogResult.No) return;
@@ -73,11 +65,16 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
             telaAutomovel.onBuscarGrupo += repositorioGrupoAutomovel.SelecionarTodos;
 
             telaAutomovel.ConfigurarAutomovel(automovel);
-
+       
             if (telaAutomovel.ShowDialog() == DialogResult.OK)
             {
                 AtualizarListagem();
             }
+        }
+
+        private void mandarMsg(string msg)
+        {
+            MessageBox.Show(msg);
         }
 
         public override void Excluir()
