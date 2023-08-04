@@ -47,9 +47,6 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
 
         }
 
-        public List<Automovel> SelecionarDisponiveis()
-        {
-            throw new NotImplementedException();
-        }
+     
     }
 }
