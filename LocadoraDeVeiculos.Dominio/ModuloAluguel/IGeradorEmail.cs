@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using System.Reflection.Metadata;
 
 namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
 {

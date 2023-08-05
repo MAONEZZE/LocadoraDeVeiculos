@@ -28,8 +28,6 @@ using LocadoraDeVeiculos.WinApp.ModuloFuncionario;
 using LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.WinApp.ModuloParceiro;
 using LocadoraDeVeiculos.WinApp.ModuloTaxaServico;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace LocadoraDeVeiculos.WinApp.Compartilhado
 {
@@ -37,14 +35,17 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
     {
         public static bool Inicializar;
 
-
         static IDictionary<string, ControladorBase> controladores = new Dictionary<string, ControladorBase>();
 
         static Ioc()
         {
-            var dbContext = InicializarContexto();
+           var configuracao = new ConfiguracaoAppSettings();
 
-            AtualizarBancoDados(dbContext);
+            var configuracaoDb = new ConfiguracaoDb();
+
+            var dbContext = configuracaoDb.InicializarContexto(configuracao);
+
+            configuracaoDb.AtualizarBancoDados(dbContext);
 
             var repositorioParceiro = new RepositorioParceiro(dbContext);
 
@@ -96,7 +97,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var controladorFuncionario = new ControladorFuncionario(servicoFuncionario, repositorioFuncionario);
 
-            var repPrecoComb = new RepositorioPrecoCombustivel(new SerializadorJson(ObterArquivoJsonPrecoCombustivel()));
+            var repPrecoComb = new RepositorioPrecoCombustivel(new SerializadorJson(configuracao.ObterArquivoJsonPrecoCombustivel()));
 
             var repositorioPlanoDeCobranca = new RepositorioPlanoDeCobranca(dbContext);
 
@@ -133,56 +134,6 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             return controladores[control.Text];
         }
 
-        private static LocadoraDeVeiculosDbContext InicializarContexto()
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<LocadoraDeVeiculosDbContext>();
-
-            optionsBuilder.UseSqlServer(ObterConnectionString());
-
-            var dbContext = new LocadoraDeVeiculosDbContext(optionsBuilder.Options);
-
-            AtualizarBancoDados(dbContext);
-
-            return dbContext;
-        }
-
-        private static string ObterConnectionString()
-        {
-            var configuracao = new ConfigurationBuilder()
-             .SetBasePath(Directory.GetCurrentDirectory())
-             .AddJsonFile("appsettings.json")
-             .Build();
-
-            return configuracao.GetConnectionString("SqlServer")!;
-        }
-
-        private static string ObterArquivoJsonPrecoCombustivel()
-        {
-            var configuracao = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .Build();
-
-            return configuracao["ArquivoJson:ConfiguracaoPreco"]!;
-        }
-
-        private static void AtualizarBancoDados(DbContext db)
-        {
-            var migracoesPendentes = db.Database.GetPendingMigrations();
-
-            if (migracoesPendentes.Any())
-            {
-                try
-                {
-                    db.Database.Migrate();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Não foi possivel atualizar o banco de dados: {ex.Message}");
-                    db.Database.CloseConnection();
-                    return;
-                }
-            }
-        }
+      
     }
 }

@@ -13,7 +13,6 @@ namespace LocadoraDeVeiculos.WinApp
                     .WriteTo.Seq("http://localhost:5341")
                     .CreateLogger();
 
-
             ApplicationConfiguration.Initialize();
             Application.Run(new TelaPrincipalForm());
         }
