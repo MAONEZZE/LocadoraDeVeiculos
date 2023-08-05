@@ -37,11 +37,11 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
     {
         public static bool Inicializar;
 
-      
+
         static IDictionary<string, ControladorBase> controladores = new Dictionary<string, ControladorBase>();
 
         static Ioc()
-        {         
+        {
             var dbContext = InicializarContexto();
 
             AtualizarBancoDados(dbContext);
@@ -67,8 +67,8 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             var servicoGrupoAutomovel = new ServicoGrupoAutomovel(repositorioGrupoAutomovel, repositorioAutomovel);
 
             var controladorGrupoAutomovel = new ControladorGrupoAutomovel(servicoGrupoAutomovel, repositorioGrupoAutomovel);
-        
-            var servicoAutomovel = new ServicoAutomovel(repositorioAutomovel,repositorioAluguel);
+
+            var servicoAutomovel = new ServicoAutomovel(repositorioAutomovel, repositorioAluguel);
 
             var controladorAutomovel = new ControladorAutomovel(repositorioAutomovel, repositorioGrupoAutomovel, servicoAutomovel);
 
@@ -82,7 +82,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var servicoCondutor = new ServicoCondutor(repositorioCondutor);
 
-            var controladorCondutor = new ControladorCondutor(repositorioCondutor,repositorioCliente, servicoCondutor);
+            var controladorCondutor = new ControladorCondutor(repositorioCondutor, repositorioCliente, servicoCondutor);
 
             var repositorioTaxaServico = new RepositorioTaxaServico(dbContext);
 
@@ -96,13 +96,13 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var controladorFuncionario = new ControladorFuncionario(servicoFuncionario, repositorioFuncionario);
 
-            var repPrecoComb = new RepositorioPrecoCombustivel(ObterArquivoJsonPrecoCombustivel());
+            var repPrecoComb = new RepositorioPrecoCombustivel(new SerializadorJson(ObterArquivoJsonPrecoCombustivel()));
 
             var repositorioPlanoDeCobranca = new RepositorioPlanoDeCobranca(dbContext);
 
             var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb);
 
-            var controladorAluguel = new ControladorAluguel(servicoAluguel, 
+            var controladorAluguel = new ControladorAluguel(servicoAluguel,
                                                             repositorioAluguel,
                                                             repositorioFuncionario,
                                                             repositorioCliente,
@@ -172,7 +172,16 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             if (migracoesPendentes.Any())
             {
-                db.Database.Migrate();
+                try
+                {
+                    db.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Não foi possivel atualizar o banco de dados: {ex.Message}");
+                    db.Database.CloseConnection();
+                    return;
+                }
             }
         }
     }
