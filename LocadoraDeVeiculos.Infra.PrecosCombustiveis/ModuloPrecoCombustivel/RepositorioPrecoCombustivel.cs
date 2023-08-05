@@ -6,9 +6,9 @@ namespace LocadoraDeVeiculos.Infra.PrecosCombustiveis.ModuloPrecoCombustivel
     {
         ISerializador serializador;
 
-        public RepositorioPrecoCombustivel(string arquivo)
+        public RepositorioPrecoCombustivel(ISerializador serializador)
         {
-            this.serializador = new SerializadorJson(arquivo);
+            this.serializador = serializador;           
         }
 
         public void Atualizar(PrecoCombustivel dados)
