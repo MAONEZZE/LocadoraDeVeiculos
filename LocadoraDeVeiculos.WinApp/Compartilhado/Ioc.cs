@@ -7,6 +7,7 @@ using LocadoraDeVeiculos.Infra.ModuloCupom;
 using LocadoraDeVeiculos.Infra.ModuloFuncionario;
 using LocadoraDeVeiculos.Infra.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Infra.ModuloParceiro;
+using LocadoraDeVeiculos.Infra.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Infra.ModuloTaxaServico;
 using LocadoraDeVeiculos.Infra.PrecosCombustiveis.ModuloPrecoCombustivel;
 using LocadoraDeVeiculos.Servico.ModuloAluguel;
@@ -59,13 +60,15 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var repositorioGrupoAutomovel = new RepositorioGrupoAutomovel(dbContext);
 
-            var servicoGrupoAutomovel = new ServicoGrupoAutomovel(repositorioGrupoAutomovel);
-
-            var controladorGrupoAutomovel = new ControladorGrupoAutomovel(servicoGrupoAutomovel, repositorioGrupoAutomovel);
+            var repositorioAluguel = new RepositorioAluguel(dbContext);
 
             var repositorioAutomovel = new RepositorioAutomovel(dbContext);
 
-            var servicoAutomovel = new ServicoAutomovel(repositorioAutomovel);
+            var servicoGrupoAutomovel = new ServicoGrupoAutomovel(repositorioGrupoAutomovel, repositorioAutomovel);
+
+            var controladorGrupoAutomovel = new ControladorGrupoAutomovel(servicoGrupoAutomovel, repositorioGrupoAutomovel);
+        
+            var servicoAutomovel = new ServicoAutomovel(repositorioAutomovel,repositorioAluguel);
 
             var controladorAutomovel = new ControladorAutomovel(repositorioAutomovel, repositorioGrupoAutomovel, servicoAutomovel);
 
@@ -95,11 +98,21 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var repPrecoComb = new RepositorioPrecoCombustivel(ObterArquivoJsonPrecoCombustivel());
 
-            var repositorioAluguel = new RepositorioAluguel(dbContext);
+            var repositorioPlanoDeCobranca = new RepositorioPlanoDeCobranca(dbContext);
 
-            var servicoAluguel = new ServicoAluguel(repositorioAluguel);
+            var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb);
 
-            var controladorAluguel = new ControladorAluguel(servicoAluguel, repositorioAluguel, repPrecoComb);
+            var controladorAluguel = new ControladorAluguel(servicoAluguel, 
+                                                            repositorioAluguel,
+                                                            repositorioFuncionario,
+                                                            repositorioCliente,
+                                                            repositorioCondutor,
+                                                            repositorioGrupoAutomovel,
+                                                            repositorioAutomovel,
+                                                            repositorioTaxaServico,
+                                                            repositorioPlanoDeCobranca,
+                                                            repositorioCupom
+                                                            );
 
 
             controladores.Add("Parceiro", controladorParceiro);
@@ -152,8 +165,6 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             return configuracao["ArquivoJson:ConfiguracaoPreco"]!;
         }
-
-
 
         private static void AtualizarBancoDados(DbContext db)
         {

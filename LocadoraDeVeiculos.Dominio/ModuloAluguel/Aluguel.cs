@@ -24,7 +24,11 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
 
         public PlanoDeCobranca PlanoDeCobranca { get; set; }
 
+        public int KmAutomovelAtual { get; set; }
+
         public DateTime DataLocacao { get; set; }
+
+        public DateTime DataDevolucaoPrevista { get; set; }
 
         public DateTime DataDevolucao { get; set; }
 
@@ -43,7 +47,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             
         }
 
-        public Aluguel(Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, DateTime dataLocacao, DateTime dataDevolucao, Cupom cupom, List<TaxaServico> listaTaxaServico, bool estaAberto)
+        public Aluguel(Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, List<TaxaServico> listaTaxaServico, bool estaAberto)
         {
             this.Funcionario = funcionario;
             this.Cliente = cliente;
@@ -51,23 +55,27 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             this.GrupoAutomovel = grupoAutomovel;
             this.Automovel = automovel;
             this.PlanoDeCobranca = planoDeCobranca;
+            this.KmAutomovelAtual = kmAutomovelAtual;
             this.DataLocacao = dataLocacao;
+            this.DataDevolucaoPrevista = dataDevolucaoPrevista;
             this.DataDevolucao = dataDevolucao;
             this.Cupom = cupom;
             this.TaxasServicos = listaTaxaServico;
             this.EstaAberto = estaAberto;
         }
 
-        public Aluguel(Guid Id, Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, DateTime dataLocacao, DateTime dataDevolucao, Cupom cupom, List<TaxaServico> listaTaxaServico, bool estaAberto)
+        public Aluguel(Guid id, Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, List<TaxaServico> listaTaxaServico, bool estaAberto)
         {
-            this.Id = Id;
+            this.Id = id;
             this.Funcionario = funcionario;
             this.Cliente = cliente;
             this.Condutor = condutor;
             this.GrupoAutomovel = grupoAutomovel;
             this.Automovel = automovel;
             this.PlanoDeCobranca = planoDeCobranca;
+            this.KmAutomovelAtual = kmAutomovelAtual;
             this.DataLocacao = dataLocacao;
+            this.DataDevolucaoPrevista = dataDevolucaoPrevista;
             this.DataDevolucao = dataDevolucao;
             this.Cupom = cupom;
             this.TaxasServicos = listaTaxaServico;

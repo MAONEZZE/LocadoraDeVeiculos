@@ -4,7 +4,7 @@
     {
         public string Nome { get; set; }
 
-        public int Preco { get; set; }
+        public Decimal Preco { get; set; }
 
         public EnumTipoCalculo TipoCalculo { get; set; }
 
@@ -33,6 +33,18 @@
             Nome = entidade.Nome;
             Preco = entidade.Preco;
             TipoCalculo = entidade.TipoCalculo;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is TaxaServico servico
+                   && Id == servico.Id
+                   && Nome == servico.Nome;
+        }
+
+        public override string ToString()
+        {
+            return Nome;
         }
 
     }

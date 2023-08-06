@@ -5,9 +5,6 @@
         Etanol,
         Gasolina,
         Diesel,
-        Gas,
-        Flex
+        Gas
     }
-
-
 }

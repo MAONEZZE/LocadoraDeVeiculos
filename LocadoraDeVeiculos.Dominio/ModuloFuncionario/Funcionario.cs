@@ -8,7 +8,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloFuncionario
 
         public DateTime DataAdmissao { get; set; }
 
-        public int Salario { get; set; }
+        public Decimal Salario { get; set; }
 
         public Funcionario()
         {
@@ -41,6 +41,18 @@ namespace LocadoraDeVeiculos.Dominio.ModuloFuncionario
             DataAdmissao = entidade.DataAdmissao;
 
             Salario = entidade.Salario;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Funcionario funcionario &&
+                   Id.Equals(funcionario.Id) &&
+                   Nome == funcionario.Nome;
+        }
+
+        public override string ToString()
+        {
+            return Nome;
         }
     }
 }

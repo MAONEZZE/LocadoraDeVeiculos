@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 
 namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
 {
@@ -44,9 +45,11 @@ namespace LocadoraDeVeiculos.Infra.ModuloAutomovel
                     GrupoAutomovel = automovel.GrupoAutomovel
 
                 }).ToList();
-
         }
-
-     
+        
+        public List<Automovel> SelecionarPorGrupoAutomovel(GrupoAutomovel grupoAutomovel)
+        {
+            return registros.Where(registros => registros.GrupoAutomovel == grupoAutomovel).ToList();
+        }
     }
 }

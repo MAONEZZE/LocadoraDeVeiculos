@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCondutor;
+﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
+using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 
 namespace LocadoraDeVeiculos.Infra.ModuloCondutor
 {
@@ -16,6 +17,11 @@ namespace LocadoraDeVeiculos.Infra.ModuloCondutor
                 return true;
 
             return false;
+        }
+
+        public List<Condutor> SelecionarPorCliente(Cliente cliente)
+        {
+            return registros.Where(r => r.Cliente == cliente).ToList();
         }
     }
 }

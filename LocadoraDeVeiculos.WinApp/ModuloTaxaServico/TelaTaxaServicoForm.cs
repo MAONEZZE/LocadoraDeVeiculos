@@ -18,7 +18,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
         {
             txtNome.Text = taxaServico.Nome;
 
-            txtPreco.Text = (taxaServico.Preco/100).ToString("C2", CultureInfo.GetCultureInfo("pt-BR"));
+            txtPreco.Value = taxaServico.Preco;
 
             if (taxaServico.TipoCalculo == EnumTipoCalculo.Fixo)
             {
@@ -39,9 +39,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
 
             taxaServico.Nome = txtNome.Text;
 
-            double preco = double.Parse(txtPreco.Text, NumberStyles.Currency, CultureInfo.GetCultureInfo("pt-BR")) * 100;
-
-            taxaServico.Preco = Convert.ToInt32(preco);
+            taxaServico.Preco = txtPreco.Value;
 
             if (rbnFixo.Checked)
             {
@@ -61,20 +59,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
                 TelaPrincipalForm.Instancia.AtualizarRodape(erro);
 
                 DialogResult = DialogResult.None;
-            }
-        }
-
-        private void txtPreco_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-                (e.KeyChar != ','))
-            {
-                e.Handled = true;
-            }
-
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
-            {
-                e.Handled = true;
             }
         }
     }

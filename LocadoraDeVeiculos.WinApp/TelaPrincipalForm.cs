@@ -175,13 +175,7 @@ namespace LocadoraDeVeiculos.WinApp
 
         private void AluguelMenuItem_Click(object sender, EventArgs e)
         {
-            var control = (ControladorAluguel)Ioc.ObterControlador(sender);
-
-            controlador = control;
-
-            control.ConfigurarPrecoCombustivel();
-
-            // ConfigurarTelaPrincipal();
+            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
         }
 
         #endregion

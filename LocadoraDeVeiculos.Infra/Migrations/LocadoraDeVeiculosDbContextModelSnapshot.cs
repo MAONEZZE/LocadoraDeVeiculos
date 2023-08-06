@@ -72,6 +72,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<DateTime>("DataDevolucao")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DataDevolucaoPrevista")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DataLocacao")
                         .HasColumnType("datetime2");
 
@@ -85,6 +88,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
 
                     b.Property<Guid>("GrupoAutomovelId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("KmAutomovelAtual")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("PlanoDeCobrancaId")
                         .HasColumnType("uniqueidentifier");

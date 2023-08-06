@@ -33,9 +33,10 @@
             label1 = new Label();
             txtDataAdmissao = new DateTimePicker();
             label2 = new Label();
-            txtSalario = new TextBox();
             btnCancelar = new Button();
             btnSalvar = new Button();
+            txtSalario = new NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)txtSalario).BeginInit();
             SuspendLayout();
             // 
             // txtNome
@@ -80,14 +81,6 @@
             label2.TabIndex = 6;
             label2.Text = "Salário:";
             // 
-            // txtSalario
-            // 
-            txtSalario.Location = new Point(92, 97);
-            txtSalario.Name = "txtSalario";
-            txtSalario.Size = new Size(97, 23);
-            txtSalario.TabIndex = 7;
-            txtSalario.KeyPress += txtSalario_KeyPress;
-            // 
             // btnCancelar
             // 
             btnCancelar.DialogResult = DialogResult.Cancel;
@@ -111,14 +104,23 @@
             btnSalvar.UseVisualStyleBackColor = true;
             btnSalvar.Click += btnSalvar_Click;
             // 
+            // txtSalario
+            // 
+            txtSalario.DecimalPlaces = 2;
+            txtSalario.Location = new Point(92, 95);
+            txtSalario.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            txtSalario.Name = "txtSalario";
+            txtSalario.Size = new Size(97, 23);
+            txtSalario.TabIndex = 10;
+            // 
             // TelaFuncionarioForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(410, 196);
+            Controls.Add(txtSalario);
             Controls.Add(btnCancelar);
             Controls.Add(btnSalvar);
-            Controls.Add(txtSalario);
             Controls.Add(label2);
             Controls.Add(txtDataAdmissao);
             Controls.Add(label1);
@@ -126,6 +128,7 @@
             Controls.Add(LabelNome);
             Name = "TelaFuncionarioForm";
             Text = "TelaFuncionarioForm";
+            ((System.ComponentModel.ISupportInitialize)txtSalario).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -137,8 +140,8 @@
         private Label label1;
         private DateTimePicker txtDataAdmissao;
         private Label label2;
-        private TextBox txtSalario;
         private Button btnCancelar;
         private Button btnSalvar;
+        private NumericUpDown txtSalario;
     }
 }

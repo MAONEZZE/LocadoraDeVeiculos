@@ -2,7 +2,7 @@
 
 namespace LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco
 {
-    public delegate void onGravarConfiguracao(PrecoCombustivel conf);
+    public delegate Result onGravarConfiguracao(PrecoCombustivel conf);
 
     public partial class TelaPrecoCombustivelForm : Form
     {
