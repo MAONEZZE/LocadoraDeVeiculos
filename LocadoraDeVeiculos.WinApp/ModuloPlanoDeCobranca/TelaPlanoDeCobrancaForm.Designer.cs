@@ -32,15 +32,17 @@
             btnSalvar = new Button();
             cbox_gpAutomoveis = new ComboBox();
             groupBox1 = new GroupBox();
-            label1 = new Label();
-            cbox_tipoPlano = new ComboBox();
-            txb_precoD = new TextBox();
-            txb_precoKm = new TextBox();
-            txb_kmDisponivel = new TextBox();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
             label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            txb_kmDisponivel = new TextBox();
+            txb_precoKm = new TextBox();
+            txb_precoD = new TextBox();
+            cbox_tipoPlano = new ComboBox();
+            label1 = new Label();
+            label6 = new Label();
+            textBox1 = new TextBox();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -48,7 +50,7 @@
             // 
             btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnCancelar.DialogResult = DialogResult.Cancel;
-            btnCancelar.Location = new Point(208, 246);
+            btnCancelar.Location = new Point(208, 266);
             btnCancelar.Margin = new Padding(3, 2, 3, 2);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(82, 32);
@@ -60,7 +62,7 @@
             // 
             btnSalvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalvar.DialogResult = DialogResult.OK;
-            btnSalvar.Location = new Point(108, 246);
+            btnSalvar.Location = new Point(108, 266);
             btnSalvar.Margin = new Padding(3, 2, 3, 2);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.Size = new Size(82, 32);
@@ -71,7 +73,7 @@
             // cbox_gpAutomoveis
             // 
             cbox_gpAutomoveis.FormattingEnabled = true;
-            cbox_gpAutomoveis.Location = new Point(144, 30);
+            cbox_gpAutomoveis.Location = new Point(137, 18);
             cbox_gpAutomoveis.Name = "cbox_gpAutomoveis";
             cbox_gpAutomoveis.Size = new Size(147, 23);
             cbox_gpAutomoveis.TabIndex = 12;
@@ -86,77 +88,12 @@
             groupBox1.Controls.Add(txb_precoKm);
             groupBox1.Controls.Add(txb_precoD);
             groupBox1.Controls.Add(cbox_tipoPlano);
-            groupBox1.Location = new Point(12, 73);
+            groupBox1.Location = new Point(12, 96);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(278, 154);
             groupBox1.TabIndex = 13;
             groupBox1.TabStop = false;
             groupBox1.Text = "Configurações de Planos";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 33);
-            label1.Name = "label1";
-            label1.Size = new Size(126, 15);
-            label1.TabIndex = 14;
-            label1.Text = "Grupo de Automoveis:";
-            // 
-            // cbox_tipoPlano
-            // 
-            cbox_tipoPlano.FormattingEnabled = true;
-            cbox_tipoPlano.Location = new Point(125, 27);
-            cbox_tipoPlano.Name = "cbox_tipoPlano";
-            cbox_tipoPlano.Size = new Size(147, 23);
-            cbox_tipoPlano.TabIndex = 15;
-            // 
-            // txb_precoD
-            // 
-            txb_precoD.Location = new Point(125, 56);
-            txb_precoD.Name = "txb_precoD";
-            txb_precoD.Size = new Size(147, 23);
-            txb_precoD.TabIndex = 16;
-            // 
-            // txb_precoKm
-            // 
-            txb_precoKm.Location = new Point(125, 85);
-            txb_precoKm.Name = "txb_precoKm";
-            txb_precoKm.Size = new Size(147, 23);
-            txb_precoKm.TabIndex = 17;
-            // 
-            // txb_kmDisponivel
-            // 
-            txb_kmDisponivel.Location = new Point(125, 114);
-            txb_kmDisponivel.Name = "txb_kmDisponivel";
-            txb_kmDisponivel.Size = new Size(147, 23);
-            txb_kmDisponivel.TabIndex = 18;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(40, 30);
-            label2.Name = "label2";
-            label2.Size = new Size(83, 15);
-            label2.TabIndex = 19;
-            label2.Text = "Tipo do Plano:";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(49, 61);
-            label3.Name = "label3";
-            label3.Size = new Size(73, 15);
-            label3.TabIndex = 20;
-            label3.Text = "Preço Diária:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(42, 89);
-            label4.Name = "label4";
-            label4.Size = new Size(82, 15);
-            label4.TabIndex = 21;
-            label4.Text = "Preço por Km:";
             // 
             // label5
             // 
@@ -167,11 +104,94 @@
             label5.TabIndex = 22;
             label5.Text = "Km Disponível:";
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(42, 89);
+            label4.Name = "label4";
+            label4.Size = new Size(82, 15);
+            label4.TabIndex = 21;
+            label4.Text = "Preço por Km:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(49, 61);
+            label3.Name = "label3";
+            label3.Size = new Size(73, 15);
+            label3.TabIndex = 20;
+            label3.Text = "Preço Diária:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(40, 30);
+            label2.Name = "label2";
+            label2.Size = new Size(83, 15);
+            label2.TabIndex = 19;
+            label2.Text = "Tipo do Plano:";
+            // 
+            // txb_kmDisponivel
+            // 
+            txb_kmDisponivel.Location = new Point(125, 114);
+            txb_kmDisponivel.Name = "txb_kmDisponivel";
+            txb_kmDisponivel.Size = new Size(147, 23);
+            txb_kmDisponivel.TabIndex = 18;
+            // 
+            // txb_precoKm
+            // 
+            txb_precoKm.Location = new Point(125, 85);
+            txb_precoKm.Name = "txb_precoKm";
+            txb_precoKm.Size = new Size(147, 23);
+            txb_precoKm.TabIndex = 17;
+            // 
+            // txb_precoD
+            // 
+            txb_precoD.Location = new Point(125, 56);
+            txb_precoD.Name = "txb_precoD";
+            txb_precoD.Size = new Size(147, 23);
+            txb_precoD.TabIndex = 16;
+            // 
+            // cbox_tipoPlano
+            // 
+            cbox_tipoPlano.FormattingEnabled = true;
+            cbox_tipoPlano.Location = new Point(125, 27);
+            cbox_tipoPlano.Name = "cbox_tipoPlano";
+            cbox_tipoPlano.Size = new Size(147, 23);
+            cbox_tipoPlano.TabIndex = 15;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(8, 21);
+            label1.Name = "label1";
+            label1.Size = new Size(126, 15);
+            label1.TabIndex = 14;
+            label1.Text = "Grupo de Automoveis:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(41, 59);
+            label6.Name = "label6";
+            label6.Size = new Size(93, 15);
+            label6.TabIndex = 15;
+            label6.Text = "Nome do Plano:";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(137, 56);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(147, 23);
+            textBox1.TabIndex = 23;
+            // 
             // TelaPlanoDeCobrancaForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(302, 289);
+            ClientSize = new Size(302, 309);
+            Controls.Add(textBox1);
+            Controls.Add(label6);
             Controls.Add(label1);
             Controls.Add(groupBox1);
             Controls.Add(cbox_gpAutomoveis);
@@ -200,5 +220,7 @@
         private TextBox txb_precoKm;
         private TextBox txb_precoD;
         private ComboBox cbox_tipoPlano;
+        private Label label6;
+        private TextBox textBox1;
     }
 }

@@ -6,7 +6,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
     public partial class TelaCondutorForm : Form
     {
         public event GravarRegistroDelegate<Condutor> onGravarRegistro;
-        IRepositorioCliente repCliente;
         private Condutor condutor;
 
         public TelaCondutorForm(IRepositorioCliente repCliente)
@@ -14,8 +13,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
             InitializeComponent();
 
             this.ConfigurarDialog();
-
-            this.repCliente = repCliente;
 
             AlimentarCBOXCliente(repCliente);
         }
@@ -36,12 +33,22 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
                 txb_nome.Text = cliente.Nome;
                 mtxb_cpf.Text = cliente.Documento;
                 mtxb_telefone.Text = cliente.Telefone;
+
+                DesabilitarCampos();
             }
+        }
+
+        private void DesabilitarCampos()
+        {
+            txb_email.Enabled = false;
+            txb_nome.Enabled = false;
+            mtxb_cpf.Enabled = false;
+            mtxb_telefone.Enabled = false;
         }
 
         private void cbox_cliente_SelectedValueChanged(object sender, EventArgs e)
         {
-            var clienteSelec = (Cliente)cbox_cliente.SelectedValue;
+            Cliente clienteSelec = (Cliente)cbox_cliente.SelectedItem;
 
             VerificadorClienteCpf(clienteSelec);
         }
@@ -75,7 +82,15 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
             mtxb_telefone.Text = condutor.Telefone;
             mtxb_cpf.Text = condutor.Documento;
             txb_cnh.Text = condutor.Cnh;
-            txb_data.Value = condutor.Validade;
+
+            if(condutor.Validade == DateTime.MinValue)
+            {
+                txb_data.Value = DateTime.Now;
+            }
+            else
+            {
+                txb_data.Value = condutor.Validade;
+            }
 
             this.condutor = condutor;
         }
