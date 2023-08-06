@@ -8,11 +8,17 @@ namespace LocadoraDeVeiculos.InfraEmail
 {
     public class GeradorEmail : IGeradorEmail
     {
-        private readonly string? senha = Environment.GetEnvironmentVariable("EMAIL_PASSWORD");
-     
+        private readonly string? senha;
+
+        public GeradorEmail()
+        {
+            this.senha = "";
+        }
+
+       
         public Result EnviarEmail(Aluguel aluguel, byte[] bytesAnexo = null!)
         {
-            string emailRemetente = "";
+            string emailRemetente = "equip3devagar3sempr3@gmail.com";
 
             string tipoEmail = aluguel.EstaAberto ? "Aprovação" : "Finalização";
 

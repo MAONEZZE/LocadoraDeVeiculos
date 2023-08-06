@@ -40,73 +40,80 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
         static Ioc()
         {
-            var configuracao = new ConfiguracaoAppSettings();
+            var geradorPdf = new GeradorPdf();
+
+            var geradorEmail = new GeradorEmail();
 
             var configuracaoDb = new ConfiguracaoDb();
 
+            var configuracao = new ConfiguracaoAppSettings();
+        
             var dbContext = configuracaoDb.InicializarContexto(configuracao);
 
-            configuracaoDb.AtualizarBancoDados(dbContext);
+
+            #region repositórios
 
             var repositorioParceiro = new RepositorioParceiro(dbContext);
 
-            var servicoParceiro = new ServicoParceiro(repositorioParceiro);
-
-            var controladorParceiro = new ControladorParceiro(servicoParceiro, repositorioParceiro);
-
             var repositorioCupom = new RepositorioCupom(dbContext);
-
-            var servicoCupom = new ServicoCupom(repositorioCupom);
-
-            var controladorCupom = new ControladorCupom(servicoCupom, repositorioCupom, repositorioParceiro);
-
-            var repositorioGrupoAutomovel = new RepositorioGrupoAutomovel(dbContext);
 
             var repositorioAluguel = new RepositorioAluguel(dbContext);
 
             var repositorioAutomovel = new RepositorioAutomovel(dbContext);
 
-            var servicoGrupoAutomovel = new ServicoGrupoAutomovel(repositorioGrupoAutomovel, repositorioAutomovel);
-
-            var controladorGrupoAutomovel = new ControladorGrupoAutomovel(servicoGrupoAutomovel, repositorioGrupoAutomovel);
-
-            var servicoAutomovel = new ServicoAutomovel(repositorioAutomovel, repositorioAluguel);
-
-            var controladorAutomovel = new ControladorAutomovel(repositorioAutomovel, repositorioGrupoAutomovel, servicoAutomovel);
-
             var repositorioCliente = new RepositorioCliente(dbContext);
 
-            var servicoCliente = new ServicoCliente(repositorioCliente);
-
-            var controladorCliente = new ControladorCliente(repositorioCliente, servicoCliente);
+            var repositorioGrupoAutomovel = new RepositorioGrupoAutomovel(dbContext);
 
             var repositorioCondutor = new RepositorioCondutor(dbContext);
 
-            var servicoCondutor = new ServicoCondutor(repositorioCondutor);
-
-            var controladorCondutor = new ControladorCondutor(repositorioCondutor, repositorioCliente, servicoCondutor);
-
             var repositorioTaxaServico = new RepositorioTaxaServico(dbContext);
-
-            var servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServico);
-
-            var controladorTaxaServico = new ControladorTaxaServico(servicoTaxaServico, repositorioTaxaServico);
 
             var repositorioFuncionario = new RepositorioFuncionario(dbContext);
 
-            var servicoFuncionario = new ServicoFuncionario(repositorioFuncionario);
-
-            var controladorFuncionario = new ControladorFuncionario(servicoFuncionario, repositorioFuncionario);
+            var repositorioPlanoDeCobranca = new RepositorioPlanoDeCobranca(dbContext);
 
             var repPrecoComb = new RepositorioPrecoCombustivel(new SerializadorJson(configuracao.ObterArquivoJsonPrecoCombustivel()));
 
-            var repositorioPlanoDeCobranca = new RepositorioPlanoDeCobranca(dbContext);
+            #endregion
 
-            var geradorEmail = new GeradorEmail();
+            #region serviços
+            var servicoParceiro = new ServicoParceiro(repositorioParceiro);
 
-            var geradorPdf = new GeradorPdf();
+            var servicoCupom = new ServicoCupom(repositorioCupom);
+
+            var servicoGrupoAutomovel = new ServicoGrupoAutomovel(repositorioGrupoAutomovel, repositorioAutomovel);
+
+            var servicoAutomovel = new ServicoAutomovel(repositorioAutomovel, repositorioAluguel);
+
+            var servicoCliente = new ServicoCliente(repositorioCliente);
+
+            var servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServico);
+
+            var servicoFuncionario = new ServicoFuncionario(repositorioFuncionario);
 
             var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb, geradorEmail, geradorPdf);
+
+            var servicoCondutor = new ServicoCondutor(repositorioCondutor);
+
+            #endregion
+
+            #region controladores
+            var controladorCupom = new ControladorCupom(servicoCupom, repositorioCupom, repositorioParceiro);
+
+            var controladorParceiro = new ControladorParceiro(servicoParceiro, repositorioParceiro);
+
+            var controladorGrupoAutomovel = new ControladorGrupoAutomovel(servicoGrupoAutomovel, repositorioGrupoAutomovel);      
+
+            var controladorAutomovel = new ControladorAutomovel(repositorioAutomovel, repositorioGrupoAutomovel, servicoAutomovel);
+
+            var controladorCliente = new ControladorCliente(repositorioCliente, servicoCliente);
+
+            var controladorCondutor = new ControladorCondutor(repositorioCondutor, repositorioCliente, servicoCondutor);
+
+            var controladorTaxaServico = new ControladorTaxaServico(servicoTaxaServico, repositorioTaxaServico);
+
+            var controladorFuncionario = new ControladorFuncionario(servicoFuncionario, repositorioFuncionario);
 
             var controladorAluguel = new ControladorAluguel(servicoAluguel,
                                                             repositorioAluguel,
@@ -119,6 +126,8 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
                                                             repositorioPlanoDeCobranca,
                                                             repositorioCupom
                                                             );
+
+            #endregion
 
 
             controladores.Add("Parceiro", controladorParceiro);
@@ -140,7 +149,5 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             return controladores[control.Text];
         }
-
-
     }
 }

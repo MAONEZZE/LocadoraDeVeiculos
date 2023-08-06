@@ -2,10 +2,11 @@
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado
 {
+   
     public class ConfiguracaoAppSettings
     {
         IConfiguration configuration;
-
+    
         public ConfiguracaoAppSettings()
         {
             configuration = new ConfigurationBuilder()
@@ -13,7 +14,7 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
                .AddJsonFile("appsettings.json")
                .Build();
         }
-
+      
         public string ObterConnectionString()
         {
             return configuration.GetConnectionString("SqlServer")!;

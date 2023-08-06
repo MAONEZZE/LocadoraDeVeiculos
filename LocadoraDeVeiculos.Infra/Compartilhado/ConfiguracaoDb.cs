@@ -17,7 +17,7 @@
 
 
 
-        public void AtualizarBancoDados(DbContext db)
+        private void AtualizarBancoDados(DbContext db)
         {
             var migracoesPendentes = db.Database.GetPendingMigrations();
 
