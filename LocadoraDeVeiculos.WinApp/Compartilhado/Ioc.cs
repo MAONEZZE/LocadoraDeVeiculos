@@ -47,7 +47,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             var configuracaoDb = new ConfiguracaoDb();
 
             var configuracao = new ConfiguracaoAppSettings();
-        
+
             var dbContext = configuracaoDb.InicializarContexto(configuracao);
 
 
@@ -103,7 +103,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var controladorParceiro = new ControladorParceiro(servicoParceiro, repositorioParceiro);
 
-            var controladorGrupoAutomovel = new ControladorGrupoAutomovel(servicoGrupoAutomovel, repositorioGrupoAutomovel);      
+            var controladorGrupoAutomovel = new ControladorGrupoAutomovel(servicoGrupoAutomovel, repositorioGrupoAutomovel);
 
             var controladorAutomovel = new ControladorAutomovel(repositorioAutomovel, repositorioGrupoAutomovel, servicoAutomovel);
 
@@ -139,7 +139,6 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             controladores.Add("Taxas ou Serviços", controladorTaxaServico);
             controladores.Add("Funcionário", controladorFuncionario);
             controladores.Add("Aluguel", controladorAluguel);
-
 
         }
 

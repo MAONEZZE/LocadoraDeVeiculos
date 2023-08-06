@@ -125,7 +125,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel
         {
             var erros = new List<string>();
 
-            var utilizado = repositorioAutomovel.SelecionarTodos().Where(a => a.GrupoAutomovel.Equals(grupo)).Any();
+            var utilizado = repositorioAutomovel.SelecionarPorGrupoAutomovel(grupo).Any();
 
             if (utilizado)
                 erros.Add("Esse grupo de veículo ja está sendo utilizado");

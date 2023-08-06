@@ -21,7 +21,16 @@ namespace LocadoraDeVeiculos.InfraEmail
 
                 document.Open();
 
-                var paragraph = new Paragraph(message);
+                var imagem = aluguel.Automovel.Foto.ImagemBytes;
+
+                if (imagem != null)
+                {
+                    var stream = new MemoryStream(imagem);
+
+                    document.Add(Image.GetInstance(stream));
+                }
+           
+               var paragraph = new Paragraph(message);
 
                 document.Add(paragraph);
 
