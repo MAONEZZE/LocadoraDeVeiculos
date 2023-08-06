@@ -1,5 +1,4 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
-using LocadoraDeVeiculos.Infra.Compartilhado;
+﻿using LocadoraDeVeiculos.Infra.Compartilhado;
 using LocadoraDeVeiculos.Infra.ModuloAluguel;
 using LocadoraDeVeiculos.Infra.ModuloAutomovel;
 using LocadoraDeVeiculos.Infra.ModuloCliente;
@@ -41,7 +40,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
         static Ioc()
         {
-           var configuracao = new ConfiguracaoAppSettings();
+            var configuracao = new ConfiguracaoAppSettings();
 
             var configuracaoDb = new ConfiguracaoDb();
 
@@ -131,6 +130,8 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             controladores.Add("Taxas ou Serviços", controladorTaxaServico);
             controladores.Add("Funcionário", controladorFuncionario);
             controladores.Add("Aluguel", controladorAluguel);
+
+
         }
 
         public static ControladorBase ObterControlador(object sender)
@@ -140,6 +141,6 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             return controladores[control.Text];
         }
 
-      
+
     }
 }

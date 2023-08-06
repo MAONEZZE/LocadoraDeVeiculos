@@ -41,7 +41,9 @@ namespace LocadoraDeVeiculos.InfraEmail
                 {
                     smtp.Credentials = new NetworkCredential(emailRemetente, senha);
 
-                    smtp.SendAsync(emailMessage, null);
+                    smtp.EnableSsl = true;
+
+                    smtp.Send(emailMessage);
                 }
 
                 return Result.Ok().WithSuccess("Email enviado com sucesso");
