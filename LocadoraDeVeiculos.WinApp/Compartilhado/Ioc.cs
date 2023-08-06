@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Infra.Compartilhado;
+﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Infra.Compartilhado;
 using LocadoraDeVeiculos.Infra.ModuloAluguel;
 using LocadoraDeVeiculos.Infra.ModuloAutomovel;
 using LocadoraDeVeiculos.Infra.ModuloCliente;
@@ -10,6 +11,7 @@ using LocadoraDeVeiculos.Infra.ModuloParceiro;
 using LocadoraDeVeiculos.Infra.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Infra.ModuloTaxaServico;
 using LocadoraDeVeiculos.Infra.PrecosCombustiveis.ModuloPrecoCombustivel;
+using LocadoraDeVeiculos.InfraEmail;
 using LocadoraDeVeiculos.Servico.ModuloAluguel;
 using LocadoraDeVeiculos.Servico.ModuloAutomovel;
 using LocadoraDeVeiculos.Servico.ModuloCliente;
@@ -101,7 +103,11 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var repositorioPlanoDeCobranca = new RepositorioPlanoDeCobranca(dbContext);
 
-            var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb);
+            var geradorEmail = new GeradorEmail();
+
+            var geradorPdf = new GeradorPdf();
+
+            var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb, geradorEmail, geradorPdf);
 
             var controladorAluguel = new ControladorAluguel(servicoAluguel,
                                                             repositorioAluguel,

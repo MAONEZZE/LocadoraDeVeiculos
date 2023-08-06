@@ -8,34 +8,46 @@ namespace LocadoraDeVeiculos.InfraEmail
 {
     public class GeradorEmail : IGeradorEmail
     {
-        private string? senha = Environment.GetEnvironmentVariable("EMAIL_PASSWORD");
+        private readonly string? senha = Environment.GetEnvironmentVariable("EMAIL_PASSWORD");
+
+        private readonly byte[] bytesAnexo;
+
+        public GeradorEmail(byte[] bytesAnexo = null!)
+        {
+            this.bytesAnexo = bytesAnexo;
+        }
 
         public Result EnviarEmail(Aluguel aluguel)
         {
             string emailRemetente = "";
 
-            string caminhoDoAnexo = "";
+            string tipoEmail = aluguel.EstaAberto ? "Aprovação" : "Finalização";
 
-            MailMessage emailMessage = new MailMessage();
+            var emailMessage = new MailMessage();
 
             emailMessage.From = new MailAddress(ValidarEndereco(emailRemetente));
 
             emailMessage.To.Add(new MailAddress(ValidarEndereco(aluguel.Cliente.Email)));
 
-            string tipoEmail = aluguel.EstaAberto ? "Aprovação" : "Finalização";
-
             emailMessage.Subject = $"Detalhes da {tipoEmail} do aluguel do veículo {aluguel.Automovel.Modelo}";
 
             emailMessage.Body = CorpoEmail();
 
-            emailMessage.Attachments.Add(new Attachment(caminhoDoAnexo));
+            if (bytesAnexo != null)
+            {
+                var anexoStream = new MemoryStream(bytesAnexo);
+
+                var anexo = new Attachment(anexoStream, "Aluguel.pdf", "application/pdf");
+
+                emailMessage.Attachments.Add(anexo);
+            }
 
             try
             {
                 using (var smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
                     smtp.Credentials = new NetworkCredential(emailRemetente, senha);
-                  
+
                     smtp.SendAsync(emailMessage, null);
                 }
 
