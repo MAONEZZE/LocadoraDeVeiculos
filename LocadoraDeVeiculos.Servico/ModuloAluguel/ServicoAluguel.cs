@@ -9,11 +9,16 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
         private IRepositorioPrecoCombustivel repositorioPrecoCombustivel;
 
-        public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IRepositorioPrecoCombustivel repositorioPrecoCombustivel)
+        private IGeradorEmail geradorEmail;
+
+        private IGeradorPdf geradorPdf;
+
+        public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IRepositorioPrecoCombustivel repositorioPrecoCombustivel, IGeradorEmail geradorEmail, IGeradorPdf geradorPdf)
         {
             this.repositorioAluguel = repositorioAluguel;
-
             this.repositorioPrecoCombustivel = repositorioPrecoCombustivel;
+            this.geradorEmail = geradorEmail;
+            this.geradorPdf = geradorPdf;
         }
 
         public Result Inserir(Aluguel aluguel)
@@ -31,6 +36,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             {
                 repositorioAluguel.Inserir(aluguel);
 
+                EnviarEmail(aluguel);
+
                 Log.Debug("Aluguel {AluguelId} inserido com sucesso!", aluguel.Id);
 
                 return Result.Ok();
@@ -45,7 +52,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             }
         }
 
-      
+
         public Result Editar(Aluguel aluguel)
         {
             Log.Debug($"Tentando editar Aluguel... {aluguel}", aluguel);
@@ -83,7 +90,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             {
                 bool aluguelExiste = repositorioAluguel.Existe(aluguel);
 
-                if (aluguelExiste == false) {
+                if (aluguelExiste == false)
+                {
 
                     Log.Warning("Aluguel {AluguelId} não encontrado!", aluguel.Id);
 
@@ -110,17 +118,17 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             }
         }
 
-        public Result ConfigurarPrecoCombustiveis(PrecoCombustivel precos) 
+        public Result ConfigurarPrecoCombustiveis(PrecoCombustivel precos)
         {
             Log.Debug($"Tentando atualizar preços combustíves... {precos}", precos);
 
             var result = precos.Validar();
 
-            if(result.IsFailed)
+            if (result.IsFailed)
             {
                 Log.Error("Não foi possivel atualizar os preços dos combustiveis");
 
-                return Result.Fail(result.Reasons.Select(i=>i.Message));
+                return Result.Fail(result.Reasons.Select(i => i.Message));
             }
 
             try
@@ -137,6 +145,37 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
                 return Result.Fail(result.Reasons.Select(i => i.Message));
             }
+        }
+
+
+        public Result EnviarEmail(Aluguel aluguel)
+        {
+            Log.Debug($"Tentando enviar email...{aluguel}", aluguel);
+
+            var anexo = geradorPdf.GerarPdfEmail(aluguel);
+
+            if (anexo == null)
+            {
+                string msg = "Falha ao gerar PDF";
+
+                Log.Error(msg);
+
+                return Result.Fail(msg);
+            }
+
+            var statusEnvio = geradorEmail.EnviarEmail(aluguel, anexo);
+
+            if (statusEnvio.IsFailed)
+            {
+                Log.Error("Falha ao tentar enviar email {aluguel}", aluguel);
+
+                Result.Fail(statusEnvio.Reasons.Select(i => i.Message));
+            }
+
+            Log.Debug("Email enviado com sucesso {aluguel}", aluguel);
+
+            return Result.Ok().WithSuccess("Email enviado com sucesso");
+
         }
 
         public PrecoCombustivel ObterConfiguracoesAtuais()
