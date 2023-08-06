@@ -5,7 +5,17 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCondutor
 {
     public class Condutor : Pessoa<Condutor>
     {
-        public DateTime Validade { get; set; }
+        public DateTime Validade
+        {
+            get
+            {
+                return DateTime.MinValue;
+            }
+            set 
+            {
+                Validade = value;
+            }
+        } 
         public string Cnh { get; set; } 
         public Cliente Cliente { get; set; }
         public bool EstaValido { get => Validade.Date > DateTime.Now.Date; }

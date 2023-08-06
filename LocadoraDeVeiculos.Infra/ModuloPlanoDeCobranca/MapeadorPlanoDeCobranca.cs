@@ -18,6 +18,8 @@ namespace LocadoraDeVeiculos.Infra.ModuloPlanoDeCobranca
 
             builder.Property(p => p.TipoPlano).HasColumnType("varchar(30)").HasColumnName("Tipo_de_Plano").IsRequired();
 
+            builder.Property(p => p.NomePlano).HasColumnType("varchar(30)").HasColumnName("Nome_do_Plano").IsRequired();
+
             builder.HasOne(p => p.GrupoAutomovel).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
         }
     }
