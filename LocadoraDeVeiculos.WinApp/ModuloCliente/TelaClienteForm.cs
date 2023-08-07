@@ -10,8 +10,10 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
         public TelaClienteForm()
         {
             InitializeComponent();
+
             mtxb_cpf.Enabled = false;
             txb_cnpj.Enabled = false;
+
             this.ConfigurarDialog();
         }
 
