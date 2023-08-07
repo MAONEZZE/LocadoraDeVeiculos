@@ -104,7 +104,14 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
 
         private void chk_clienteCondut_CheckedChanged(object sender, EventArgs e)
         {
-            AlterarVisibilidadeCampos(true);
+            if(chk_clienteCondut.Checked == true)
+            {
+                AlterarVisibilidadeCampos(false);
+            }
+            else if(chk_clienteCondut.Checked == false)
+            {
+                AlterarVisibilidadeCampos(true);
+            }
         }
     }
 }
