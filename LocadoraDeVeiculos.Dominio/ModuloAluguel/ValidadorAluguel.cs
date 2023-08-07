@@ -42,6 +42,8 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             RuleFor(x => x.TaxasServicos)
                 .NotNull()
                 .NotEmpty();
+
+     
         }
     }
 }

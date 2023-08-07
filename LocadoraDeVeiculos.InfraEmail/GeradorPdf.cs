@@ -54,5 +54,27 @@ namespace LocadoraDeVeiculos.InfraEmail
             sb.AppendLine($"Valor: R$ {aluguel.ValorParcial}");
             return sb.ToString();
         }
+
+        public void GerarTabelaPdf(Aluguel aluguel, Document document )
+        {
+            var table = new PdfPTable(2);
+
+            table.AddCell("Taxas ou Serviços");
+            table.AddCell("Valor");
+
+            foreach (var item in aluguel.TaxasServicos)
+            {
+                table.AddCell(item.Nome);
+                table.AddCell(item.Preco.ToString());
+            }
+
+            document.Add(table);
+
+
+        }
     }
 }
+
+
+
+

@@ -150,6 +150,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             controladores.Add("Aluguel", controladorAluguel);
             controladores.Add("Plano de Cobrança", controladorPlano);
 
+         
         }
 
         public static ControladorBase ObterControlador(object sender)
