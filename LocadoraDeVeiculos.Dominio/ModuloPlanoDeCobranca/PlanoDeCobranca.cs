@@ -9,11 +9,9 @@ namespace LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca
         public decimal PrecoDiaria { get; set; }
         public TipoPlanoEnum TipoPlano { get; set; }
         public GrupoAutomovel GrupoAutomovel { get; set; }
-        public string NomePlano { get; set;}
-        public decimal TotalPreco { get; set; }
 
         public PlanoDeCobranca() { }
-        public PlanoDeCobranca(Guid id, int kmDisponivel, decimal precoKm, decimal precoDiaria, TipoPlanoEnum tipoPlano, GrupoAutomovel grupoAutomovel, string nomePlano) : this()
+        public PlanoDeCobranca(Guid id, int kmDisponivel, decimal precoKm, decimal precoDiaria, TipoPlanoEnum tipoPlano, GrupoAutomovel grupoAutomovel) : this()
         {
             base.Id = id;
             this.KmDisponivel = kmDisponivel;
@@ -21,17 +19,15 @@ namespace LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca
             this.PrecoDiaria = precoDiaria;
             this.TipoPlano = tipoPlano;
             this.GrupoAutomovel = grupoAutomovel;
-            this.NomePlano = nomePlano;
         }
 
-        public PlanoDeCobranca(int kmDisponivel, decimal precoKm, decimal precoDiaria, TipoPlanoEnum tipoPlano, GrupoAutomovel grupoAutomovel, string nomePlano) : this()
+        public PlanoDeCobranca(int kmDisponivel, decimal precoKm, decimal precoDiaria, TipoPlanoEnum tipoPlano, GrupoAutomovel grupoAutomovel) : this()
         {
             this.KmDisponivel = kmDisponivel;
             this.PrecoKm = precoKm;
             this.PrecoDiaria = precoDiaria;
             this.TipoPlano = tipoPlano;
             this.GrupoAutomovel = grupoAutomovel;
-            this.NomePlano = nomePlano;
         }
 
         public override void AlterarInformacoes(PlanoDeCobranca entidade)
@@ -43,7 +39,6 @@ namespace LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca
         {
             return obj is PlanoDeCobranca planoC 
                 && Id == planoC.Id 
-                && NomePlano == planoC.NomePlano
                 && KmDisponivel == planoC.KmDisponivel
                 && PrecoKm == planoC.PrecoKm
                 && PrecoDiaria == planoC.PrecoDiaria
@@ -51,19 +46,35 @@ namespace LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca
                 && GrupoAutomovel == planoC.GrupoAutomovel;
         }
 
-        public void CalculoTotalPreco(int kmAutomovel)
+        public decimal CalculoTotalPreco(int kmAutomovel, int diasUsados)
         {
+            decimal totalPreco = 0;
 
             switch (TipoPlano)
             {
                 case TipoPlanoEnum.Diario:
-                    TotalPreco = (kmAutomovel * PrecoKm) + PrecoDiaria;
+                    totalPreco = (kmAutomovel * PrecoKm) + (PrecoDiaria * diasUsados);
                     break;
 
                 case TipoPlanoEnum.Controlado:
-                    //TotalPreco = 
+                    var kmExcedente = kmAutomovel - KmDisponivel;
+
+                    if (kmExcedente > 0)
+                    {
+                        totalPreco = (kmExcedente * PrecoKm) + (PrecoDiaria * diasUsados);
+                    }
+                    else
+                    {
+                        totalPreco = (PrecoDiaria * diasUsados);
+                    }
+                    break;
+
+                case TipoPlanoEnum.Livre:
+                    totalPreco = (PrecoDiaria * diasUsados);
                     break;
             }
+
+            return totalPreco;
         }
     }
 }

@@ -33,17 +33,18 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
                 txb_nome.Text = cliente.Nome;
                 mtxb_cpf.Text = cliente.Documento;
                 mtxb_telefone.Text = cliente.Telefone;
+                chk_clienteCondut.Checked = true;
 
-                DesabilitarCampos();
+                AlterarVisibilidadeCampos(false);
             }
         }
 
-        private void DesabilitarCampos()
+        private void AlterarVisibilidadeCampos(bool habilitador)
         {
-            txb_email.Enabled = false;
-            txb_nome.Enabled = false;
-            mtxb_cpf.Enabled = false;
-            mtxb_telefone.Enabled = false;
+            txb_email.Enabled = habilitador;
+            txb_nome.Enabled = habilitador;
+            mtxb_cpf.Enabled = habilitador;
+            mtxb_telefone.Enabled = habilitador;
         }
 
         private void cbox_cliente_SelectedValueChanged(object sender, EventArgs e)
@@ -60,11 +61,12 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
             condutor.Telefone = mtxb_telefone.Text;
             condutor.Documento = mtxb_cpf.Text;
             condutor.Cnh = txb_cnh.Text;
-            condutor.Validade = txb_data.Value;
+            condutor.ValidadeCNH = txb_data.Value;
+            condutor.Cliente = (Cliente)cbox_cliente.SelectedItem;
 
             Result resultado = onGravarRegistro(condutor);
 
-            if(resultado.IsFailed)
+            if (resultado.IsFailed)
             {
                 string erro = resultado.Errors[0].Message;
 
@@ -75,7 +77,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
 
         }
 
-        public void ConfigurarCondutor(Condutor condutor)
+        public Condutor AlimentarCampos(Condutor condutor)
         {
             txb_nome.Text = condutor.Nome;
             txb_email.Text = condutor.Email;
@@ -83,16 +85,26 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
             mtxb_cpf.Text = condutor.Documento;
             txb_cnh.Text = condutor.Cnh;
 
-            if(condutor.Validade == DateTime.MinValue)
+            if (condutor.ValidadeCNH == DateTime.MinValue)
             {
                 txb_data.Value = DateTime.Now;
             }
             else
             {
-                txb_data.Value = condutor.Validade;
+                txb_data.Value = condutor.ValidadeCNH;
             }
 
-            this.condutor = condutor;
+            return condutor;
+        }
+
+        public void ConfigurarCondutor(Condutor condutor)
+        {
+            this.condutor = AlimentarCampos(condutor);
+        }
+
+        private void chk_clienteCondut_CheckedChanged(object sender, EventArgs e)
+        {
+            AlterarVisibilidadeCampos(true);
         }
     }
 }

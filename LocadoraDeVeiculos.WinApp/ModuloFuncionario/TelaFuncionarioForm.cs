@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
-using System.Globalization;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloFuncionario
 {

@@ -17,17 +17,17 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
-            cliente.Nome = txb_nome.Text;
-            cliente.Email = txb_email.Text;
-            cliente.Telefone = mtxb_telefone.Text;
-
-            cliente.Endereco.Bairro = txb_bairro.Text;
-            cliente.Endereco.Cep = mtxb_cep.Text;
-            cliente.Endereco.Cidade = txb_cidade.Text;
-            cliente.Endereco.Estado = txb_estado.Text;
-            cliente.Endereco.Logradouro = txb_logradouro.Text;
-            cliente.Endereco.Numero = Convert.ToInt32(txb_numero.Text);
-            cliente.Endereco.Complemento = txb_comp.Text;
+            this.cliente.Nome = txb_nome.Text;
+            this.cliente.Email = txb_email.Text;
+            this.cliente.Telefone = mtxb_telefone.Text;
+            
+            this.cliente.Endereco.Bairro = txb_bairro.Text;
+            this.cliente.Endereco.Cep = mtxb_cep.Text;
+            this.cliente.Endereco.Cidade = txb_cidade.Text;
+            this.cliente.Endereco.Estado = txb_estado.Text;
+            this.cliente.Endereco.Logradouro = txb_logradouro.Text;
+            this.cliente.Endereco.Numero = Convert.ToInt32(txb_numero.Text);
+            this.cliente.Endereco.Complemento = txb_comp.Text;
 
             if (rdb_cpf.Checked)
             {

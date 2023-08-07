@@ -41,8 +41,6 @@
             txb_precoD = new TextBox();
             cbox_tipoPlano = new ComboBox();
             label1 = new Label();
-            label6 = new Label();
-            textBox1 = new TextBox();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -50,7 +48,7 @@
             // 
             btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnCancelar.DialogResult = DialogResult.Cancel;
-            btnCancelar.Location = new Point(208, 266);
+            btnCancelar.Location = new Point(208, 229);
             btnCancelar.Margin = new Padding(3, 2, 3, 2);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(82, 32);
@@ -62,13 +60,14 @@
             // 
             btnSalvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalvar.DialogResult = DialogResult.OK;
-            btnSalvar.Location = new Point(108, 266);
+            btnSalvar.Location = new Point(108, 229);
             btnSalvar.Margin = new Padding(3, 2, 3, 2);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.Size = new Size(82, 32);
             btnSalvar.TabIndex = 10;
             btnSalvar.Text = "Salvar";
             btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // cbox_gpAutomoveis
             // 
@@ -88,7 +87,7 @@
             groupBox1.Controls.Add(txb_precoKm);
             groupBox1.Controls.Add(txb_precoD);
             groupBox1.Controls.Add(cbox_tipoPlano);
-            groupBox1.Location = new Point(12, 96);
+            groupBox1.Location = new Point(12, 56);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(278, 154);
             groupBox1.TabIndex = 13;
@@ -159,6 +158,7 @@
             cbox_tipoPlano.Name = "cbox_tipoPlano";
             cbox_tipoPlano.Size = new Size(147, 23);
             cbox_tipoPlano.TabIndex = 15;
+            cbox_tipoPlano.SelectedIndexChanged += cbox_tipoPlano_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -169,29 +169,11 @@
             label1.TabIndex = 14;
             label1.Text = "Grupo de Automoveis:";
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(41, 59);
-            label6.Name = "label6";
-            label6.Size = new Size(93, 15);
-            label6.TabIndex = 15;
-            label6.Text = "Nome do Plano:";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(137, 56);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(147, 23);
-            textBox1.TabIndex = 23;
-            // 
             // TelaPlanoDeCobrancaForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(302, 309);
-            Controls.Add(textBox1);
-            Controls.Add(label6);
+            ClientSize = new Size(302, 272);
             Controls.Add(label1);
             Controls.Add(groupBox1);
             Controls.Add(cbox_gpAutomoveis);
@@ -220,7 +202,5 @@
         private TextBox txb_precoKm;
         private TextBox txb_precoD;
         private ComboBox cbox_tipoPlano;
-        private Label label6;
-        private TextBox textBox1;
     }
 }

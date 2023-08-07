@@ -45,6 +45,7 @@
             groupBox1 = new GroupBox();
             txb_data = new DateTimePicker();
             label7 = new Label();
+            chk_clienteCondut = new CheckBox();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -78,7 +79,7 @@
             cbox_cliente.FormattingEnabled = true;
             cbox_cliente.Location = new Point(66, 25);
             cbox_cliente.Name = "cbox_cliente";
-            cbox_cliente.Size = new Size(257, 23);
+            cbox_cliente.Size = new Size(85, 23);
             cbox_cliente.TabIndex = 13;
             cbox_cliente.SelectedValueChanged += cbox_cliente_SelectedValueChanged;
             // 
@@ -203,11 +204,23 @@
             label7.TabIndex = 40;
             label7.Text = "Cliente:";
             // 
+            // chk_clienteCondut
+            // 
+            chk_clienteCondut.AutoSize = true;
+            chk_clienteCondut.Location = new Point(157, 27);
+            chk_clienteCondut.Name = "chk_clienteCondut";
+            chk_clienteCondut.Size = new Size(166, 19);
+            chk_clienteCondut.TabIndex = 41;
+            chk_clienteCondut.Text = "O cliente será o Condutor?";
+            chk_clienteCondut.UseVisualStyleBackColor = true;
+            chk_clienteCondut.CheckedChanged += chk_clienteCondut_CheckedChanged;
+            // 
             // TelaCondutorForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(335, 375);
+            Controls.Add(chk_clienteCondut);
             Controls.Add(label7);
             Controls.Add(groupBox1);
             Controls.Add(mtxb_cpf);
@@ -248,5 +261,6 @@
         private GroupBox groupBox1;
         private Label label7;
         private DateTimePicker txb_data;
+        private CheckBox chk_clienteCondut;
     }
 }

@@ -6,7 +6,6 @@ using LocadoraDeVeiculos.Dominio.ModuloCupom;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
-using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloAluguel;
 using LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco;
