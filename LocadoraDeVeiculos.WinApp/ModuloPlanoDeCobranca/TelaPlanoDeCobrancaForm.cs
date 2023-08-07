@@ -18,6 +18,10 @@ namespace LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca
             txb_precoKm.Enabled = false;
             this.repGpAuto = repGpAuto;
 
+            txb_kmDisponivel.Text = Convert.ToString(0);
+            txb_precoD.Text = Convert.ToString(0);
+            txb_precoKm.Text = Convert.ToString(0);
+
             this.ConfigurarDialog();
 
             AlimentarCBOXGpAuto(repGpAuto);
@@ -73,9 +77,12 @@ namespace LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca
 
             foreach (GrupoAutomovel grupo in repGpAuto.SelecionarTodos())
             {
-                if (grupo.Id == plano.GrupoAutomovel.Id)
+                if (plano.GrupoAutomovel != null)
                 {
-                    cbox_gpAutomoveis.SelectedItem = grupo;
+                    if (grupo.Id == plano.GrupoAutomovel.Id)
+                    {
+                        cbox_gpAutomoveis.SelectedItem = grupo;
+                    }
                 }
             }
 

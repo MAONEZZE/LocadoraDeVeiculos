@@ -1,24 +1,44 @@
-﻿namespace LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca
+﻿using FluentValidation;
+
+namespace LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca
 {
     public class ValidadorPlanoDeCobranca : AbstractValidator<PlanoDeCobranca>, IValidadorPlanoDeCobranca
     {
         public ValidadorPlanoDeCobranca()
         {
-             RuleFor(x => x.KmDisponivel)
+
+            When(x => x.TipoPlano == TipoPlanoEnum.Livre, () => 
+            {
+                RuleFor(x => x.PrecoDiaria)
+                .NotNull()
+                .NotEmpty();
+            });
+
+            When(x => x.TipoPlano == TipoPlanoEnum.Diario, () =>
+            {
+                RuleFor(x => x.PrecoDiaria)
                 .NotNull()
                 .NotEmpty();
 
-            RuleFor(x => x.PrecoKm)
-                .NotNull() 
+                RuleFor(x => x.PrecoKm)
+                .NotNull()
                 .NotEmpty();
+            });
 
-            RuleFor(x => x.PrecoDiaria)
+            When(x => x.TipoPlano == TipoPlanoEnum.Controlado, () =>
+            {
+                RuleFor(x => x.PrecoDiaria)
                 .NotNull()
                 .NotEmpty();
 
-            RuleFor(x => x.TipoPlano.ToString())
+                RuleFor(x => x.PrecoKm)
                 .NotNull()
                 .NotEmpty();
+
+                RuleFor(x => x.KmDisponivel)
+                .NotNull()
+                .NotEmpty();
+            });
 
             RuleFor(x => x.GrupoAutomovel)
                 .NotNull()

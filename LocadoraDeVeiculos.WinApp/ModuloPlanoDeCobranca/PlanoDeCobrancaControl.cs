@@ -18,7 +18,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca
             {
                 new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id", Visible = false },
 
-                new DataGridViewTextBoxColumn { Name = "NomeGPAuto", HeaderText = "Grupo de Automovel" },
+                new DataGridViewTextBoxColumn { Name = "TipoPlano", HeaderText = "Tipo do Plano" },
 
                 new DataGridViewTextBoxColumn { Name = "ValorDia", HeaderText = "Valor por Dia" },
 
@@ -26,7 +26,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca
 
                 new DataGridViewTextBoxColumn { Name = "ValorKmRodado", HeaderText = "Valor do Km Rodado" },
 
-                new DataGridViewTextBoxColumn { Name = "TipoPlano", HeaderText = "Tipo do Plano" },
+                new DataGridViewTextBoxColumn { Name = "NomeGPAuto", HeaderText = "Grupo de Automovel" },
             };
 
             return colunas;
@@ -40,11 +40,12 @@ namespace LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca
         public void AtualizarRegistros(List<PlanoDeCobranca> listaPlanos)
         {
             grid.Rows.Clear();
-            //Id, nome, valor por dia, km livre inclusive, valor km rodado e tipo do plano
 
             foreach (PlanoDeCobranca plano in listaPlanos)
             {
-                grid.Rows.Add(plano.Id, plano.GrupoAutomovel.Nome, plano.PrecoDiaria, plano.PrecoKm);
+                string kmLivre = (plano.TipoPlano == TipoPlanoEnum.Livre)? "Sim" : "Não";
+
+                grid.Rows.Add(plano.Id, plano.TipoPlano, plano.PrecoDiaria, kmLivre, plano.PrecoKm, plano.GrupoAutomovel.Nome);
             }
         }
     }
