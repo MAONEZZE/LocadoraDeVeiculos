@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
-using System.Globalization;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
 {

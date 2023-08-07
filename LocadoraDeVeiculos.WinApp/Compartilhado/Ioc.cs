@@ -19,6 +19,7 @@ using LocadoraDeVeiculos.Servico.ModuloCupom;
 using LocadoraDeVeiculos.Servico.ModuloFuncionario;
 using LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Servico.ModuloParceiro;
+using LocadoraDeVeiculos.Servico.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Servico.ModuloTaxaServico;
 using LocadoraDeVeiculos.WinApp.ModuloAluguel;
 using LocadoraDeVeiculos.WinApp.ModuloAutomovel;
@@ -28,6 +29,7 @@ using LocadoraDeVeiculos.WinApp.ModuloCupom;
 using LocadoraDeVeiculos.WinApp.ModuloFuncionario;
 using LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.WinApp.ModuloParceiro;
+using LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.WinApp.ModuloTaxaServico;
 
 namespace LocadoraDeVeiculos.WinApp.Compartilhado
@@ -75,9 +77,12 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var repPrecoComb = new RepositorioPrecoCombustivel(new SerializadorJson(configuracao.ObterArquivoJsonPrecoCombustivel()));
 
+            var repPlano = new RepositorioPlanoDeCobranca(dbContext);
+
             #endregion
 
             #region serviços
+
             var servicoParceiro = new ServicoParceiro(repositorioParceiro);
 
             var servicoCupom = new ServicoCupom(repositorioCupom);
@@ -95,6 +100,8 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb, geradorEmail, geradorPdf);
 
             var servicoCondutor = new ServicoCondutor(repositorioCondutor);
+
+            var servicoPlano = new ServicoPlanoDeCobranca(repositorioPlanoDeCobranca);
 
             #endregion
 
@@ -127,6 +134,8 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
                                                             repositorioCupom
                                                             );
 
+            var controladorPlano = new ControladorPlanoDeCobranca(repositorioPlanoDeCobranca, repositorioGrupoAutomovel, servicoPlano);
+
             #endregion
 
 
@@ -139,6 +148,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             controladores.Add("Taxas ou Serviços", controladorTaxaServico);
             controladores.Add("Funcionário", controladorFuncionario);
             controladores.Add("Aluguel", controladorAluguel);
+            controladores.Add("Plano de Cobrança", controladorPlano);
 
         }
 

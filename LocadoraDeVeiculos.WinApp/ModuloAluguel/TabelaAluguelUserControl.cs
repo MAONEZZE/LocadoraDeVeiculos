@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
-using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 {

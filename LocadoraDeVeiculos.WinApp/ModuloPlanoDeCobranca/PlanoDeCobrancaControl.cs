@@ -1,5 +1,4 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
-using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
+﻿using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca
 {
@@ -19,21 +18,15 @@ namespace LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca
             {
                 new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id", Visible = false },
 
-                new DataGridViewTextBoxColumn { Name = "Nome", HeaderText = "Nome" },
+                new DataGridViewTextBoxColumn { Name = "NomeGPAuto", HeaderText = "Grupo de Automovel" },
 
-                new DataGridViewTextBoxColumn { Name = "Email", HeaderText = "Email"},
+                new DataGridViewTextBoxColumn { Name = "ValorDia", HeaderText = "Valor por Dia" },
 
-                new DataGridViewTextBoxColumn { Name = "Telefone", HeaderText = "Telefone"},
+                new DataGridViewTextBoxColumn { Name = "KmLivre", HeaderText = "Km Livre" },
 
-                new DataGridViewTextBoxColumn { Name = "TipoCliente", HeaderText = "Tipo de Documento"},
+                new DataGridViewTextBoxColumn { Name = "ValorKmRodado", HeaderText = "Valor do Km Rodado" },
 
-                new DataGridViewTextBoxColumn { Name = "Documento", HeaderText = "Documento"},
-
-                new DataGridViewTextBoxColumn { Name = "EnderecoCep", HeaderText = "CEP"},
-
-                new DataGridViewTextBoxColumn { Name = "EnderecoNum", HeaderText = "Número"},
-
-                new DataGridViewTextBoxColumn { Name = "EnderecoCidade", HeaderText = "Cidade"},
+                new DataGridViewTextBoxColumn { Name = "TipoPlano", HeaderText = "Tipo do Plano" },
             };
 
             return colunas;
@@ -51,7 +44,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca
 
             foreach (PlanoDeCobranca plano in listaPlanos)
             {
-                grid.Rows.Add(plano.Id, plano.NomePlano, plano.PrecoDiaria, plano.PrecoKm);
+                grid.Rows.Add(plano.Id, plano.GrupoAutomovel.Nome, plano.PrecoDiaria, plano.PrecoKm);
             }
         }
     }

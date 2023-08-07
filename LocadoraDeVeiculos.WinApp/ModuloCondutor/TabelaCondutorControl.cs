@@ -43,7 +43,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
 
             foreach (Condutor condutor in listaCondutor)
             {
-                grid.Rows.Add(condutor.Id, condutor.Nome, condutor.Telefone, condutor.Documento, condutor.Cnh, condutor.Validade);
+                grid.Rows.Add(condutor.Id, condutor.Nome, condutor.Telefone, condutor.Documento, condutor.Cnh, $"{condutor.ValidadeCNH:d}");
             }
         }
     }
