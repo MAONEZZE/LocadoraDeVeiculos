@@ -89,17 +89,19 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<Guid>("GrupoAutomovelId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("KmAutomovelAtual")
+                    b.Property<int>("KMPercorrido")
                         .HasColumnType("int");
 
                     b.Property<Guid>("PlanoDeCobrancaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ValorParcial")
-                        .HasColumnType("int");
+                    b.Property<decimal>("ValorTotal")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
 
-                    b.Property<int>("ValorTotal")
-                        .HasColumnType("int");
+                    b.Property<decimal>("ValorTotalPrevisto")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -342,9 +344,6 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(30)")
                         .HasColumnName("Tipo_de_Plano");
-
-                    b.Property<decimal>("TotalPreco")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

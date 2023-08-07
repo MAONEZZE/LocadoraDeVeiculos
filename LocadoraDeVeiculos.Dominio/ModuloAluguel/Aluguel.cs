@@ -24,7 +24,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
 
         public PlanoDeCobranca PlanoDeCobranca { get; set; }
 
-        public int KmAutomovelAtual { get; set; }
+        public int KMPercorrido { get; set; }
 
         public DateTime DataLocacao { get; set; }
 
@@ -38,9 +38,9 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
 
         public bool EstaAberto { get; set; }
 
-        public int ValorParcial { get; set; }
+        public Decimal ValorTotalPrevisto { get; set; }
 
-        public int ValorTotal { get; set; }
+        public Decimal ValorTotal { get; set; }
 
         public Aluguel()
         {
@@ -55,7 +55,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             this.GrupoAutomovel = grupoAutomovel;
             this.Automovel = automovel;
             this.PlanoDeCobranca = planoDeCobranca;
-            this.KmAutomovelAtual = kmAutomovelAtual;
+            this.KMPercorrido = kmAutomovelAtual;
             this.DataLocacao = dataLocacao;
             this.DataDevolucaoPrevista = dataDevolucaoPrevista;
             this.DataDevolucao = dataDevolucao;
@@ -73,7 +73,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             this.GrupoAutomovel = grupoAutomovel;
             this.Automovel = automovel;
             this.PlanoDeCobranca = planoDeCobranca;
-            this.KmAutomovelAtual = kmAutomovelAtual;
+            this.KMPercorrido = kmAutomovelAtual;
             this.DataLocacao = dataLocacao;
             this.DataDevolucaoPrevista = dataDevolucaoPrevista;
             this.DataDevolucao = dataDevolucao;

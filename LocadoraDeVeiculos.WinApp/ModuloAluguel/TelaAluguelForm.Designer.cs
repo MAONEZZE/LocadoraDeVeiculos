@@ -118,6 +118,7 @@
             cbxCliente.Name = "cbxCliente";
             cbxCliente.Size = new Size(196, 23);
             cbxCliente.TabIndex = 2;
+            cbxCliente.SelectedValueChanged += cbxCliente_SelectedValueChanged;
             // 
             // label2
             // 
@@ -136,6 +137,7 @@
             cbxGrupoAutomovel.Name = "cbxGrupoAutomovel";
             cbxGrupoAutomovel.Size = new Size(196, 23);
             cbxGrupoAutomovel.TabIndex = 4;
+            cbxGrupoAutomovel.SelectedValueChanged += cbxGrupoAutomovel_SelectedValueChanged;
             // 
             // label3
             // 
@@ -149,6 +151,7 @@
             // cbxPlanoDeCobranca
             // 
             cbxPlanoDeCobranca.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxPlanoDeCobranca.Enabled = false;
             cbxPlanoDeCobranca.FormattingEnabled = true;
             cbxPlanoDeCobranca.Location = new Point(146, 139);
             cbxPlanoDeCobranca.Name = "cbxPlanoDeCobranca";
@@ -167,6 +170,7 @@
             // cbxCondutor
             // 
             cbxCondutor.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxCondutor.Enabled = false;
             cbxCondutor.FormattingEnabled = true;
             cbxCondutor.Location = new Point(463, 64);
             cbxCondutor.Name = "cbxCondutor";
@@ -185,11 +189,13 @@
             // cbxAutomovel
             // 
             cbxAutomovel.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxAutomovel.Enabled = false;
             cbxAutomovel.FormattingEnabled = true;
             cbxAutomovel.Location = new Point(463, 101);
             cbxAutomovel.Name = "cbxAutomovel";
             cbxAutomovel.Size = new Size(196, 23);
             cbxAutomovel.TabIndex = 5;
+            cbxAutomovel.SelectedValueChanged += cbxAutomovel_SelectedValueChanged;
             // 
             // label6
             // 
@@ -211,9 +217,9 @@
             // 
             // txtQuilometragem
             // 
+            txtQuilometragem.Enabled = false;
             txtQuilometragem.Location = new Point(463, 139);
             txtQuilometragem.Name = "txtQuilometragem";
-            txtQuilometragem.ReadOnly = true;
             txtQuilometragem.Size = new Size(100, 23);
             txtQuilometragem.TabIndex = 25;
             txtQuilometragem.TabStop = false;
@@ -272,10 +278,11 @@
             // 
             btnCupom.Location = new Point(260, 210);
             btnCupom.Name = "btnCupom";
-            btnCupom.Size = new Size(96, 32);
+            btnCupom.Size = new Size(107, 32);
             btnCupom.TabIndex = 10;
             btnCupom.Text = "Aplicar Cupom";
             btnCupom.UseVisualStyleBackColor = true;
+            btnCupom.Click += btnCupom_Click;
             // 
             // txtDataDevolucao
             // 

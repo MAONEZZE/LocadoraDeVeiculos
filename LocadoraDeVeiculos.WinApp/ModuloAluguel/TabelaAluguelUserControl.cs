@@ -44,7 +44,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
                 
                 string valorTotal = aluguel.ValorTotal == default(decimal) ? "Não devolvido" : $"R$ {aluguel.ValorTotal/100}";
 
-                grid.Rows.Add(aluguel.Id, aluguel.Condutor.Nome, aluguel.Automovel.Modelo, aluguel.DataLocacao, aluguel.DataDevolucao, aluguel.ValorParcial, aluguel.ValorTotal);
+                grid.Rows.Add(aluguel.Id, aluguel.Condutor.Nome, aluguel.Automovel.Modelo, aluguel.DataLocacao, aluguel.DataDevolucao, aluguel.ValorTotalPrevisto, aluguel.ValorTotal);
             }
         }
 

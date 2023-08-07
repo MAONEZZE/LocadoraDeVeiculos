@@ -1,4 +1,4 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCondutor;
+﻿using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 
 namespace LocadoraDeVeiculos.Infra.ModuloPlanoDeCobranca
@@ -17,6 +17,11 @@ namespace LocadoraDeVeiculos.Infra.ModuloPlanoDeCobranca
                 return true;
 
             return false;
+        }
+
+        public List<PlanoDeCobranca> SelecionarPlanoDeCobrancaPorGrupoAutomovel(GrupoAutomovel grupoAutomovel)
+        {
+            return registros.Where(x => x.GrupoAutomovel == grupoAutomovel).ToList();
         }
     }
 }
