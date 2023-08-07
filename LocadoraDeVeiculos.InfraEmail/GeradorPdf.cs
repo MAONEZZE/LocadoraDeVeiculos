@@ -51,7 +51,7 @@ namespace LocadoraDeVeiculos.InfraEmail
             sb.AppendLine("");
             sb.AppendLine($"Data: {aluguel.DataLocacao:d}");
             sb.AppendLine("");
-            sb.AppendLine($"Valor: R$ {aluguel.ValorParcial}");
+            sb.AppendLine($"Valor: R$ {aluguel.ValorTotalPrevisto}");
             return sb.ToString();
         }
 

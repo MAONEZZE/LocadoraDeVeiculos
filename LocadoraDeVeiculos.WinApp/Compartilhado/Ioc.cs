@@ -97,7 +97,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var servicoFuncionario = new ServicoFuncionario(repositorioFuncionario);
 
-            var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb, geradorEmail, geradorPdf);
+            var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb, repositorioPlanoDeCobranca, geradorEmail, geradorPdf);
 
             var servicoCondutor = new ServicoCondutor(repositorioCondutor);
 
