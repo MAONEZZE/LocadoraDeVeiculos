@@ -51,14 +51,21 @@ namespace LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca
             {
                 case TipoPlanoEnum.Diario:
                     txb_kmDisponivel.Enabled = false;
+                    txb_kmDisponivel.Text = Convert.ToString(0);
+
                     txb_precoD.Enabled = true;
+
                     txb_precoKm.Enabled = true;
                     break;
 
                 case TipoPlanoEnum.Livre:
-                    txb_kmDisponivel.Enabled = false;
                     txb_precoD.Enabled = true;
+
+                    txb_kmDisponivel.Enabled = false;
+                    txb_kmDisponivel.Text = Convert.ToString(0);
+
                     txb_precoKm.Enabled = false;
+                    txb_precoKm.Text = Convert.ToString(0);
                     break;
 
                 case TipoPlanoEnum.Controlado:
