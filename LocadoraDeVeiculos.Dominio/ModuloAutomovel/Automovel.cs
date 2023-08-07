@@ -87,5 +87,9 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
                    Foto == automovel.Foto;
         }
 
+        public override string ToString()
+        {
+            return $"{Modelo} {Cor} ({Ano})";
+        }
     }
 }
