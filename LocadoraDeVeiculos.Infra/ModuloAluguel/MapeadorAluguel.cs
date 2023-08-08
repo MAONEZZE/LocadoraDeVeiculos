@@ -42,7 +42,8 @@ namespace LocadoraDeVeiculos.Infra.ModuloAluguel
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Property(p => p.KMPercorrido)
-                .IsRequired();
+                .IsRequired()
+                .HasDefaultValue(0);
 
             builder.Property(p => p.DataLocacao)
                 .IsRequired();

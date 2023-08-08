@@ -72,6 +72,9 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             tctrlTaxas.TabPages.Remove(tbTaxasAdicionais);
 
             //tctrlTaxas.TabPages.Add(tbTaxasAdicionais);
+
+            txtDataLocacao.MinDate = DateTime.Now;
+            txtDevolucaoPrevista.MinDate = DateTime.Now.AddDays(1);
         }
 
         public void ConfigurarRegistro(Aluguel aluguelSelecionado)
@@ -232,11 +235,18 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             {
                 txtCupom.Text = txtCupom.Text.ToUpper();
                 Cupom cupom = onSelecionarCupomPorNome(txtCupom.Text);
-                if (cupom != null)
+                if (cupom != null && cupom.EhValido)
                 {
                     aluguel.Cupom = cupom;
                     txtCupom.Enabled = false;
                     btnCupom.Text = "Remover Cupom";
+                }
+                if(cupom == null || cupom.EhValido == false)
+                {
+                    MessageBox.Show($"Cupom inválido",
+                                 "Cupom inválido",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Exclamation);
                 }
             }
             AtualizarValorTotal();
@@ -244,10 +254,13 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         private void AtualizarValorTotal_event(object sender, EventArgs e)
         {
-            aluguel.PlanoDeCobranca = cbxPlanoDeCobranca.SelectedItem as PlanoDeCobranca;
-            aluguel.DataLocacao = txtDataLocacao.Value;
-            aluguel.DataDevolucaoPrevista = txtDevolucaoPrevista.Value;
-            AtualizarValorTotal();
+            if (aluguel != null)
+            {
+                aluguel.PlanoDeCobranca = cbxPlanoDeCobranca.SelectedItem as PlanoDeCobranca;
+                aluguel.DataLocacao = txtDataLocacao.Value;
+                aluguel.DataDevolucaoPrevista = txtDevolucaoPrevista.Value;
+                AtualizarValorTotal();
+            }
         }
 
         private void AtualizarValorTotal()
@@ -292,6 +305,18 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             {
                 aluguel.ValorTotalPrevisto = onCalcularValorTotal(aluguel);
             }
+
+            Result resultado = onGravarRegistro(aluguel);
+
+
+            if (resultado.IsFailed)
+            {
+                string erro = resultado.Errors[0].Message;
+
+                TelaPrincipalForm.Instancia.AtualizarRodape(erro);
+
+                DialogResult = DialogResult.None;
+            }
         }
 
         private void clbxTaxasSelecionadas_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -320,6 +345,20 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
                 aluguel.TaxasServicos.Remove(taxaServico);
             }
             AtualizarValorTotal();
+        }
+
+        private void txtDataLocacao_ValueChanged(object sender, EventArgs e)
+        {
+            if (txtDevolucaoPrevista.Value < txtDataLocacao.Value)
+            {
+                txtDevolucaoPrevista.Value = txtDataLocacao.Value.AddDays(1); 
+            }
+            txtDevolucaoPrevista.MinDate = txtDataLocacao.Value.AddDays(1);
+            if (aluguel != null)
+            {
+                aluguel.DataLocacao = txtDataLocacao.Value;
+                AtualizarValorTotal();
+            }
         }
     }
 }
