@@ -41,14 +41,13 @@ namespace LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel
 
                 return Result.Ok();
             }
-
-            catch
+            catch (Exception)
             {
                 string msg = $"Falha ao tentar inserir Grupo de Automóveis {grupo.Id}";
 
-                contexto.DesfazerAlteracoes();
-
                 Log.Error(msg, grupo);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msg);
             }
