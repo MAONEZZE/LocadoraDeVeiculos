@@ -84,25 +84,25 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             #region serviços
 
-            var servicoParceiro = new ServicoParceiro(repositorioParceiro);
+            var servicoParceiro = new ServicoParceiro(repositorioParceiro, dbContext);
 
-            var servicoCupom = new ServicoCupom(repositorioCupom);
+            var servicoCupom = new ServicoCupom(repositorioCupom, repositorioAluguel, dbContext);
 
-            var servicoGrupoAutomovel = new ServicoGrupoAutomovel(repositorioGrupoAutomovel, repositorioAutomovel);
+            var servicoGrupoAutomovel = new ServicoGrupoAutomovel(repositorioGrupoAutomovel, repositorioAutomovel, dbContext);
 
-            var servicoAutomovel = new ServicoAutomovel(repositorioAutomovel, repositorioAluguel);
+            var servicoAutomovel = new ServicoAutomovel(repositorioAutomovel, repositorioAluguel, dbContext);
 
             var servicoCliente = new ServicoCliente(repositorioCliente);
 
-            var servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServico);
+            var servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServico, dbContext);
 
-            var servicoFuncionario = new ServicoFuncionario(repositorioFuncionario);
+            var servicoFuncionario = new ServicoFuncionario(repositorioFuncionario, dbContext);
 
             var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb, repositorioPlanoDeCobranca, geradorEmail, geradorPdf);
 
-            var servicoCondutor = new ServicoCondutor(repositorioCondutor);
+            var servicoCondutor = new ServicoCondutor(repositorioCondutor, dbContext);
 
-            var servicoPlano = new ServicoPlanoDeCobranca(repositorioPlanoDeCobranca);
+            var servicoPlano = new ServicoPlanoDeCobranca(repositorioPlanoDeCobranca, dbContext);
 
             #endregion
 
