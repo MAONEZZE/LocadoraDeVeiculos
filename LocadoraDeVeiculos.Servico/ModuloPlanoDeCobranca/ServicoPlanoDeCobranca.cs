@@ -57,8 +57,6 @@ namespace LocadoraDeVeiculos.Servico.ModuloPlanoDeCobranca
 
             if (erros.Any())
             {
-                contexto.DesfazerAlteracoes();
-
                 return Result.Fail(erros);
             }
                 

@@ -6,11 +6,11 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
 {
     public class ServicoAutomovel : ServicoBase<Automovel,ValidadorAutomovel>
     {
-        IRepositorioAutomovel repositorioAutomovel;
+        private IRepositorioAutomovel repositorioAutomovel;
 
-        IRepositorioAluguel repositorioAluguel;
+        private IRepositorioAluguel repositorioAluguel;
 
-        public IContextoPersistencia Contexto;
+        private IContextoPersistencia Contexto;
 
         public ServicoAutomovel(IRepositorioAutomovel repositorioAutomovel, IRepositorioAluguel repositorioAluguel, IContextoPersistencia contexto)
         {
@@ -29,14 +29,14 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
 
             if (erros.Any())
             {
-                Contexto.DesfazerAlteracoes();
-
                 return Result.Fail(erros);
             }
                
             try
             {
                 repositorioAutomovel.Inserir(automovel);
+
+                Contexto.GravarDados();
                
                 Log.Debug("Automovel {automovelId} inserido com sucesso", automovel.Id);
 
@@ -71,6 +71,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
             try
             {
                 repositorioAutomovel.Editar(automovel);
+
+                Contexto.GravarDados();
 
                 Log.Debug("Automóvel {automovelId} editado com sucesso", automovel.Id);
 
@@ -113,6 +115,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
                 }
                   
                 repositorioAutomovel.Excluir(automovel);
+
+                Contexto.GravarDados();
 
                 Log.Debug("Automóvel {automovelId} excluído com sucesso", automovel.Id);
 

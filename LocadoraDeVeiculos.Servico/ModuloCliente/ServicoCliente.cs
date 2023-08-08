@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 
 namespace LocadoraDeVeiculos.Servico.ModuloCliente
 {
@@ -6,9 +7,12 @@ namespace LocadoraDeVeiculos.Servico.ModuloCliente
     {
         private IRepositorioCliente repCliente;
 
-        public ServicoCliente(IRepositorioCliente repCliente)
+        private IContextoPersistencia Contexto;
+
+        public ServicoCliente(IRepositorioCliente repCliente, IContextoPersistencia contexto)
         {
             this.repCliente = repCliente;
+            this.Contexto = contexto;
         }
 
         public Result Inserir(Cliente cliente)
@@ -24,6 +28,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCliente
             {
                 repCliente.Inserir(cliente);
 
+                Contexto.GravarDados();
+
                 Log.Debug("Cliente {clienteId} inserido com sucesso", cliente.Id);
 
                 return Result.Ok();
@@ -33,6 +39,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCliente
                 string msg = $"Falha ao tentar inserir cliente {cliente}";
 
                 Log.Error(msg, cliente);
+
+                Contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msg);
             }
@@ -54,6 +62,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCliente
 
                 Log.Debug("Cliente {clienteId} editado com sucesso", cliente.Id);
 
+                Contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch (SqlException)
@@ -61,6 +71,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCliente
                 string msg = $"Falha ao tentar editar cliente {cliente}";
 
                 Log.Error(msg, cliente);
+
+                Contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msg);
             }
@@ -87,6 +99,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCliente
 
                 Log.Debug("Cliente {clienteId} excluído com sucesso", cliente.Id);
 
+                Contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch (Exception ex)
@@ -101,6 +115,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCliente
                     msg = $"Falha ao tentar excluir cliente {cliente}";
 
                 Log.Error(msg, cliente);
+
+                Contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msg);
             }
