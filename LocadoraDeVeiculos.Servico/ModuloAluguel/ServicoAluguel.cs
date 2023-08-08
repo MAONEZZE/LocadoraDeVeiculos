@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloCupom;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
@@ -17,10 +18,10 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
         private IGeradorPdf geradorPdf;
 
-        public ServicoAluguel(IRepositorioAluguel repositorioAluguel, 
-                              IRepositorioPrecoCombustivel repositorioPrecoCombustivel, 
+        public ServicoAluguel(IRepositorioAluguel repositorioAluguel,
+                              IRepositorioPrecoCombustivel repositorioPrecoCombustivel,
                               IRepositorioPlanoDeCobranca repositorioPlanoDeCobranca,
-                              IGeradorEmail geradorEmail, 
+                              IGeradorEmail geradorEmail,
                               IGeradorPdf geradorPdf)
         {
             this.repositorioAluguel = repositorioAluguel;
@@ -196,26 +197,32 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
         {
             Decimal valorTotalPrevisto = 0;
 
-            int previsaoDiasLocado = (aluguel.DataLocacao - aluguel.DataDevolucaoPrevista).Days;
+            int previsaoDiasLocado = (aluguel.DataDevolucaoPrevista - aluguel.DataLocacao).Days+1;
 
             foreach (TaxaServico taxaServico in aluguel.TaxasServicos)
             {
-                if(taxaServico.TipoCalculo == EnumTipoCalculo.Diario)
+                if (taxaServico.TipoCalculo == EnumTipoCalculo.Diario)
                 {
                     valorTotalPrevisto += taxaServico.Preco * previsaoDiasLocado;
                 }
-                else if(taxaServico.TipoCalculo == EnumTipoCalculo.Fixo)
+                else if (taxaServico.TipoCalculo == EnumTipoCalculo.Fixo)
                 {
                     valorTotalPrevisto += taxaServico.Preco;
                 }
             }
-            valorTotalPrevisto += aluguel.PlanoDeCobranca.CalculoTotalPreco(0, previsaoDiasLocado);
+            if (aluguel.PlanoDeCobranca != null)
+            {
+                valorTotalPrevisto += aluguel.PlanoDeCobranca.CalculoTotalPreco(0, previsaoDiasLocado);
+            }
 
-            valorTotalPrevisto -= aluguel.Cupom.Valor;
+            if (aluguel.Cupom != null)
+            {
+                valorTotalPrevisto -= aluguel.Cupom.Valor;
+            }
 
             aluguel.ValorTotalPrevisto = valorTotalPrevisto;
 
-            return valorTotalPrevisto;  
+            return valorTotalPrevisto;
         }
 
         public Decimal CalcularValorTotal(Aluguel aluguel)
@@ -236,9 +243,23 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
                 }
             }
 
-            valorTotal += aluguel.PlanoDeCobranca.CalculoTotalPreco(aluguel.KMPercorrido, diasUsados);
+            if (aluguel.PlanoDeCobranca != null)
+            {
+                valorTotal += aluguel.PlanoDeCobranca.CalculoTotalPreco(aluguel.KMPercorrido, diasUsados);
+            }
 
-            valorTotal -= aluguel.Cupom.Valor;
+
+
+            if (aluguel.Automovel != null && aluguel.KMPercorrido > 0)
+            {
+                PrecoCombustivel precoCombustivel = repositorioPrecoCombustivel.Buscar();
+                valorTotal += precoCombustivel.CalcularValorReposicaoCombustivel(aluguel.Automovel, aluguel.NivelCombustivelAtual);
+            }
+
+            if (aluguel.Cupom != null)
+            {
+                valorTotal -= aluguel.Cupom.Valor;
+            }
 
             if (aluguel.DataDevolucao.Day > aluguel.DataDevolucaoPrevista.Day)
             {

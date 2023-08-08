@@ -1,5 +1,14 @@
 
 using LocadoraDeVeiculos.WinApp.ModuloAluguel;
+using LocadoraDeVeiculos.WinApp.ModuloAutomovel;
+using LocadoraDeVeiculos.WinApp.ModuloCliente;
+using LocadoraDeVeiculos.WinApp.ModuloCondutor;
+using LocadoraDeVeiculos.WinApp.ModuloCupom;
+using LocadoraDeVeiculos.WinApp.ModuloFuncionario;
+using LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel;
+using LocadoraDeVeiculos.WinApp.ModuloParceiro;
+using LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca;
+using LocadoraDeVeiculos.WinApp.ModuloTaxaServico;
 
 namespace LocadoraDeVeiculos.WinApp
 {
@@ -9,11 +18,13 @@ namespace LocadoraDeVeiculos.WinApp
 
         private ControladorBase controlador = null!;
 
+        private readonly Ioc ioc;
+
         public TelaPrincipalForm()
         {
             InitializeComponent();
 
-            Ioc.Inicializar = true;
+            ioc = new Ioc();
 
             Instancia = this;
         }
@@ -136,51 +147,51 @@ namespace LocadoraDeVeiculos.WinApp
 
         private void ParceiroMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorParceiro>());
         }
 
         private void CategoriaMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorGrupoAutomovel>());
         }
 
         private void CupomMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorCupom>());
         }
 
         private void VeiculoMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorAutomovel>());
         }
 
         private void TaxaServicoMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorTaxaServico>());
         }
 
         private void ClienteMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorCliente>());
         }
         private void FuncionarioMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorFuncionario>());
         }
 
         private void condutorMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorCondutor>());
         }
 
         private void AluguelMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorAluguel>());
         }
 
         private void planoDeCobrançaMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorPlanoDeCobranca>());
         }
 
         #endregion

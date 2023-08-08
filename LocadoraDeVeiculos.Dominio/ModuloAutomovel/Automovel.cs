@@ -32,12 +32,12 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
             
         }
           
-        public double ObterLitrosAbastecidos(NivelCombustivelEnum nivelAtual)
+        public decimal ObterLitrosAbastecidos(NivelCombustivelEnum nivelAtual)
         {
             if (nivelAtual == NivelCombustivelEnum.Vazio)
                 return CapacidadeDeCombustivel;
 
-            double valorEmLitros = CapacidadeDeCombustivel / (double)nivelAtual;
+            decimal valorEmLitros = CapacidadeDeCombustivel / (decimal)nivelAtual;
 
             return Math.Round(CapacidadeDeCombustivel - valorEmLitros, 2);
         }

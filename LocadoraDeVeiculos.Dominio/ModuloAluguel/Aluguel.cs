@@ -34,6 +34,8 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
 
         public Cupom Cupom { get; set; }
 
+        public NivelCombustivelEnum NivelCombustivelAtual { get; set; }
+
         public List<TaxaServico> TaxasServicos { get; set; }
 
         public bool EstaAberto { get; set; }
@@ -44,10 +46,11 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
 
         public Aluguel()
         {
-            
+            this.TaxasServicos = new();
+            this.NivelCombustivelAtual = NivelCombustivelEnum.Cheio;
         }
 
-        public Aluguel(Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, List<TaxaServico> listaTaxaServico, bool estaAberto)
+        public Aluguel(Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, NivelCombustivelEnum nivelCombustivelAtual, List<TaxaServico> listaTaxaServico, bool estaAberto)
         {
             this.Funcionario = funcionario;
             this.Cliente = cliente;
@@ -60,11 +63,12 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             this.DataDevolucaoPrevista = dataDevolucaoPrevista;
             this.DataDevolucao = dataDevolucao;
             this.Cupom = cupom;
+            this.NivelCombustivelAtual = nivelCombustivelAtual;
             this.TaxasServicos = listaTaxaServico;
             this.EstaAberto = estaAberto;
         }
 
-        public Aluguel(Guid id, Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, List<TaxaServico> listaTaxaServico, bool estaAberto)
+        public Aluguel(Guid id, Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, NivelCombustivelEnum nivelCombustivelAtual, List<TaxaServico> listaTaxaServico, bool estaAberto)
         {
             this.Id = id;
             this.Funcionario = funcionario;
@@ -78,6 +82,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             this.DataDevolucaoPrevista = dataDevolucaoPrevista;
             this.DataDevolucao = dataDevolucao;
             this.Cupom = cupom;
+            this.NivelCombustivelAtual = nivelCombustivelAtual;
             this.TaxasServicos = listaTaxaServico;
             this.EstaAberto = estaAberto;
         }

@@ -92,6 +92,11 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<int>("KMPercorrido")
                         .HasColumnType("int");
 
+                    b.Property<int>("NivelCombustivelAtual")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
                     b.Property<Guid>("PlanoDeCobrancaId")
                         .HasColumnType("uniqueidentifier");
 

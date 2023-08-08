@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 
 namespace LocadoraDeVeiculos.Infra.ModuloAluguel
 {
@@ -40,18 +41,26 @@ namespace LocadoraDeVeiculos.Infra.ModuloAluguel
                 .IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(p => p.KMPercorrido).IsRequired();
+            builder.Property(p => p.KMPercorrido)
+                .IsRequired();
 
-            builder.Property(p => p.DataLocacao).IsRequired();
+            builder.Property(p => p.DataLocacao)
+                .IsRequired();
 
-            builder.Property(p => p.DataDevolucaoPrevista).IsRequired();
+            builder.Property(p => p.DataDevolucaoPrevista)
+                .IsRequired();
 
-            builder.Property(p => p.DataDevolucao).IsRequired();
+            builder.Property(p => p.DataDevolucao)
+                .IsRequired();
 
             builder.HasOne(p => p.Cupom)
                 .WithMany()
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Property(p => p.NivelCombustivelAtual)
+                .IsRequired()
+                .HasDefaultValue(NivelCombustivelEnum.Cheio);
 
             builder.HasMany(p => p.TaxasServicos)
                 .WithMany()
