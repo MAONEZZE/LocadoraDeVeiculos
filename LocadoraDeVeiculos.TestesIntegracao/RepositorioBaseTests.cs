@@ -45,8 +45,9 @@ namespace LocadoraDeVeiculos.TestesIntegracao
 
             string sqlLimpezaTabela =
                 @"
+                DELETE FROM [DBO].[TBCUPOM];
                 DELETE FROM [DBO].[TBPARCEIRO];
-                DELETE FROM [DBO].[TBCUPOM];";
+                ";
 
             var comando = new SqlCommand(sqlLimpezaTabela, sqlConnection);
 

@@ -101,7 +101,7 @@ namespace LocadoraDeVeiculos.InfraEmail
             sb.AppendLine($"Data devolução: {(aluguel.EstaAberto ? "Em aberto" : $"{aluguel.DataDevolucao:d}")}");
             sb.AppendLine("");
             sb.AppendLine($"Cupom: {(aluguel.Cupom == null ? "Sem Cupom" : $"{aluguel.Cupom.Nome} - R$ {aluguel.Cupom.Valor} - Parceiro: {aluguel.Cupom.Parceiro.Nome}")}");
-            sb.AppendLine($"Valor Parcial: R$ {aluguel.ValorParcial}");
+            sb.AppendLine($"Valor Parcial: R$ {aluguel.ValorTotalPrevisto}");
             sb.AppendLine($"Valor Total: R$ {(aluguel.ValorTotal == 0 ? "Em aberto" : $"{aluguel.ValorTotal}")}");
 
             return sb.ToString();

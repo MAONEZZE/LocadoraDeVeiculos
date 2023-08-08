@@ -10,7 +10,7 @@ namespace LocadoraDeVeiculos.TestesIntegracao
     {
         Parceiro parceiro;
 
-        public RepositorioCupomTest() : base()
+        public RepositorioCupomTest() 
         {
             parceiro = Builder<Parceiro>.CreateNew().Persist();
         }
@@ -19,24 +19,17 @@ namespace LocadoraDeVeiculos.TestesIntegracao
         [TestMethod]
         public void Deve_inserir_cupom()
         {
-            var cupom = Builder<Cupom>.CreateNew().Build();
-
-            cupom.Parceiro = parceiro;
-
-            repositorioCupom.Inserir(cupom);
-
-            repositorioCupom.SelecionarPorId(cupom.Id)
-                .Should().Be(cupom);
+            var cupom = Builder<Cupom>.CreateNew().With(x => x.Parceiro = parceiro).Persist();
+            
+            repositorioCupom.SelecionarPorId(cupom.Id).Should().Be(cupom);
         }
 
         [TestMethod]
         public void Deve_editar_cupom()
         {
-            var cupom = Builder<Cupom>.CreateNew().Build();
+            var cupom = Builder<Cupom>.CreateNew().With(x => x.Parceiro = parceiro).Persist();
 
-            cupom.Parceiro = parceiro;
-
-            repositorioCupom.Inserir(cupom);
+            repositorioCupom.SelecionarPorId(cupom.Id);
 
             cupom = repositorioCupom.SelecionarPorId(cupom.Id);
 
@@ -44,25 +37,19 @@ namespace LocadoraDeVeiculos.TestesIntegracao
 
             repositorioCupom.Editar(cupom);
 
-            repositorioCupom.SelecionarPorId(cupom.Id)
-                .Should().Be(cupom);
+            repositorioCupom.SelecionarPorId(cupom.Id).Should().Be(cupom);
         }
 
         [TestMethod]
         public void Deve_excluir_cupom()
         {
-            var cupom = Builder<Cupom>.CreateNew().Build();
-
-            cupom.Parceiro = parceiro;
-
-            repositorioCupom.Inserir(cupom);
+            var cupom = Builder<Cupom>.CreateNew().With(x => x.Parceiro = parceiro).Persist();
 
             cupom = repositorioCupom.SelecionarPorId(cupom.Id);
 
             repositorioCupom.Excluir(cupom);
 
-            repositorioCupom.SelecionarPorId(cupom.Id)
-               .Should().BeNull();
+            repositorioCupom.SelecionarPorId(cupom.Id).Should().BeNull();
         }
     }
 }
