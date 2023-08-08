@@ -22,9 +22,9 @@ namespace LocadoraDeVeiculos.TestesUnitarios._2___Dominio.ModuloAutomovel
 
             NivelCombustivelEnum nivel = NivelCombustivelEnum.Um_Quarto;
 
-            decimal litrosAbastecidos = automovel.ObterLitrosAbastecidos(nivel);
+            var litrosAbastecidos = automovel.ObterLitrosAbastecidos(nivel);
 
-            litrosAbastecidos.Should().Be(41.25m);
+            litrosAbastecidos.Should().Be(41.25M);
 
         }
 
@@ -35,7 +35,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._2___Dominio.ModuloAutomovel
 
             NivelCombustivelEnum nivel = NivelCombustivelEnum.Cheio;
 
-            decimal litrosAbastecidos = automovel.ObterLitrosAbastecidos(nivel);
+            var litrosAbastecidos = automovel.ObterLitrosAbastecidos(nivel);
 
             litrosAbastecidos.Should().Be(0);
         }
@@ -47,7 +47,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._2___Dominio.ModuloAutomovel
 
             NivelCombustivelEnum nivel = NivelCombustivelEnum.Vazio;
 
-            decimal litrosAbastecidos = automovel.ObterLitrosAbastecidos(nivel);
+            var litrosAbastecidos = automovel.ObterLitrosAbastecidos(nivel);
 
             litrosAbastecidos.Should().Be(automovel.CapacidadeDeCombustivel);
         }

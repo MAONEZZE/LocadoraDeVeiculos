@@ -1,7 +1,9 @@
 ﻿using FizzWare.NBuilder;
+using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using LocadoraDeVeiculos.Dominio.ModuloCupom;
 using LocadoraDeVeiculos.Dominio.ModuloParceiro;
 using LocadoraDeVeiculos.Infra.Compartilhado;
+using LocadoraDeVeiculos.Infra.ModuloCondutor;
 using LocadoraDeVeiculos.Infra.ModuloCupom;
 using LocadoraDeVeiculos.Infra.ModuloParceiro;
 using Microsoft.Data.SqlClient;
@@ -13,6 +15,8 @@ namespace LocadoraDeVeiculos.TestesIntegracao
         protected IRepositorioParceiro repositorioParceiro;
 
         protected IRepositorioCupom repositorioCupom;
+
+        protected IRepositorioCondutor repositorioCondutor;
 
        private ConfiguracaoAppSettings configuracao;
 
@@ -27,6 +31,8 @@ namespace LocadoraDeVeiculos.TestesIntegracao
             repositorioParceiro = new RepositorioParceiro(dbContext);
 
             repositorioCupom = new RepositorioCupom(dbContext);
+
+            repositorioCondutor = new RepositorioCondutor(dbContext);
 
 
 
@@ -47,6 +53,7 @@ namespace LocadoraDeVeiculos.TestesIntegracao
                 @"
                 DELETE FROM [DBO].[TBCUPOM];
                 DELETE FROM [DBO].[TBPARCEIRO];
+                DELETE FROM [DBO].[TBCONDUTOR];
                 ";
 
             var comando = new SqlCommand(sqlLimpezaTabela, sqlConnection);
