@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDeVeiculosDbContext))]
-    [Migration("20230808170130_addTBAluguel")]
+    [Migration("20230808210903_addTBAluguel")]
     partial class addTBAluguel
     {
         /// <inheritdoc />
@@ -93,7 +93,9 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("KMPercorrido")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("NivelCombustivelAtual")
                         .ValueGeneratedOnAdd()
