@@ -40,7 +40,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloAluguel
                 .IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(p => p.KmAutomovelAtual).IsRequired();
+            builder.Property(p => p.KMPercorrido).IsRequired();
 
             builder.Property(p => p.DataLocacao).IsRequired();
 
@@ -61,10 +61,11 @@ namespace LocadoraDeVeiculos.Infra.ModuloAluguel
                 .IsRequired()
                 .HasDefaultValue(false);
 
-            builder.Property(p => p.ValorParcial)
+            builder.Property(p => p.ValorTotalPrevisto)
                 .IsRequired();
 
             builder.Property(p => p.ValorTotal)
+                .HasDefaultValue(0)
                 .IsRequired();
         }
     }

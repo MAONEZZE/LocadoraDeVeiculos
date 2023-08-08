@@ -6,16 +6,18 @@ using LocadoraDeVeiculos.Dominio.ModuloCupom;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 {
     public delegate List<TEntidade> SelecionarTodosDelegate<TEntidade>()
         where TEntidade : EntidadeBase<TEntidade>;
 
-    public delegate List<TEntidade> SelecionarPorFiltroDelegate<TEntidade, TEntidadeFiltro>(TEntidadeFiltro filtro)
+    public delegate List<TEntidade> SelecionarPorFiltroListaDelegate<TEntidade, TEntidadeFiltro>(TEntidadeFiltro filtro)
         where TEntidade : EntidadeBase<TEntidade>;
 
-
+    public delegate TEntidade SelecionarPorFiltroDelegate<TEntidade, TEntidadeFiltro>(TEntidadeFiltro filtro)
+        where TEntidade : EntidadeBase<TEntidade>;
 
     public partial class TelaAluguelForm : Form
     {
@@ -29,21 +31,21 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         public event SelecionarTodosDelegate<Cliente> onSelecionarTodosClientes;
 
-        public event SelecionarPorFiltroDelegate<Condutor, Cliente> onSelecionarCondutorPorCliente;
+        public event SelecionarPorFiltroListaDelegate<Condutor, Cliente> onSelecionarCondutorPorCliente;
 
         // Grupo de Automoveis e Automovel
 
         public event SelecionarTodosDelegate<GrupoAutomovel> onSelecionarTodosGrupoAutomovel;
 
-        public event SelecionarPorFiltroDelegate<Automovel, GrupoAutomovel> onSelecionarAutomovelPorGrupoAutomovel;
+        public event SelecionarPorFiltroListaDelegate<Automovel, GrupoAutomovel> onSelecionarAutomovelPorGrupoAutomovel;
 
         // Plano de Cobranca
 
-        public event SelecionarTodosDelegate<PlanoDeCobranca> onSelecionarTodosPlanoDeCobranca;
+        public event SelecionarPorFiltroListaDelegate<PlanoDeCobranca, GrupoAutomovel> onSelecionarTodosPlanoDeCobrancaPorGrupoAutomovel;
 
         // Cupom 
 
-        public event SelecionarPorFiltroDelegate<Cupom, string> onnSelecionarCupomPorNome;
+        public event SelecionarPorFiltroDelegate<Cupom, string> onSelecionarCupomPorNome;
 
         Aluguel aluguel;
 
@@ -82,11 +84,11 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             cbxAutomovel.SelectedItem = aluguelSelecionado.Automovel;
 
-            //cbxPlanoDeCobranca.DataSource = onSelecionarTodosPlanoDeCobranca();
+            cbxPlanoDeCobranca.DataSource = onSelecionarTodosPlanoDeCobrancaPorGrupoAutomovel(aluguelSelecionado.GrupoAutomovel);
 
             cbxPlanoDeCobranca.SelectedItem = aluguelSelecionado.PlanoDeCobranca;
 
-            txtQuilometragem.Text = aluguelSelecionado.KmAutomovelAtual.ToString();
+            txtQuilometragem.Text = aluguelSelecionado.KMPercorrido.ToString();
 
             if (aluguelSelecionado.DataLocacao != default(DateTime))
             {
@@ -112,13 +114,57 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         public void ConfigurarDevolucao(Aluguel aluguelSelecionado)
         {
             ConfigurarRegistro(aluguelSelecionado);
-            
+
             gbLocacao.Enabled = false;
-            
+
             gbDevolucao.Enabled = true;
 
 
 
+        }
+
+        private void cbxCliente_SelectedValueChanged(object sender, EventArgs e)
+        {
+            cbxCondutor.DataSource = onSelecionarCondutorPorCliente(cbxCliente.SelectedItem as Cliente);
+            cbxCondutor.Enabled = true;
+        }
+
+        private void cbxGrupoAutomovel_SelectedValueChanged(object sender, EventArgs e)
+        {
+            cbxAutomovel.DataSource = onSelecionarAutomovelPorGrupoAutomovel(cbxGrupoAutomovel.SelectedItem as GrupoAutomovel);
+            cbxAutomovel.Enabled = true;
+
+            cbxPlanoDeCobranca.DataSource = onSelecionarTodosPlanoDeCobrancaPorGrupoAutomovel(cbxGrupoAutomovel.SelectedItem as GrupoAutomovel);
+            cbxPlanoDeCobranca.Enabled = true;
+        }
+
+        private void cbxAutomovel_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Automovel automovel = cbxAutomovel.SelectedItem as Automovel;
+            if (automovel != null)
+            {
+                txtQuilometragem.Text = automovel.Quilometragem.ToString();
+            }
+        }
+
+        private void btnCupom_Click(object sender, EventArgs e)
+        {
+            if (btnCupom.Text == "Remover Cupom")
+            {
+                aluguel.Cupom = null;
+                txtCupom.Enabled = true;
+                btnCupom.Text = "Aplicar Cupom";
+            }
+            else if (String.IsNullOrEmpty(txtCupom.Text) == false)
+            {
+                Cupom cupom = onSelecionarCupomPorNome(txtCupom.Text);
+                if (cupom != null)
+                {
+                    aluguel.Cupom = cupom;
+                    txtCupom.Enabled = false;
+                    btnCupom.Text = "Remover Cupom";
+                }
+            }
         }
     }
 }

@@ -85,6 +85,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             telaAluguel.onGravarRegistro += servicoAluguel.Editar;
 
+            ConfigurarDelegates(telaAluguel);
+
             telaAluguel.ConfigurarRegistro(aluguelSelecionado);
 
             DialogResult resultado = telaAluguel.ShowDialog();
@@ -140,19 +142,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             telaAluguel.onGravarRegistro += servicoAluguel.Inserir;
 
-            telaAluguel.onSelecionarTodosFuncionarios += repositorioFuncionario.SelecionarTodos;
-
-            telaAluguel.onSelecionarTodosClientes += repositorioCliente.SelecionarTodos;
-
-            telaAluguel.onSelecionarCondutorPorCliente += repositorioCondutor.SelecionarPorCliente;
-
-            telaAluguel.onSelecionarTodosGrupoAutomovel += repositorioGrupoAutomovel.SelecionarTodos;
-
-            telaAluguel.onSelecionarAutomovelPorGrupoAutomovel += repositorioAutomovel.SelecionarPorGrupoAutomovel;
-
-            telaAluguel.onSelecionarTodosClientes += repositorioCliente.SelecionarTodos;
-
-            telaAluguel.onSelecionarCondutorPorCliente += repositorioCondutor.SelecionarPorCliente;
+            ConfigurarDelegates(telaAluguel);
 
             telaAluguel.ConfigurarRegistro(new Aluguel());
 
@@ -198,6 +188,27 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             tabelaAluguel.AtualizarRegistros(registros);
 
             AtualizarRodape(registros);
+        }
+
+        private void ConfigurarDelegates(TelaAluguelForm telaAluguel)
+        {
+            telaAluguel.onSelecionarTodosFuncionarios += repositorioFuncionario.SelecionarTodos;
+
+            telaAluguel.onSelecionarTodosClientes += repositorioCliente.SelecionarTodos;
+
+            telaAluguel.onSelecionarCondutorPorCliente += repositorioCondutor.SelecionarPorCliente;
+
+            telaAluguel.onSelecionarTodosGrupoAutomovel += repositorioGrupoAutomovel.SelecionarTodos;
+
+            telaAluguel.onSelecionarAutomovelPorGrupoAutomovel += repositorioAutomovel.SelecionarPorGrupoAutomovel;
+
+            telaAluguel.onSelecionarTodosPlanoDeCobrancaPorGrupoAutomovel += repositorioPlanoDeCobranca.SelecionarPlanoDeCobrancaPorGrupoAutomovel;
+
+            telaAluguel.onSelecionarTodosClientes += repositorioCliente.SelecionarTodos;
+
+            telaAluguel.onSelecionarCondutorPorCliente += repositorioCondutor.SelecionarPorCliente;
+
+            telaAluguel.onSelecionarCupomPorNome += repositorioCupom.SelecionarPorNome;
         }
 
         private void AtualizarRodape(List<Aluguel> registros)

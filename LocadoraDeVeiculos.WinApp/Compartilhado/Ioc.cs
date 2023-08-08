@@ -32,6 +32,7 @@ using LocadoraDeVeiculos.WinApp.ModuloParceiro;
 using LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.WinApp.ModuloTaxaServico;
 
+
 namespace LocadoraDeVeiculos.WinApp.Compartilhado
 {
     public static class Ioc
@@ -97,7 +98,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var servicoFuncionario = new ServicoFuncionario(repositorioFuncionario);
 
-            var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb, geradorEmail, geradorPdf);
+            var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb, repositorioPlanoDeCobranca, geradorEmail, geradorPdf);
 
             var servicoCondutor = new ServicoCondutor(repositorioCondutor);
 
@@ -150,7 +151,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             controladores.Add("Aluguel", controladorAluguel);
             controladores.Add("Plano de Cobrança", controladorPlano);
 
-         
+  
         }
 
         public static ControladorBase ObterControlador(object sender)

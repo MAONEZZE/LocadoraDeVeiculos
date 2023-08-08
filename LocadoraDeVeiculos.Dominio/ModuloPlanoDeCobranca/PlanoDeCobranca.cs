@@ -76,5 +76,9 @@ namespace LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca
 
             return totalPreco;
         }
+        public override string ToString()
+        {
+            return this.TipoPlano.ToString();
+        }
     }
 }
