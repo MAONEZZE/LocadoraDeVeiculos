@@ -85,6 +85,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             telaAluguel.onGravarRegistro += servicoAluguel.Editar;
 
+            telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValorTotalPrevisto;
+
             ConfigurarDelegates(telaAluguel);
 
             telaAluguel.ConfigurarRegistro(aluguelSelecionado);
@@ -141,6 +143,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             };
 
             telaAluguel.onGravarRegistro += servicoAluguel.Inserir;
+
+            telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValorTotalPrevisto;
 
             ConfigurarDelegates(telaAluguel);
 
@@ -209,6 +213,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             telaAluguel.onSelecionarCondutorPorCliente += repositorioCondutor.SelecionarPorCliente;
 
             telaAluguel.onSelecionarCupomPorNome += repositorioCupom.SelecionarPorNome;
+
+            telaAluguel.onSelecionarTodosTaxaServico += repositorioTaxaServico.SelecionarTodos;
         }
 
         private void AtualizarRodape(List<Aluguel> registros)

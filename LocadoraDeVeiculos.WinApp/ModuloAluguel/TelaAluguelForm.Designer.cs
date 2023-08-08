@@ -64,6 +64,8 @@
             clbxTaxasAdicionais = new CheckedListBox();
             gbDevolucao = new GroupBox();
             gbLocacao = new GroupBox();
+            label14 = new Label();
+            txtValorTotal = new Label();
             tctrlTaxas.SuspendLayout();
             tbTaxasSelecionadas.SuspendLayout();
             tbTaxasAdicionais.SuspendLayout();
@@ -91,6 +93,7 @@
             btnSalvar.TabIndex = 10;
             btnSalvar.Text = "Salvar";
             btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // label1
             // 
@@ -157,6 +160,7 @@
             cbxPlanoDeCobranca.Name = "cbxPlanoDeCobranca";
             cbxPlanoDeCobranca.Size = new Size(196, 23);
             cbxPlanoDeCobranca.TabIndex = 6;
+            cbxPlanoDeCobranca.SelectedValueChanged += AtualizarValorTotal_event;
             // 
             // label4
             // 
@@ -240,6 +244,7 @@
             txtDataLocacao.Name = "txtDataLocacao";
             txtDataLocacao.Size = new Size(196, 23);
             txtDataLocacao.TabIndex = 7;
+            txtDataLocacao.ValueChanged += AtualizarValorTotal_event;
             // 
             // txtDevolucaoPrevista
             // 
@@ -248,6 +253,7 @@
             txtDevolucaoPrevista.Name = "txtDevolucaoPrevista";
             txtDevolucaoPrevista.Size = new Size(196, 23);
             txtDevolucaoPrevista.TabIndex = 8;
+            txtDevolucaoPrevista.ValueChanged += AtualizarValorTotal_event;
             // 
             // label9
             // 
@@ -364,6 +370,7 @@
             clbxTaxasSelecionadas.Name = "clbxTaxasSelecionadas";
             clbxTaxasSelecionadas.Size = new Size(599, 126);
             clbxTaxasSelecionadas.TabIndex = 0;
+            clbxTaxasSelecionadas.ItemCheck += clbxTaxasSelecionadas_ItemCheck;
             // 
             // tbTaxasAdicionais
             // 
@@ -384,6 +391,7 @@
             clbxTaxasAdicionais.Name = "clbxTaxasAdicionais";
             clbxTaxasAdicionais.Size = new Size(599, 126);
             clbxTaxasAdicionais.TabIndex = 0;
+            clbxTaxasAdicionais.ItemCheck += clbxTaxasAdicionais_ItemCheck;
             // 
             // gbDevolucao
             // 
@@ -410,11 +418,33 @@
             gbLocacao.TabStop = false;
             gbLocacao.Text = "Locação";
             // 
+            // label14
+            // 
+            label14.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label14.Location = new Point(40, 520);
+            label14.Name = "label14";
+            label14.Size = new Size(149, 35);
+            label14.TabIndex = 42;
+            label14.Text = "Valor Total Previsto:";
+            label14.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // txtValorTotal
+            // 
+            txtValorTotal.Font = new Font("Segoe UI Black", 13F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            txtValorTotal.ForeColor = Color.Chartreuse;
+            txtValorTotal.Location = new Point(204, 526);
+            txtValorTotal.Name = "txtValorTotal";
+            txtValorTotal.Size = new Size(114, 23);
+            txtValorTotal.TabIndex = 43;
+            txtValorTotal.Text = "R$ 0";
+            // 
             // TelaAluguelForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(676, 577);
+            Controls.Add(txtValorTotal);
+            Controls.Add(label14);
             Controls.Add(gbDevolucao);
             Controls.Add(tctrlTaxas);
             Controls.Add(btnCupom);
@@ -490,5 +520,7 @@
         private CheckedListBox clbxTaxasAdicionais;
         private GroupBox gbDevolucao;
         private GroupBox gbLocacao;
+        private Label label14;
+        private Label txtValorTotal;
     }
 }

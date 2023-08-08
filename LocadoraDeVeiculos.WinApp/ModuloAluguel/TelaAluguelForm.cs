@@ -6,6 +6,7 @@ using LocadoraDeVeiculos.Dominio.ModuloCupom;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
+using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
@@ -18,6 +19,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
     public delegate TEntidade SelecionarPorFiltroDelegate<TEntidade, TEntidadeFiltro>(TEntidadeFiltro filtro)
         where TEntidade : EntidadeBase<TEntidade>;
+
+    public delegate Decimal CalcularValorTotalDelegate<TEntidadde>(TEntidadde entidade);
 
     public partial class TelaAluguelForm : Form
     {
@@ -47,7 +50,18 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         public event SelecionarPorFiltroDelegate<Cupom, string> onSelecionarCupomPorNome;
 
+        // Taxas ou Servicos
+
+        public event SelecionarTodosDelegate<TaxaServico> onSelecionarTodosTaxaServico;
+
+        // Calcular Valor Total
+
+        public event CalcularValorTotalDelegate<Aluguel> onCalcularValorTotal;
+
+
         Aluguel aluguel;
+
+        private bool ehDevolucao;
 
         public TelaAluguelForm()
         {
@@ -74,7 +88,15 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             cbxCondutor.DataSource = onSelecionarCondutorPorCliente(aluguelSelecionado.Cliente);
 
-            cbxCondutor.SelectedItem = aluguelSelecionado.Condutor;
+            if (aluguelSelecionado.Condutor != null)
+            {
+                cbxCondutor.SelectedItem = aluguelSelecionado.Condutor;
+            }
+            else
+            {
+                cbxCondutor.Enabled = false;
+            }
+
 
             cbxGrupoAutomovel.DataSource = onSelecionarTodosGrupoAutomovel();
 
@@ -82,11 +104,25 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             cbxAutomovel.DataSource = onSelecionarAutomovelPorGrupoAutomovel(aluguelSelecionado.GrupoAutomovel);
 
-            cbxAutomovel.SelectedItem = aluguelSelecionado.Automovel;
+            if (aluguelSelecionado.Automovel != null)
+            {
+                cbxAutomovel.SelectedItem = aluguelSelecionado.Automovel;
+            }
+            else
+            {
+                cbxAutomovel.Enabled = false;
+            }
 
             cbxPlanoDeCobranca.DataSource = onSelecionarTodosPlanoDeCobrancaPorGrupoAutomovel(aluguelSelecionado.GrupoAutomovel);
 
-            cbxPlanoDeCobranca.SelectedItem = aluguelSelecionado.PlanoDeCobranca;
+            if (aluguelSelecionado.PlanoDeCobranca != null)
+            {
+                cbxPlanoDeCobranca.SelectedItem = aluguelSelecionado.PlanoDeCobranca;
+            }
+            else
+            {
+                cbxPlanoDeCobranca.Enabled = false;
+            }
 
             txtQuilometragem.Text = aluguelSelecionado.KMPercorrido.ToString();
 
@@ -108,6 +144,9 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
                 btnCupom.Text = "Remover Cupom";
             }
+
+            PreencherTaxas(aluguelSelecionado);
+
             cbxNivelTanque.DataSource = Enum.GetValues<NivelCombustivelEnum>();
         }
 
@@ -119,10 +158,44 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             gbDevolucao.Enabled = true;
 
+            ehDevolucao = true;
+
+            clbxTaxasSelecionadas.Enabled = false;
+
+            tctrlTaxas.TabPages.Add(tbTaxasAdicionais);
+
 
 
         }
+        private void PreencherTaxas(Aluguel aluguel, bool adicionais = false)
+        {
+            List<TaxaServico> listaTaxasServicos = onSelecionarTodosTaxaServico();
+            foreach (TaxaServico taxaServico in listaTaxasServicos)
+            {
+                if (aluguel.TaxasServicos.Contains(taxaServico) && adicionais == false)
+                {
+                    clbxTaxasSelecionadas.Items.Add(taxaServico, true);
+                }
+                else if (!aluguel.TaxasServicos.Contains(taxaServico) && adicionais)
+                {
+                    clbxTaxasAdicionais.Items.Add(taxaServico, false);
+                }
+                else
+                {
+                    clbxTaxasSelecionadas.Items.Add(taxaServico, false);
+                }
+            }
+        }
 
+        private void SalvarTaxasSelecionadas()
+        {
+            aluguel.TaxasServicos.Clear();
+
+            foreach (TaxaServico taxaServico in clbxTaxasSelecionadas.CheckedItems)
+            {
+                aluguel.TaxasServicos.Add(taxaServico);
+            }
+        }
         private void cbxCliente_SelectedValueChanged(object sender, EventArgs e)
         {
             cbxCondutor.DataSource = onSelecionarCondutorPorCliente(cbxCliente.SelectedItem as Cliente);
@@ -157,6 +230,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             }
             else if (String.IsNullOrEmpty(txtCupom.Text) == false)
             {
+                txtCupom.Text = txtCupom.Text.ToUpper();
                 Cupom cupom = onSelecionarCupomPorNome(txtCupom.Text);
                 if (cupom != null)
                 {
@@ -165,6 +239,87 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
                     btnCupom.Text = "Remover Cupom";
                 }
             }
+            AtualizarValorTotal();
+        }
+
+        private void AtualizarValorTotal_event(object sender, EventArgs e)
+        {
+            aluguel.PlanoDeCobranca = cbxPlanoDeCobranca.SelectedItem as PlanoDeCobranca;
+            aluguel.DataLocacao = txtDataLocacao.Value;
+            aluguel.DataDevolucaoPrevista = txtDevolucaoPrevista.Value;
+            AtualizarValorTotal();
+        }
+
+        private void AtualizarValorTotal()
+        {
+            Decimal valorTotal;
+
+            valorTotal = onCalcularValorTotal(aluguel);
+            if (ehDevolucao)
+            {
+                aluguel.DataDevolucao = txtDataDevolucao.Value;
+                aluguel.NivelCombustivelAtual = (NivelCombustivelEnum)cbxNivelTanque.SelectedItem;
+            }
+
+            txtValorTotal.Text = "R$" + valorTotal.ToString();
+        }
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            aluguel.Funcionario = cbxFuncionario.SelectedItem as Funcionario;
+            aluguel.Cliente = cbxCliente.SelectedItem as Cliente;
+            aluguel.Condutor = cbxCondutor.SelectedItem as Condutor;
+            aluguel.GrupoAutomovel = cbxGrupoAutomovel.SelectedItem as GrupoAutomovel;
+            aluguel.Automovel = cbxAutomovel.SelectedItem as Automovel;
+            aluguel.PlanoDeCobranca = cbxPlanoDeCobranca.SelectedItem as PlanoDeCobranca;
+            if (String.IsNullOrEmpty(txtQuilometragem.Text) == null)
+            {
+                aluguel.KMPercorrido = Convert.ToInt32(txtQuilometragem.Text);
+            }
+            else
+            {
+                aluguel.KMPercorrido = 0;
+            }
+            aluguel.DataLocacao = txtDataLocacao.Value;
+            aluguel.DataDevolucaoPrevista = txtDevolucaoPrevista.Value;
+
+            if (ehDevolucao)
+            {
+                aluguel.ValorTotal = onCalcularValorTotal(aluguel);
+                aluguel.NivelCombustivelAtual = (NivelCombustivelEnum)cbxNivelTanque.SelectedItem;
+                aluguel.KMPercorrido = Convert.ToInt32(txtQuilometragem.Text);
+            }
+            else
+            {
+                aluguel.ValorTotalPrevisto = onCalcularValorTotal(aluguel);
+            }
+        }
+
+        private void clbxTaxasSelecionadas_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            TaxaServico taxaServico = clbxTaxasSelecionadas.Items[e.Index] as TaxaServico;
+            if (e.NewValue == CheckState.Checked)
+            {
+                aluguel.TaxasServicos.Add(taxaServico);
+            }
+            else
+            {
+                aluguel.TaxasServicos.Remove(taxaServico);
+            }
+            AtualizarValorTotal();
+        }
+
+        private void clbxTaxasAdicionais_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            TaxaServico taxaServico = clbxTaxasAdicionais.Items[e.Index] as TaxaServico;
+            if (e.NewValue == CheckState.Checked)
+            {
+                aluguel.TaxasServicos.Add(taxaServico);
+            }
+            else
+            {
+                aluguel.TaxasServicos.Remove(taxaServico);
+            }
+            AtualizarValorTotal();
         }
     }
 }
