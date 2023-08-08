@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 
 namespace LocadoraDeVeiculos.Servico.ModuloPlanoDeCobranca
 {
@@ -6,9 +7,12 @@ namespace LocadoraDeVeiculos.Servico.ModuloPlanoDeCobranca
     {
         private IRepositorioPlanoDeCobranca repPlano;
 
-        public ServicoPlanoDeCobranca(IRepositorioPlanoDeCobranca repPlano)
+        private IContextoPersistencia contexto;
+
+        public ServicoPlanoDeCobranca(IRepositorioPlanoDeCobranca repPlano, IContextoPersistencia contexto)
         {
             this.repPlano = repPlano;
+            this.contexto = contexto;
         }
 
         public Result Inserir(PlanoDeCobranca plano)
@@ -18,13 +22,17 @@ namespace LocadoraDeVeiculos.Servico.ModuloPlanoDeCobranca
             var erros = ValidarPlano(plano);
 
             if (erros.Any())
+            {            
                 return Result.Fail(erros);
-
+            }
+                
             try
             {
                 repPlano.Inserir(plano);
 
                 Log.Debug("Plano de Cobrança {planoId} inserido com sucesso", plano.Id);
+
+                contexto.GravarDados();
 
                 return Result.Ok();
             }
@@ -33,6 +41,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloPlanoDeCobranca
                 string msg = $"Falha ao tentar inserir plano de cobrança {plano}";
 
                 Log.Error(msg, plano);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msg);
             }
@@ -46,13 +56,19 @@ namespace LocadoraDeVeiculos.Servico.ModuloPlanoDeCobranca
             var erros = ValidarPlano(plano);
 
             if (erros.Any())
-                return Result.Fail(erros);
+            {
+                contexto.DesfazerAlteracoes();
 
+                return Result.Fail(erros);
+            }
+                
             try
             {
                 repPlano.Editar(plano);
 
                 Log.Debug("Plano de cobrança {planoId} editado com sucesso", plano.Id);
+
+                contexto.GravarDados();
 
                 return Result.Ok();
             }
@@ -61,6 +77,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloPlanoDeCobranca
                 string msg = $"Falha ao tentar editar plano de cobrança {plano}";
 
                 Log.Error(msg, plano);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msg);
             }
@@ -87,6 +105,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloPlanoDeCobranca
 
                 Log.Debug("Plano de cobrança {planoId} excluído com sucesso", plano.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch (Exception ex)
@@ -101,6 +121,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloPlanoDeCobranca
                     msg = $"Falha ao tentar excluir o Plano de cobrança{plano}";
 
                 Log.Error(msg, plano);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msg);
             }

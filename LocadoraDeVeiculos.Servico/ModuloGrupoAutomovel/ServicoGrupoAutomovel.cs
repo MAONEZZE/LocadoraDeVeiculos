@@ -1,4 +1,5 @@
 ﻿
+using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 
@@ -6,15 +7,19 @@ namespace LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel
 {
     public class ServicoGrupoAutomovel: ServicoBase<GrupoAutomovel, ValidadorGrupoAutomovel>
     {
-        IRepositorioGrupoAutomovel repositorioGrupoAutomovel;
+        private IRepositorioGrupoAutomovel repositorioGrupoAutomovel;
 
-        IRepositorioAutomovel repositorioAutomovel;
+        private IRepositorioAutomovel repositorioAutomovel;
 
-        public ServicoGrupoAutomovel(IRepositorioGrupoAutomovel repositorioGrupo, IRepositorioAutomovel repositorioAutomovel)
+        private IContextoPersistencia contexto;
+
+        public ServicoGrupoAutomovel(IRepositorioGrupoAutomovel repositorioGrupo, IRepositorioAutomovel repositorioAutomovel, IContextoPersistencia contexto)
         {
             this.repositorioGrupoAutomovel = repositorioGrupo;
 
             this.repositorioAutomovel = repositorioAutomovel;
+
+            this.contexto = contexto;
         }
 
         public Result Inserir(GrupoAutomovel grupo)
@@ -32,6 +37,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel
 
                 Log.Debug("Grupo de Automóveis {grupoId} inserido com sucesso", grupo.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
 
@@ -39,7 +46,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel
             {
                 string msg = $"Falha ao tentar inserir Grupo de Automóveis {grupo.Id}";
 
-                repositorioGrupoAutomovel.DesfazerAlteracoes();
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, grupo);
 
@@ -63,13 +70,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel
 
                 Log.Debug("Grupo {grupoId} editado com sucesso", grupo.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch
             {
                 string msg = $"Falha ao tentar editar grupo {grupo}";
 
-                repositorioGrupoAutomovel.DesfazerAlteracoes();
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, grupo);
 
@@ -107,13 +116,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloGrupoAutomovel
 
                 Log.Debug("Grupo de automóveis {grupoId} excluído com sucesso", grupo.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch (Exception ex)
             {
                 string msg = $"Falha ao tentar excluír grupo {grupo.Id}";
 
-                repositorioGrupoAutomovel.DesfazerAlteracoes();
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg +" "+ ex.Message, grupo);
 

@@ -22,15 +22,12 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
 
         public void Editar(T registro)
         {
-            registros.Update(registro);
-          
+            registros.Update(registro);         
         }
 
         public void Excluir(T registro)
         {
-            registros.Remove(registro);
-
-           
+            registros.Remove(registro);          
         }
 
         public bool Existe(T registro)

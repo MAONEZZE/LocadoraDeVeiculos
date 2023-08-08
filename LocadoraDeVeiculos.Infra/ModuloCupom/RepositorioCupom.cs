@@ -1,6 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloCupom;
 
-
 namespace LocadoraDeVeiculos.Infra.ModuloCupom
 {
     public class RepositorioCupom : RepositorioBase<Cupom>, IRepositorioCupom
@@ -26,7 +25,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloCupom
 
         public Cupom SelecionarPorNome(string nome)
         {
-            return registros.Where(x => x.Nome == nome).SingleOrDefault();
+            return registros.Where(x => x.Nome == nome).SingleOrDefault()!;
         }
     }
 }

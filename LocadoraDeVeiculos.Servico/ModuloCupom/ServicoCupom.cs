@@ -1,15 +1,21 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCupom;
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloCupom;
 
 namespace LocadoraDeVeiculos.Servico.ModuloCupom
 {
     public class ServicoCupom : ServicoBase<Cupom, ValidadorCupom>
     {
-        IRepositorioCupom repositorioCupom;
-       
+        private IRepositorioCupom repositorioCupom;
+        private readonly IRepositorioAluguel repositorioAluguel;
+        private IContextoPersistencia contexto;
 
-        public ServicoCupom(IRepositorioCupom repositorioCupom)
-        {           
+
+        public ServicoCupom(IRepositorioCupom repositorioCupom, IRepositorioAluguel repositorioAluguel, IContextoPersistencia contexto)
+        {
             this.repositorioCupom = repositorioCupom;
+            this.repositorioAluguel = repositorioAluguel;
+            this.contexto = contexto;
         }
 
         public Result Inserir(Cupom cupom)
@@ -19,12 +25,18 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             var erros = ValidarCupom(cupom);
 
             if (erros.Any())
+            {
+                contexto.DesfazerAlteracoes();
+
                 return Result.Fail(erros);
+            }
 
             try
             {
                 repositorioCupom.Inserir(cupom);
-            
+
+                contexto.GravarDados();
+
                 Log.Debug("Cupom {cupomId} inserido com sucesso", cupom.Id);
 
                 return Result.Ok();
@@ -33,7 +45,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             {
                 string msg = $"Falha ao tentar inserir cupom {cupom}";
 
-                repositorioCupom.DesfazerAlteracoes();
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, cupom);
 
@@ -49,12 +61,18 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             var erros = ValidarCupom(cupom);
 
             if (erros.Any())
+            {
+                contexto.DesfazerAlteracoes();
+
                 return Result.Fail(erros);
+            }
 
             try
             {
                 repositorioCupom.Editar(cupom);
-              
+
+                contexto.GravarDados();
+
                 Log.Debug("Cupom {cupomId} editado com sucesso", cupom.Id);
 
                 return Result.Ok();
@@ -63,7 +81,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             {
                 string msg = $"Falha ao tentar editar cupom {cupom}";
 
-                repositorioCupom.DesfazerAlteracoes();
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, cupom);
 
@@ -87,23 +105,18 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
                 }
 
                 repositorioCupom.Excluir(cupom);
-             
+
+                contexto.GravarDados();
+
                 Log.Debug("Cupom {cupomId} excluído com sucesso", cupom.Id);
 
                 return Result.Ok();
             }
-            catch (Exception ex)
+            catch
             {
-                string msg;                  // aguaradar nome fk aluguel _ cupom
-                                            // nao pode excluir cupom relacionado a aluguel..
-                if (ex.InnerException!.Message.Contains(""))
-                {
-                    msg = "Este cupom está relacionado com um aluguel e pode ser excluído";
-                }
-                else
-                    msg = $"Falha ao tentar excluir cupom {cupom}";
+                string msg = $"Falha ao tentar excluir cupom {cupom}";
 
-                repositorioCupom.DesfazerAlteracoes();
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, cupom);
 
@@ -121,7 +134,10 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             {
                 erros.AddRange(resultado.Errors.Select(e => e.Message));
             }
-          
+
+            if (repositorioAluguel.SelecionarTodos().Any(x => x.Cupom.Equals(cupom)))
+                erros.Add("Este cupom já esta sendo utilizado, não é possivel editar ou excluir");
+
             if (!repositorioCupom.EhValido(cupom))
                 erros.Add($"Este nome '{cupom.Nome}' já está sendo utilizado");
 

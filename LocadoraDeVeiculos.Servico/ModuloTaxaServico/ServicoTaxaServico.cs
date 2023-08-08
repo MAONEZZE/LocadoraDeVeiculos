@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 
 namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 {
@@ -6,9 +7,12 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
     {
         private IRepositorioTaxaServico repositorioTaxaServico;
 
-        public ServicoTaxaServico(IRepositorioTaxaServico repositorioTaxaServico)
+        private IContextoPersistencia contexto;
+
+        public ServicoTaxaServico(IRepositorioTaxaServico repositorioTaxaServico, IContextoPersistencia contexto)
         {
             this.repositorioTaxaServico = repositorioTaxaServico;
+            this.contexto = contexto;
         }
 
 
@@ -19,13 +23,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
             List<string> erros = ValidarTaxaServico(taxaServico);
 
             if (erros.Count > 0)
-            {
+            {      
                 return Result.Fail(erros);
             }
 
             try
             {
                 repositorioTaxaServico.Inserir(taxaServico);
+
+                contexto.GravarDados();
 
                 Log.Debug("Taxa ou Serviço {TaxaServicoId} inserido com sucesso!", taxaServico.Id);
 
@@ -36,6 +42,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
                 string msgErro = "Erro desconhecido. Falha ao tentar inserir Taxa ou Serviço.";
 
                 Log.Error(ex, msgErro + " {TaxaServico}", taxaServico);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msgErro);
             }
@@ -48,13 +56,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
             List<string> erros = ValidarTaxaServico(taxaServico);
 
             if (erros.Count > 0)
-            {
+            {            
                 return Result.Fail(erros);
             }
 
             try
             {
                 repositorioTaxaServico.Editar(taxaServico);
+
+                contexto.GravarDados();
 
                 Log.Debug("Taxa ou Serviço {TaxaServicoId} editado com sucesso!", taxaServico.Id);
 
@@ -65,6 +75,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
                 string msgErro = "Erro desconhecido. Falha ao tentar editar Taxa ou Serviço.";
 
                 Log.Error(ex, msgErro + " {TaxaServico}", taxaServico);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msgErro);
             }
@@ -86,6 +98,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
                 repositorioTaxaServico.Excluir(taxaServico);
 
+                contexto.GravarDados();
+
                 Log.Debug("Taxa ou Serviço {TaxaServicoId} excluído com sucesso!", taxaServico.Id);
 
                 return Result.Ok();
@@ -105,7 +119,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
                     msgErro = "Erro desconhecido. Falha ao tentar excluir Taxa ou Serviço.";
                 }
 
-                repositorioTaxaServico.DesfazerAlteracoes();
+                contexto.DesfazerAlteracoes();
 
                 erros.Add(msgErro);
 

@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 
 namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
 {
@@ -6,9 +7,12 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
     {
         private IRepositorioFuncionario repositorioFuncionario;
 
-        public ServicoFuncionario(IRepositorioFuncionario repositorioFuncionario)
+        private IContextoPersistencia contexto;
+
+        public ServicoFuncionario(IRepositorioFuncionario repositorioFuncionario, IContextoPersistencia contexto)
         {
             this.repositorioFuncionario = repositorioFuncionario;
+            this.contexto = contexto;
         }
 
         public Result Inserir(Funcionario funcionario)
@@ -28,6 +32,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
 
                 Log.Debug("Funcionário {FuncionarioId} inserido com sucesso!", funcionario.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch (Exception ex)
@@ -35,6 +41,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
                 string msgErro = "Erro desconhecido. Falha ao tentar inserir Funcionário.";
 
                 Log.Error(ex, msgErro + " {funcionario}", funcionario);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msgErro);
             }
@@ -57,6 +65,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
 
                 Log.Debug("Funcionário {FuncionarioId} editado com sucesso!", funcionario.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch(Exception ex)
@@ -64,6 +74,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
                 string msgErro = "Erro desconhecido. Falha ao tentar editar Funcionário.";
 
                 Log.Error(ex, msgErro + " {funcionario}", funcionario);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msgErro);
             }
@@ -87,6 +99,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
 
                 Log.Debug("Funcionário {FuncionarioId} excluído com sucesso!", funcionario.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch (SqlException ex)
@@ -107,6 +121,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
                 erros.Add(msgErro);
 
                 Log.Error(ex, msgErro + " {funcionarioId}", funcionario.Id);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msgErro);
             }
@@ -144,7 +160,6 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
             {
                 return false;
             }
-
 
             if(funcionarioEncontrado.Id == funcionario.Id)
             {
