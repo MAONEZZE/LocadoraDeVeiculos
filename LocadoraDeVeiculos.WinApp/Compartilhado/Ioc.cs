@@ -1,5 +1,4 @@
-﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
-using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
@@ -125,6 +124,8 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             servicos.AddTransient<IGeradorPdf, GeradorPdf>();
 
             container = servicos.BuildServiceProvider();
+
+            AtualizarBanco(container);
         }
 
 
@@ -132,5 +133,21 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
         {
             return container.GetService<T>()!;
         }
+
+        public static void AtualizarBanco(ServiceProvider container)
+        {
+            using (var scope = container.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<LocadoraDeVeiculosDbContext>();
+
+                var migracoesPendentes = dbContext.Database.GetPendingMigrations();
+
+                if (migracoesPendentes.Any())
+                {
+                    dbContext.Database.Migrate();
+                }
+            }
+        }
     }
 }
+
