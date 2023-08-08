@@ -18,7 +18,7 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
 
         Mock<IValidadorParceiro> validadorMock;
 
-        Mock<IContextoPersistencia> dbContext;
+        Mock<IContextoPersistencia> contexto;
 
         Parceiro parceiro;
         public ServicoParceiroTestes()
@@ -26,7 +26,8 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
 
             validadorMock = new Mock<IValidadorParceiro>();
             repositorioMoq = new Mock<IRepositorioParceiro>();
-            servicoParceiro = new ServicoParceiro(repositorioMoq.Object, dbContext.Object);
+            contexto = new Mock<IContextoPersistencia>();
+            servicoParceiro = new ServicoParceiro(repositorioMoq.Object, contexto.Object);
             parceiro = new Parceiro("nome parceiro");
         }
 

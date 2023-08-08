@@ -14,11 +14,14 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
     public class ServicoTaxaServicoTest
     {
         Mock<IRepositorioTaxaServico> repositorioTaxaServicoMoq;
+
         Mock<IValidadorTaxaServico> validadorMock;
 
         Mock<IContextoPersistencia> dbContext;
 
         private ServicoTaxaServico servicoTaxaServico;
+
+        Mock<IContextoPersistencia> contexto;
 
         TaxaServico taxaServico;
 
@@ -28,7 +31,8 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
         {
             repositorioTaxaServicoMoq = new Mock<IRepositorioTaxaServico>();
             validadorMock = new Mock<IValidadorTaxaServico>();
-            servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServicoMoq.Object, dbContext.Object);
+            contexto = new Mock<IContextoPersistencia>();
+            servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServicoMoq.Object, contexto.Object);
             taxaServico = new TaxaServico("Limpeza", 10, EnumTipoCalculo.Diario);
 
             guidId = Guid.NewGuid();
