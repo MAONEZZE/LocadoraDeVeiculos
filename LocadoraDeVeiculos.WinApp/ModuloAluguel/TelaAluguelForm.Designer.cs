@@ -244,7 +244,7 @@
             txtDataLocacao.Name = "txtDataLocacao";
             txtDataLocacao.Size = new Size(196, 23);
             txtDataLocacao.TabIndex = 7;
-            txtDataLocacao.ValueChanged += AtualizarValorTotal_event;
+            txtDataLocacao.ValueChanged += txtDataLocacao_ValueChanged;
             // 
             // txtDevolucaoPrevista
             // 

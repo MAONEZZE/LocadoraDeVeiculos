@@ -48,6 +48,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
         {
             this.TaxasServicos = new();
             this.NivelCombustivelAtual = NivelCombustivelEnum.Cheio;
+            this.EstaAberto = true;
         }
 
         public Aluguel(Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, NivelCombustivelEnum nivelCombustivelAtual, List<TaxaServico> listaTaxaServico, bool estaAberto)

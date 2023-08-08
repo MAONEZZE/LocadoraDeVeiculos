@@ -3,6 +3,7 @@ using LocadoraDeVeiculos.Dominio.ModuloCupom;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
+using LocadoraDeVeiculos.Infra.ModuloAutomovel;
 
 namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 {
@@ -127,7 +128,17 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
                 return Result.Fail(erros);
             }
         }
+        public Result DevolverAutomovel(Aluguel aluguel)
+        {
+            Result resultado =  Editar(aluguel);
+            if(resultado.IsFailed)
+            {
+                return resultado;
+            }
 
+
+            return Result.Ok();
+        }
         public Result ConfigurarPrecoCombustiveis(PrecoCombustivel precos)
         {
             Log.Debug($"Tentando atualizar preços combustíves... {precos}", precos);
@@ -197,7 +208,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
         {
             Decimal valorTotalPrevisto = 0;
 
-            int previsaoDiasLocado = (aluguel.DataDevolucaoPrevista - aluguel.DataLocacao).Days+1;
+            int previsaoDiasLocado = (aluguel.DataDevolucaoPrevista - aluguel.DataLocacao).Days;
 
             foreach (TaxaServico taxaServico in aluguel.TaxasServicos)
             {

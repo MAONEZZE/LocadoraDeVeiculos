@@ -35,20 +35,22 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
                 optionsBuilder.UseSqlServer(connectionString);
             });
 
+            servicos.AddTransient<ControladorParceiro>();
+            servicos.AddTransient<ServicoParceiro>();
+            servicos.AddTransient<IValidadorParceiro, ValidadorParceiro>();
+            servicos.AddTransient<IRepositorioParceiro, RepositorioParceiro>();
 
             servicos.AddTransient<ControladorCupom>();
             servicos.AddTransient<ServicoCupom>();
             servicos.AddTransient<IValidadorCupom, ValidadorCupom>();
             servicos.AddTransient<IRepositorioCupom, RepositorioCupom>();
 
-            servicos.AddTransient<ControladorParceiro>();
-            servicos.AddTransient<ServicoParceiro>();
-            servicos.AddTransient<IValidadorParceiro, ValidadorParceiro>();
-            servicos.AddTransient<IRepositorioParceiro, RepositorioParceiro>();
+
+
+          
 
             servicos.AddTransient<IGeradorEmail, GeradorEmail>();
             servicos.AddTransient<IGeradorPdf, GeradorPdf>();
-
 
 
             container = servicos.BuildServiceProvider();

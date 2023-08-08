@@ -158,6 +158,42 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             }
         }
 
+        public void DevolverAutomovel()
+        {
+            Guid guidAluguel = tabelaAluguel.ObterIdSelecionado();
+
+            if (guidAluguel == null)
+            {
+                MessageBox.Show($"Selecione um Aluguel para poder Devolver!",
+                                 "Devolução de Aluguel",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            Aluguel aluguelSelecionado = repositorioAluguel.SelecionarPorId(guidAluguel);
+
+            TelaAluguelForm telaAluguel = new TelaAluguelForm
+            {
+                Text = "Devolução de Aluguel",
+            };
+
+            telaAluguel.onGravarRegistro += servicoAluguel.DevolverAutomovel;
+
+            telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValorTotal;
+
+            ConfigurarDelegates(telaAluguel);
+
+            telaAluguel.ConfigurarRegistro(aluguelSelecionado);
+
+            DialogResult resultado = telaAluguel.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                AtualizarListagem();
+            }
+        }
+
         public void ConfigurarPrecoCombustivel()
         {
             var configuracao = servicoAluguel.ObterConfiguracoesAtuais();
