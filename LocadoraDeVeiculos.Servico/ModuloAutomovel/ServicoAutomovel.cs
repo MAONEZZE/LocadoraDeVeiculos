@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 
 namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
@@ -9,11 +10,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
 
         IRepositorioAluguel repositorioAluguel;
 
-        public ServicoAutomovel(IRepositorioAutomovel repositorioAutomovel, IRepositorioAluguel repositorioAluguel)
+        public IContextoPersistencia Contexto;
+
+        public ServicoAutomovel(IRepositorioAutomovel repositorioAutomovel, IRepositorioAluguel repositorioAluguel, IContextoPersistencia contexto)
         {
             this.repositorioAutomovel = repositorioAutomovel;
 
             this.repositorioAluguel = repositorioAluguel;
+
+            Contexto = contexto;
         }
 
         public Result Inserir(Automovel automovel)
@@ -23,7 +28,12 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
             var erros = ValidarAutomovel(automovel);
 
             if (erros.Any())
+            {
+                Contexto.DesfazerAlteracoes();
+
                 return Result.Fail(erros);
+            }
+               
 
             try
             {
@@ -37,7 +47,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
             {
                 string msg = $"Falha ao tentar inserir automovel {automovel}";
 
-                repositorioAutomovel.DesfazerAlteracoes();
+                Contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, automovel);
 
@@ -71,7 +81,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
             {
                 string msg = $"Falha ao tentar editar automóvel {automovel}";
 
-                repositorioAutomovel.DesfazerAlteracoes();
+                Contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, automovel);
 
@@ -113,7 +123,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
             {
                 string msg = $"Falha ao tentar excluír automovel {automovel} - {ex.Message}";
 
-                repositorioAutomovel.DesfazerAlteracoes();
+                Contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, automovel);
 

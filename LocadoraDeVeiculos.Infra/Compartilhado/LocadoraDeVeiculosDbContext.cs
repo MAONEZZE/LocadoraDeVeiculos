@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
+using LocadoraDeVeiculos.Dominio.Compartilhado;
 using Microsoft.Extensions.Logging;
 using Serilog;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado
 {
-    public class LocadoraDeVeiculosDbContext : DbContext
+    public class LocadoraDeVeiculosDbContext : DbContext, IContextoPersistencia
     {
         public LocadoraDeVeiculosDbContext(DbContextOptions options) : base(options)
         {
@@ -59,8 +60,8 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
                 }
             }
         }
-
-        public void SalvarAlteracoes()
+     
+        public void GravarDados()
         {
             SaveChanges();
         }

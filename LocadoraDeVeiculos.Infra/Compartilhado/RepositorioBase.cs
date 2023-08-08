@@ -17,23 +17,20 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
 
         public void Inserir(T novoRegistro)
         {
-            registros.Add(novoRegistro);
-
-            dbContext.SalvarAlteracoes();
+            registros.Add(novoRegistro);         
         }
 
         public void Editar(T registro)
         {
             registros.Update(registro);
-
-            dbContext.SalvarAlteracoes();
+          
         }
 
         public void Excluir(T registro)
         {
             registros.Remove(registro);
 
-            dbContext.SalvarAlteracoes();
+           
         }
 
         public bool Existe(T registro)
@@ -50,11 +47,6 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
         {
             return registros.ToList();
         }
-       
-        public void DesfazerAlteracoes()
-        {
-            dbContext.DesfazerAlteracoes();
-        }
-    
+            
     }
 }
