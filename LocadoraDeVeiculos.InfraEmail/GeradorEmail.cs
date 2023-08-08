@@ -12,7 +12,7 @@ namespace LocadoraDeVeiculos.InfraEmail
 
         public GeradorEmail()
         {
-            this.senha = "";
+            this.senha = "wctzzwxulytircaj";
         }
 
        

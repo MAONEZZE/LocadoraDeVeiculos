@@ -32,6 +32,7 @@ using LocadoraDeVeiculos.WinApp.ModuloParceiro;
 using LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.WinApp.ModuloTaxaServico;
 
+
 namespace LocadoraDeVeiculos.WinApp.Compartilhado
 {
     public static class Ioc
@@ -150,7 +151,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             controladores.Add("Aluguel", controladorAluguel);
             controladores.Add("Plano de Cobrança", controladorPlano);
 
-         
+  
         }
 
         public static ControladorBase ObterControlador(object sender)
