@@ -5,6 +5,7 @@ using FluentResults.Extensions.FluentAssertions;
 using FluentAssertions;
 using FluentValidation.Results;
 using Moq;
+using LocadoraDeVeiculos.Dominio.Compartilhado;
 
 namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
 {
@@ -17,13 +18,15 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
 
         Mock<IValidadorParceiro> validadorMock;
 
+        Mock<IContextoPersistencia> dbContext;
+
         Parceiro parceiro;
         public ServicoParceiroTestes()
         {
 
             validadorMock = new Mock<IValidadorParceiro>();
             repositorioMoq = new Mock<IRepositorioParceiro>();
-            servicoParceiro = new ServicoParceiro(repositorioMoq.Object);
+            servicoParceiro = new ServicoParceiro(repositorioMoq.Object, dbContext.Object);
             parceiro = new Parceiro("nome parceiro");
         }
 
