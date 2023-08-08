@@ -24,4 +24,10 @@
     <ProjectReference Include="..\LocadoraDeVeiculos.Servico\LocadoraDeVeiculos.Servico.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="1 - Aplicacao\ModuloCliente\" />
+    <Folder Include="1 - Aplicacao\ModuloCondutor\" />
+    <Folder Include="1 - Aplicacao\ModuloPlanoDeCobranca\" />
+  </ItemGroup>
+
 </Project>
