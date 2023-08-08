@@ -1,14 +1,18 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloParceiro;
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloParceiro;
 
 namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 {
     public class ServicoParceiro : ServicoBase<Parceiro, ValidadorParceiro>
     {
-        IRepositorioParceiro repositorioParceiro;
+        private IRepositorioParceiro repositorioParceiro;
 
-        public ServicoParceiro(IRepositorioParceiro repositorioParceiro)
+        private IContextoPersistencia contexto;
+
+        public ServicoParceiro(IRepositorioParceiro repositorioParceiro, IContextoPersistencia contexto)
         {
             this.repositorioParceiro = repositorioParceiro;
+            this.contexto = contexto;
         }
 
         public Result Inserir(Parceiro parceiro)
@@ -26,6 +30,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 Log.Debug("Parceiro {parceiroId} inserido com sucesso", parceiro.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
 
@@ -33,7 +39,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
             {
                 string msg = $"Falha ao tentar inserir parceiro {parceiro}";
 
-                repositorioParceiro.DesfazerAlteracoes();
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, parceiro);
 
@@ -57,13 +63,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 Log.Debug("Parceiro {parceiroId} editado com sucesso", parceiro.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch
             {
                 string msg = $"Falha ao tentar editar parceiro {parceiro}";
 
-                repositorioParceiro.DesfazerAlteracoes();
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, parceiro);
 
@@ -90,6 +98,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
 
                 Log.Debug("Parceiro {parceiroId} excluído com sucesso", parceiro.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch (Exception ex)
@@ -97,15 +107,13 @@ namespace LocadoraDeVeiculos.Servico.ModuloParceiro
                 string msg;
 
                 if (ex.Message.Contains("'Parceiro' and 'Cupom'") ||
-
-                    ex.InnerException.Message.Contains("FK_TBCupom_TBParceiro_ParceiroId"))
-                {
+                    ex.InnerException!.Message.Contains("FK_TBCupom_TBParceiro_ParceiroId"))
                     msg = "Este parceiro está relacionado com um cupom e não pode ser excluído.";
-                }
+
                 else
                     msg = $"Falha ao tentar excluír parceiro {parceiro}";
 
-                repositorioParceiro.DesfazerAlteracoes();
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, parceiro);
 

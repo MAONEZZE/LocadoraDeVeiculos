@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 
 namespace LocadoraDeVeiculos.Servico.ModuloCondutor
@@ -7,9 +8,12 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
     {
         private IRepositorioCondutor repCondutor;
 
-        public ServicoCondutor(IRepositorioCondutor repCondutor)
+        private IContextoPersistencia contexto;
+
+        public ServicoCondutor(IRepositorioCondutor repCondutor, IContextoPersistencia contexto)
         {
             this.repCondutor = repCondutor;
+            this.contexto = contexto;
         }
 
         public List<Condutor> CondutoreRelacionadosCliente(Cliente cliente)
@@ -32,6 +36,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
 
                 Log.Debug("Condutor {condutorId} inserido com sucesso", condutor.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch (SqlException)
@@ -39,6 +45,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
                 string msg = $"Falha ao tentar inserir condutor {condutor}";
 
                 Log.Error(msg, condutor);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msg);
             }
@@ -60,6 +68,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
 
                 Log.Debug("Condutor {condutorId} editado com sucesso", condutor.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch (SqlException)
@@ -68,9 +78,10 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
 
                 Log.Error(msg, condutor);
 
+                contexto.DesfazerAlteracoes();
+
                 return Result.Fail(msg);
             }
-
 
         }
 
@@ -93,6 +104,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
 
                 Log.Debug("Condutor {condutorId} excluído com sucesso", condutor.Id);
 
+                contexto.GravarDados();
+
                 return Result.Ok();
             }
             catch (Exception ex)
@@ -102,6 +115,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
                 msg = $"Falha ao tentar excluir condutor {condutor}";
 
                 Log.Error(msg, condutor);
+
+                contexto.DesfazerAlteracoes();
 
                 return Result.Fail(msg);
             }

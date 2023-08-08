@@ -34,11 +34,10 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
                 return Result.Fail(erros);
             }
                
-
             try
             {
                 repositorioAutomovel.Inserir(automovel);
-
+               
                 Log.Debug("Automovel {automovelId} inserido com sucesso", automovel.Id);
 
                 return Result.Ok();
@@ -135,7 +134,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
         {
             var erros = new List<string>();
 
-            var alugado = repositorioAluguel.SelecionarTodos().Where(a => a.Automovel.Equals(automovel)).Any();
+            var alugado = repositorioAluguel.SelecionarTodos().Any(a => a.Automovel.Equals(automovel));
 
             if (alugado)
                 erros.Add("Automóvel indisponível. Este automóvel está sendo utilizado em outro aluguel.");
