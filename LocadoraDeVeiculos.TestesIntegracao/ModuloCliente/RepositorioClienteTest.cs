@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace LocadoraDeVeiculos.TestesIntegracao.ModuloCliente
 {
     [TestClass]
     public class RepositorioClienteTest
     {
+        [TestMethod]
+        public void Deve_inserir_cliente()
+        {
+
+        }
     }
 }
