@@ -243,8 +243,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .HasColumnName("Telefone");
 
                     b.Property<DateTime>("ValidadeCNH")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Validade_CNH");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -427,7 +426,8 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .WithMany()
                         .HasForeignKey("CondutorId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_TBAluguel_TBCondutor");
 
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloCupom.Cupom", "Cupom")
                         .WithMany()
@@ -561,7 +561,8 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .WithMany()
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_TBCliente_TBCondutor");
 
                     b.Navigation("Cliente");
                 });

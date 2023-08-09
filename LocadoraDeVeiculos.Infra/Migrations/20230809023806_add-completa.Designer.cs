@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDeVeiculosDbContext))]
-    [Migration("20230807174620_add-AtualizacaoTBCondutor")]
-    partial class addAtualizacaoTBCondutor
+    [Migration("20230809023806_add-completa")]
+    partial class addcompleta
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,17 +92,26 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<Guid>("GrupoAutomovelId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("KmAutomovelAtual")
-                        .HasColumnType("int");
+                    b.Property<int>("KMPercorrido")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<int>("NivelCombustivelAtual")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.Property<Guid>("PlanoDeCobrancaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ValorParcial")
-                        .HasColumnType("int");
+                    b.Property<decimal>("ValorTotal")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
 
-                    b.Property<int>("ValorTotal")
-                        .HasColumnType("int");
+                    b.Property<decimal>("ValorTotalPrevisto")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -237,8 +246,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .HasColumnName("Telefone");
 
                     b.Property<DateTime>("ValidadeCNH")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Validade_CNH");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -346,9 +354,6 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .HasColumnType("varchar(30)")
                         .HasColumnName("Tipo_de_Plano");
 
-                    b.Property<decimal>("TotalPreco")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GrupoAutomovelId");
@@ -424,7 +429,8 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .WithMany()
                         .HasForeignKey("CondutorId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_TBAluguel_TBCondutor");
 
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloCupom.Cupom", "Cupom")
                         .WithMany()
@@ -558,7 +564,8 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                         .WithMany()
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_TBCliente_TBCondutor");
 
                     b.Navigation("Cliente");
                 });

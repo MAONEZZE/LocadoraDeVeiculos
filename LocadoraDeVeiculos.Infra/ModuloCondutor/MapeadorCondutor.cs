@@ -18,11 +18,11 @@ namespace LocadoraDeVeiculos.Infra.ModuloCondutor
 
             builder.Property(c => c.Documento).HasColumnType("varchar(50)").HasColumnName("CPF_do_Condutor").IsRequired();
 
-            builder.Property(c => c.ValidadeCNH).HasColumnName("Validade_CNH").IsRequired();
+            builder.Property(c => c.ValidadeCNH).IsRequired();
 
             builder.Property(c => c.Cnh).HasColumnType("varchar(50)").HasColumnName("CNH").IsRequired();
 
-            builder.HasOne(c => c.Cliente).WithMany().IsRequired().OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(c => c.Cliente).WithMany().IsRequired().HasConstraintName("FK_TBCliente_TBCondutor").OnDelete(DeleteBehavior.NoAction);
 
             builder.Ignore(c => c.EstaValido); //Ignore serve para não criar uma coluna na tabela de banco de dados
 

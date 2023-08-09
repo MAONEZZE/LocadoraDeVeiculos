@@ -1,8 +1,10 @@
 ﻿using FizzWare.NBuilder;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using LocadoraDeVeiculos.Dominio.ModuloCupom;
 using LocadoraDeVeiculos.Dominio.ModuloParceiro;
 using LocadoraDeVeiculos.Infra.Compartilhado;
+using LocadoraDeVeiculos.Infra.ModuloCliente;
 using LocadoraDeVeiculos.Infra.ModuloCondutor;
 using LocadoraDeVeiculos.Infra.ModuloCupom;
 using LocadoraDeVeiculos.Infra.ModuloParceiro;
@@ -18,13 +20,14 @@ namespace LocadoraDeVeiculos.TestesIntegracao
 
         protected IRepositorioCondutor repositorioCondutor;
 
+        protected IRepositorioCliente repositorioCliente;
+
         private ConfiguracaoAppSettings configuracao;
 
         protected LocadoraDeVeiculosDbContext dbContext;
 
         public RepositorioBaseTests()
         {
-
 
             var configuracaoDb = new ConfiguracaoDb();
 
@@ -37,6 +40,8 @@ namespace LocadoraDeVeiculos.TestesIntegracao
             repositorioCupom = new RepositorioCupom(dbContext);
 
             repositorioCondutor = new RepositorioCondutor(dbContext);
+
+            repositorioCliente = new RepositorioCliente(dbContext);
 
             LimparTabelas();
 
@@ -57,7 +62,13 @@ namespace LocadoraDeVeiculos.TestesIntegracao
                 repositorioCondutor.Inserir(c);
                 dbContext.SaveChanges();
             });
-       
+
+            BuilderSetup.SetCreatePersistenceMethod<Cliente>((c) =>
+            {
+                repositorioCliente.Inserir(c);
+                dbContext.SaveChanges();
+            });
+
         }
 
         protected void LimparTabelas()

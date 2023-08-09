@@ -23,7 +23,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloAluguel
 
             builder.HasOne(p => p.Condutor)
                 .WithMany()
-                .IsRequired()
+                .IsRequired().HasConstraintName("FK_TBAluguel_TBCondutor")
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(p => p.GrupoAutomovel)

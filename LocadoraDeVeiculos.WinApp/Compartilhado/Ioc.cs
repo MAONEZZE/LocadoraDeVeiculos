@@ -128,7 +128,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             container = servicos.BuildServiceProvider();
 
-           // AtualizarBanco(container);
+            AtualizarBanco(container);
         }
 
 
