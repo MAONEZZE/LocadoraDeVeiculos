@@ -22,7 +22,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloTaxaServico
         {
             Guid guidTaxaServico = tabelaTaxaServico.ObterIdSelecionado();
 
-            if (guidTaxaServico == null)
+            if (guidTaxaServico == default(Guid))
             {
                 MessageBox.Show($"Selecione uma Taxa ou Serviço para poder editar!",
                     "Edição de Taxa ou Serviço",
