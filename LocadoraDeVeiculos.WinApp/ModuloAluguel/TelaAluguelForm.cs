@@ -7,10 +7,10 @@ using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
-using Microsoft.IdentityModel.Tokens;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 {
+    #region Delegates
     public delegate List<TEntidade> SelecionarTodosDelegate<TEntidade>()
         where TEntidade : EntidadeBase<TEntidade>;
 
@@ -20,10 +20,23 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
     public delegate TEntidade SelecionarPorFiltroDelegate<TEntidade, TEntidadeFiltro>(TEntidadeFiltro filtro)
         where TEntidade : EntidadeBase<TEntidade>;
 
-    public delegate Decimal CalcularValorTotalDelegate<TEntidadde>(TEntidadde entidade);
 
+    public delegate Decimal CalcularValorTotalDelegate(DateTime dataLocacao,
+                                                         DateTime dataDevolucaoPrevista,
+                                                         DateTime dataDevolucao,
+                                                         NivelCombustivelEnum nivelCombustivelAtual,
+                                                         HashSet<TaxaServico> taxasServicos = null,
+                                                         PlanoDeCobranca planoDeCobranca = null,
+                                                         Automovel automovel = null,
+                                                         int KMPercorrido = 1,
+                                                         Cupom cupom = null,
+                                                         bool ehDevolucao = false
+                                                        );
+    #endregion Delegates
     public partial class TelaAluguelForm : Form
     {
+
+        #region Propiedades
         public event GravarRegistroDelegate<Aluguel> onGravarRegistro;
 
         // Funcionario
@@ -54,14 +67,20 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         public event SelecionarTodosDelegate<TaxaServico> onSelecionarTodosTaxaServico;
 
-        // Calcular Valor Total
+        // Calcular Valor
 
-        public event CalcularValorTotalDelegate<Aluguel> onCalcularValorTotal;
+        public event CalcularValorTotalDelegate onCalcularValorTotal;
 
 
-        Aluguel aluguel;
+        private Aluguel aluguel;
+
+        private HashSet<TaxaServico> taxasServicos;
+
+        private Cupom cupom;
 
         private bool ehDevolucao;
+
+        #endregion Propiedades
 
         public TelaAluguelForm()
         {
@@ -71,15 +90,17 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             tctrlTaxas.TabPages.Remove(tbTaxasAdicionais);
 
-            //tctrlTaxas.TabPages.Add(tbTaxasAdicionais);
-
-            txtDataLocacao.MinDate = DateTime.Now;
-            txtDevolucaoPrevista.MinDate = DateTime.Now.AddDays(1);
+            this.taxasServicos = new();
         }
-
+        #region ConfigurarRegistro
         public void ConfigurarRegistro(Aluguel aluguelSelecionado)
         {
             this.aluguel = aluguelSelecionado;
+
+            if (aluguel.TaxasServicos.Count > 0)
+            {
+                this.taxasServicos.UnionWith(aluguel.TaxasServicos);
+            }
 
             cbxFuncionario.DataSource = onSelecionarTodosFuncionarios();
 
@@ -146,20 +167,38 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
                 txtCupom.Enabled = false;
 
                 btnCupom.Text = "Remover Cupom";
+
+                cupom = aluguel.Cupom;
             }
 
             PreencherTaxas(aluguelSelecionado);
 
             cbxNivelTanque.DataSource = Enum.GetValues<NivelCombustivelEnum>();
-        }
 
+            cbxNivelTanque.SelectedItem = NivelCombustivelEnum.Cheio;
+        }
         public void ConfigurarDevolucao(Aluguel aluguelSelecionado)
         {
             ConfigurarRegistro(aluguelSelecionado);
 
+            if (DateTime.Now.AddDays(-7) > aluguel.DataLocacao)
+            {
+                txtDataDevolucao.MinDate = DateTime.Now.AddDays(-7);
+            }
+            else
+            {
+                txtDataDevolucao.MinDate = aluguel.DataLocacao;
+            }
+            txtDataDevolucao.Value = DateTime.Now;
+            txtDataDevolucao.MaxDate = DateTime.Now;
+
             gbLocacao.Enabled = false;
 
             gbDevolucao.Enabled = true;
+
+            PreencherTaxas(aluguelSelecionado, true);
+
+            tctrlTaxas.SelectedIndex = 1;
 
             ehDevolucao = true;
 
@@ -167,19 +206,23 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             tctrlTaxas.TabPages.Add(tbTaxasAdicionais);
 
-
+            AtualizarValorTotal();
 
         }
+
+        #endregion ConfigurarRegistro
+
+        #region Taxas
         private void PreencherTaxas(Aluguel aluguel, bool adicionais = false)
         {
             List<TaxaServico> listaTaxasServicos = onSelecionarTodosTaxaServico();
             foreach (TaxaServico taxaServico in listaTaxasServicos)
             {
-                if (aluguel.TaxasServicos.Contains(taxaServico) && adicionais == false)
+                if (taxasServicos.Contains(taxaServico) && adicionais == false)
                 {
                     clbxTaxasSelecionadas.Items.Add(taxaServico, true);
                 }
-                else if (!aluguel.TaxasServicos.Contains(taxaServico) && adicionais)
+                else if (!taxasServicos.Contains(taxaServico) && adicionais)
                 {
                     clbxTaxasAdicionais.Items.Add(taxaServico, false);
                 }
@@ -190,27 +233,49 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             }
         }
 
-        private void SalvarTaxasSelecionadas()
+        private void clbxTaxasSelecionadas_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            aluguel.TaxasServicos.Clear();
+            TaxaServico taxaServico = clbxTaxasSelecionadas.Items[e.Index] as TaxaServico;
 
-            foreach (TaxaServico taxaServico in clbxTaxasSelecionadas.CheckedItems)
+            if (e.NewValue == CheckState.Checked && !taxasServicos.Contains(taxaServico))
             {
-                aluguel.TaxasServicos.Add(taxaServico);
+                taxasServicos.Add(taxaServico);
             }
+            else if (e.NewValue == CheckState.Unchecked && taxasServicos.Contains(taxaServico))
+            {
+                taxasServicos.Remove(taxaServico);
+            }
+            AtualizarValorTotal();
         }
+        private void clbxTaxasAdicionais_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            TaxaServico taxaServico = clbxTaxasAdicionais.Items[e.Index] as TaxaServico;
+            if (e.NewValue == CheckState.Checked && !taxasServicos.Contains(taxaServico))
+            {
+                taxasServicos.Add(taxaServico);
+            }
+            else if (e.NewValue == CheckState.Unchecked && taxasServicos.Contains(taxaServico))
+            {
+                taxasServicos.Remove(taxaServico);
+            }
+            AtualizarValorTotal();
+        }
+
+        #endregion Taxas
+
+        #region Eventos
         private void cbxCliente_SelectedValueChanged(object sender, EventArgs e)
         {
-            cbxCondutor.DataSource = onSelecionarCondutorPorCliente(cbxCliente.SelectedItem as Cliente);
+            cbxCondutor.DataSource = onSelecionarCondutorPorCliente((Cliente)cbxCliente.SelectedItem);
             cbxCondutor.Enabled = true;
         }
 
         private void cbxGrupoAutomovel_SelectedValueChanged(object sender, EventArgs e)
         {
-            cbxAutomovel.DataSource = onSelecionarAutomovelPorGrupoAutomovel(cbxGrupoAutomovel.SelectedItem as GrupoAutomovel);
+            cbxAutomovel.DataSource = onSelecionarAutomovelPorGrupoAutomovel((GrupoAutomovel)cbxGrupoAutomovel.SelectedItem);
             cbxAutomovel.Enabled = true;
 
-            cbxPlanoDeCobranca.DataSource = onSelecionarTodosPlanoDeCobrancaPorGrupoAutomovel(cbxGrupoAutomovel.SelectedItem as GrupoAutomovel);
+            cbxPlanoDeCobranca.DataSource = onSelecionarTodosPlanoDeCobrancaPorGrupoAutomovel((GrupoAutomovel)cbxGrupoAutomovel.SelectedItem);
             cbxPlanoDeCobranca.Enabled = true;
         }
 
@@ -222,26 +287,44 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
                 txtQuilometragem.Text = automovel.Quilometragem.ToString();
             }
         }
+        private void AtualizarValorTotal_event(object sender, EventArgs e)
+        {
+            AtualizarValorTotal();
+        }
+        private void txtDataLocacao_ValueChanged(object sender, EventArgs e)
+        {
+            txtDevolucaoPrevista.Enabled = true;
+            if (txtDevolucaoPrevista.Value < txtDataLocacao.Value)
+            {
+                txtDevolucaoPrevista.Value = txtDataLocacao.Value.AddDays(1);
+            }
+            txtDevolucaoPrevista.MinDate = txtDataLocacao.Value.AddDays(1);
 
+            AtualizarValorTotal();
+        }
+
+        #endregion Eventos
+
+        #region Cupom
         private void btnCupom_Click(object sender, EventArgs e)
         {
             if (btnCupom.Text == "Remover Cupom")
             {
-                aluguel.Cupom = null;
+                this.cupom = null;
                 txtCupom.Enabled = true;
                 btnCupom.Text = "Aplicar Cupom";
             }
             else if (String.IsNullOrEmpty(txtCupom.Text) == false)
             {
                 txtCupom.Text = txtCupom.Text.ToUpper();
-                Cupom cupom = onSelecionarCupomPorNome(txtCupom.Text);
-                if (cupom != null && cupom.EhValido)
+                Cupom cupomTemp = onSelecionarCupomPorNome(txtCupom.Text);
+                if (cupomTemp != null && cupomTemp.EhValido)
                 {
-                    aluguel.Cupom = cupom;
+                    this.cupom = cupomTemp;
                     txtCupom.Enabled = false;
                     btnCupom.Text = "Remover Cupom";
                 }
-                if(cupom == null || cupom.EhValido == false)
+                if (cupomTemp == null || cupomTemp.EhValido == false)
                 {
                     MessageBox.Show($"Cupom inválido",
                                  "Cupom inválido",
@@ -251,59 +334,65 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             }
             AtualizarValorTotal();
         }
+        #endregion Cupom
 
-        private void AtualizarValorTotal_event(object sender, EventArgs e)
-        {
-            if (aluguel != null)
-            {
-                aluguel.PlanoDeCobranca = cbxPlanoDeCobranca.SelectedItem as PlanoDeCobranca;
-                aluguel.DataLocacao = txtDataLocacao.Value;
-                aluguel.DataDevolucaoPrevista = txtDevolucaoPrevista.Value;
-                AtualizarValorTotal();
-            }
-        }
-
+        #region Calcular Valor
         private void AtualizarValorTotal()
         {
             Decimal valorTotal;
 
-            valorTotal = onCalcularValorTotal(aluguel);
-            if (ehDevolucao)
+            NivelCombustivelEnum nivelCombustivel;
+
+            if (cbxNivelTanque.SelectedValue == null)
             {
-                aluguel.DataDevolucao = txtDataDevolucao.Value;
-                aluguel.NivelCombustivelAtual = (NivelCombustivelEnum)cbxNivelTanque.SelectedItem;
+                nivelCombustivel = NivelCombustivelEnum.Cheio;
             }
+            else
+            {
+                nivelCombustivel = (NivelCombustivelEnum)cbxNivelTanque.SelectedValue;
+            }
+
+            PlanoDeCobranca? planoDeCobranca = cbxPlanoDeCobranca.SelectedItem as PlanoDeCobranca;
+
+            Automovel? automovel = cbxAutomovel.SelectedItem as Automovel;
+
+            valorTotal = onCalcularValorTotal(txtDataLocacao.Value,
+                                            txtDevolucaoPrevista.Value,
+                                            txtDataDevolucao.Value,
+                                            nivelCombustivel,
+                                            this.taxasServicos,
+                                            planoDeCobranca,
+                                            automovel,
+                                            Convert.ToInt32(txtKMPercorrido.Value),
+                                            this.cupom,
+                                            ehDevolucao);
 
             txtValorTotal.Text = "R$" + valorTotal.ToString();
         }
+        #endregion Calcular Valor
+        #region Salvar
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            aluguel.Funcionario = cbxFuncionario.SelectedItem as Funcionario;
-            aluguel.Cliente = cbxCliente.SelectedItem as Cliente;
-            aluguel.Condutor = cbxCondutor.SelectedItem as Condutor;
-            aluguel.GrupoAutomovel = cbxGrupoAutomovel.SelectedItem as GrupoAutomovel;
-            aluguel.Automovel = cbxAutomovel.SelectedItem as Automovel;
-            aluguel.PlanoDeCobranca = cbxPlanoDeCobranca.SelectedItem as PlanoDeCobranca;
-            if (String.IsNullOrEmpty(txtQuilometragem.Text) == null)
-            {
-                aluguel.KMPercorrido = Convert.ToInt32(txtQuilometragem.Text);
-            }
-            else
-            {
-                aluguel.KMPercorrido = 0;
-            }
+            aluguel.Funcionario = (Funcionario)cbxFuncionario.SelectedItem;
+            aluguel.Cliente = (Cliente)cbxCliente.SelectedItem;
+            aluguel.Condutor = (Condutor)cbxCondutor.SelectedItem;
+            aluguel.GrupoAutomovel = (GrupoAutomovel)cbxGrupoAutomovel.SelectedItem;
+            aluguel.Automovel = (Automovel)cbxAutomovel.SelectedItem;
+            aluguel.PlanoDeCobranca = (PlanoDeCobranca)cbxPlanoDeCobranca.SelectedItem;
             aluguel.DataLocacao = txtDataLocacao.Value;
             aluguel.DataDevolucaoPrevista = txtDevolucaoPrevista.Value;
 
+            aluguel.TaxasServicos.UnionWith(taxasServicos);
+
+            aluguel.Cupom = cupom;
+
+
             if (ehDevolucao)
             {
-                aluguel.ValorTotal = onCalcularValorTotal(aluguel);
+                aluguel.EstaAberto = false;
                 aluguel.NivelCombustivelAtual = (NivelCombustivelEnum)cbxNivelTanque.SelectedItem;
-                aluguel.KMPercorrido = Convert.ToInt32(txtQuilometragem.Text);
-            }
-            else
-            {
-                aluguel.ValorTotalPrevisto = onCalcularValorTotal(aluguel);
+                aluguel.KMPercorrido = Convert.ToInt32(txtKMPercorrido.Text);
+                aluguel.DataDevolucao = txtDataDevolucao.Value;
             }
 
             Result resultado = onGravarRegistro(aluguel);
@@ -318,47 +407,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
                 DialogResult = DialogResult.None;
             }
         }
+        #endregion Salvar
 
-        private void clbxTaxasSelecionadas_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            TaxaServico taxaServico = clbxTaxasSelecionadas.Items[e.Index] as TaxaServico;
-            if (e.NewValue == CheckState.Checked)
-            {
-                aluguel.TaxasServicos.Add(taxaServico);
-            }
-            else
-            {
-                aluguel.TaxasServicos.Remove(taxaServico);
-            }
-            AtualizarValorTotal();
-        }
-
-        private void clbxTaxasAdicionais_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            TaxaServico taxaServico = clbxTaxasAdicionais.Items[e.Index] as TaxaServico;
-            if (e.NewValue == CheckState.Checked)
-            {
-                aluguel.TaxasServicos.Add(taxaServico);
-            }
-            else
-            {
-                aluguel.TaxasServicos.Remove(taxaServico);
-            }
-            AtualizarValorTotal();
-        }
-
-        private void txtDataLocacao_ValueChanged(object sender, EventArgs e)
-        {
-            if (txtDevolucaoPrevista.Value < txtDataLocacao.Value)
-            {
-                txtDevolucaoPrevista.Value = txtDataLocacao.Value.AddDays(1); 
-            }
-            txtDevolucaoPrevista.MinDate = txtDataLocacao.Value.AddDays(1);
-            if (aluguel != null)
-            {
-                aluguel.DataLocacao = txtDataLocacao.Value;
-                AtualizarValorTotal();
-            }
-        }
     }
 }

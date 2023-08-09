@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloCupom;
 
 namespace LocadoraDeVeiculos.Infra.ModuloAluguel
 {
@@ -18,6 +19,19 @@ namespace LocadoraDeVeiculos.Infra.ModuloAluguel
             }
 
             return false;
+        }
+
+        public override List<Aluguel> SelecionarTodos()
+        {
+            return registros.Include(x => x.Funcionario)
+                            .Include(x => x.Cliente)
+                            .Include(x => x.Condutor)
+                            .Include(x => x.GrupoAutomovel)
+                            .Include(x => x.Automovel)
+                            .Include(x => x.PlanoDeCobranca)
+                            .Include(x => x.Cupom)
+                            .Include(x => x.TaxasServicos)
+                            .ToList();
         }
     }
 }

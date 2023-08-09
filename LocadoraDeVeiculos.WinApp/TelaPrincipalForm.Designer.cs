@@ -57,6 +57,8 @@
             BtnDetalhes = new ToolStripButton();
             toolStripSeparator5 = new ToolStripSeparator();
             btnPrecoCombustivel = new ToolStripButton();
+            toolStripSeparator6 = new ToolStripSeparator();
+            btnDevolverAutomovel = new ToolStripButton();
             statusStrip = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
             panelRegistros = new Panel();
@@ -247,7 +249,7 @@
             txtMenu.BackColor = SystemColors.InactiveCaption;
             txtMenu.Enabled = false;
             txtMenu.ImageScalingSize = new Size(20, 20);
-            txtMenu.Items.AddRange(new ToolStripItem[] { BtnInserir, toolStripSeparator4, BtnEditar, toolStripSeparator3, BtnExcluir, toolStripSeparator1, BtnFiltrar, toolStripSeparator2, BtnDetalhes, toolStripSeparator5, btnPrecoCombustivel });
+            txtMenu.Items.AddRange(new ToolStripItem[] { BtnInserir, toolStripSeparator4, BtnEditar, toolStripSeparator3, BtnExcluir, toolStripSeparator1, BtnFiltrar, toolStripSeparator2, BtnDetalhes, toolStripSeparator5, btnPrecoCombustivel, toolStripSeparator6, btnDevolverAutomovel });
             txtMenu.Location = new Point(0, 47);
             txtMenu.Name = "txtMenu";
             txtMenu.Size = new Size(800, 47);
@@ -347,6 +349,22 @@
             btnPrecoCombustivel.Text = "Preço Combustível";
             btnPrecoCombustivel.Click += BtnPrecoCombustivel_Click;
             // 
+            // toolStripSeparator6
+            // 
+            toolStripSeparator6.Name = "toolStripSeparator6";
+            toolStripSeparator6.Size = new Size(6, 47);
+            // 
+            // btnDevolverAutomovel
+            // 
+            btnDevolverAutomovel.Font = new Font("Lucida Sans Unicode", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            btnDevolverAutomovel.ForeColor = Color.Black;
+            btnDevolverAutomovel.Image = Properties.Resources.car_rental_FILL0_wght0_GRAD0_opsz24;
+            btnDevolverAutomovel.ImageTransparentColor = Color.Magenta;
+            btnDevolverAutomovel.Name = "btnDevolverAutomovel";
+            btnDevolverAutomovel.Size = new Size(99, 44);
+            btnDevolverAutomovel.Text = "Devolver";
+            btnDevolverAutomovel.Click += btnDevolverAutomovel_Click;
+            // 
             // statusStrip
             // 
             statusStrip.ImageScalingSize = new Size(20, 20);
@@ -431,5 +449,7 @@
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripButton btnPrecoCombustivel;
         private ToolStripButton BtnMudarCor;
+        private ToolStripSeparator toolStripSeparator6;
+        private ToolStripButton btnDevolverAutomovel;
     }
 }

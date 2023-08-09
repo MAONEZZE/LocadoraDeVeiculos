@@ -13,5 +13,9 @@
         public override string TooltipPrecoCombustivel => "Preço Combustivel";
 
         public override bool PrecoCombustivelHabilitado => true;
+
+        public override string TooltipDevolverAutomovel => "Devolver Automovel";
+
+        public override bool DevolverAutomovelHabilitado => true;
     }
 }

@@ -24,6 +24,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
                 new DataGridViewTextBoxColumn { Name = "DataSaida", HeaderText = "Data de Saída"},
 
+                new DataGridViewTextBoxColumn { Name = "DevolucaoPrevisao", HeaderText = "Devolução Prevista"},
+
                 new DataGridViewTextBoxColumn { Name = "DataDevolucao", HeaderText = "Data de Devolução"},
 
                 new DataGridViewTextBoxColumn { Name = "ValorInicial", HeaderText = "Valor Inicial"},
@@ -40,11 +42,11 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             foreach (Aluguel aluguel in listagem)
             {
-                string dataDevolucao = aluguel.DataDevolucao == default(DateTime) ? "Não devolvido" : aluguel.DataDevolucao.ToString();
+                string dataDevolucao = aluguel.DataDevolucao == default(DateTime) ? "Não devolvido" : aluguel.DataDevolucao.ToShortDateString();
                 
-                string valorTotal = aluguel.ValorTotal == default(decimal) ? "Não devolvido" : $"R$ {aluguel.ValorTotal/100}";
+                string valorTotal = aluguel.ValorTotal == 0 ? "Não devolvido" : $"R$ {aluguel.ValorTotal}";
 
-                grid.Rows.Add(aluguel.Id, aluguel.Condutor.Nome, aluguel.Automovel.Modelo, aluguel.DataLocacao, aluguel.DataDevolucao, aluguel.ValorTotalPrevisto, aluguel.ValorTotal);
+                grid.Rows.Add(aluguel.Id, aluguel.Condutor.Nome, aluguel.Automovel.Modelo, aluguel.DataLocacao.ToShortDateString(), aluguel.DataDevolucaoPrevista.ToShortDateString(), dataDevolucao, aluguel.ValorTotalPrevisto, aluguel.ValorTotal);
             }
         }
 

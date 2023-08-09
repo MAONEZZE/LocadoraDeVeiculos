@@ -67,7 +67,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         {
             Guid guidAluguel = tabelaAluguel.ObterIdSelecionado();
 
-            if (guidAluguel == null)
+            if (guidAluguel == default(Guid))
             {
                 MessageBox.Show($"Selecione um Aluguel para poder editar!",
                                  "Edição de Aluguel",
@@ -78,6 +78,15 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             Aluguel aluguelSelecionado = repositorioAluguel.SelecionarPorId(guidAluguel);
 
+            if (aluguelSelecionado.DataLocacao.Date <= DateTime.Now.Date)
+            {
+                MessageBox.Show($"Não é possível editar um aluguel em andamento",
+                                 "Edição de Aluguel",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Exclamation);
+                return;
+            }
+
             TelaAluguelForm telaAluguel = new TelaAluguelForm
             {
                 Text = "Editar Aluguel",
@@ -85,7 +94,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             telaAluguel.onGravarRegistro += servicoAluguel.Editar;
 
-            telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValorTotalPrevisto;
+            telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValor;
 
             ConfigurarDelegates(telaAluguel);
 
@@ -103,7 +112,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         {
             Guid guidAluguel = tabelaAluguel.ObterIdSelecionado();
 
-            if (guidAluguel == null)
+            if (guidAluguel == default(Guid))
             {
                 MessageBox.Show($"Selecione um Aluguel para poder excluir!",
                                  "Exclusão de Aluguel",
@@ -112,7 +121,17 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
                 return;
             }
 
+
             Aluguel aluguelSelecionado = repositorioAluguel.SelecionarPorId(guidAluguel);
+
+            if (aluguelSelecionado.DataLocacao.Date <= DateTime.Now.Date && aluguelSelecionado.DataDevolucao == default(DateTime))
+            {
+                MessageBox.Show($"Não é possível excluir um aluguel em andamento",
+                                 "Exclusão de Aluguel",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Exclamation);
+                return;
+            }
 
             DialogResult opcaoEscolhida = MessageBox.Show($"Tem certeza que deseja excluir o Aluguel?",
                                                             "Exclusão de Aluguel",
@@ -144,7 +163,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             telaAluguel.onGravarRegistro += servicoAluguel.Inserir;
 
-            telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValorTotalPrevisto;
+            telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValor;
 
             ConfigurarDelegates(telaAluguel);
 
@@ -162,7 +181,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         {
             Guid guidAluguel = tabelaAluguel.ObterIdSelecionado();
 
-            if (guidAluguel == null)
+            if (guidAluguel == default(Guid))
             {
                 MessageBox.Show($"Selecione um Aluguel para poder Devolver!",
                                  "Devolução de Aluguel",
@@ -173,18 +192,36 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             Aluguel aluguelSelecionado = repositorioAluguel.SelecionarPorId(guidAluguel);
 
+            if (aluguelSelecionado.EstaAberto == false)
+            {
+                MessageBox.Show($"Não é possível devolver um aluguel concluído",
+                                 "Devolução de Aluguel",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            if (aluguelSelecionado.DataLocacao.Date > DateTime.Now.Date)
+            {
+                MessageBox.Show($"Não é possível devolver um aluguel ainda não iniciado",
+                                 "Devolução de Aluguel",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Exclamation);
+                return;
+            }
+
             TelaAluguelForm telaAluguel = new TelaAluguelForm
             {
                 Text = "Devolução de Aluguel",
             };
 
-            telaAluguel.onGravarRegistro += servicoAluguel.DevolverAutomovel;
+            telaAluguel.onGravarRegistro += servicoAluguel.Editar;
 
-            telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValorTotal;
+            telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValor;
 
             ConfigurarDelegates(telaAluguel);
 
-            telaAluguel.ConfigurarRegistro(aluguelSelecionado);
+            telaAluguel.ConfigurarDevolucao(aluguelSelecionado);
 
             DialogResult resultado = telaAluguel.ShowDialog();
 
