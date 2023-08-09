@@ -93,8 +93,12 @@ namespace LocadoraDeVeiculos.InfraEmail
             sb.AppendLine("--- Taxas e Serviços ---");
             sb.AppendLine("");
 
-            for (int i = 0; i < aluguel.TaxasServicos.Count; i++)
-                sb.AppendLine($"{i + 1} - {aluguel.TaxasServicos[i].Nome}\t - R$ {aluguel.TaxasServicos[i].Preco}");
+            int contadorTaxas = 1;
+            foreach(var taxa in aluguel.TaxasServicos)
+            {
+                sb.AppendLine($"{contadorTaxas} - {taxa.Nome}\t - R$ {taxa.Preco}");
+                contadorTaxas++;
+            }
 
             sb.AppendLine("");
             sb.AppendLine($"Data prevista para devolução: {aluguel.DataDevolucaoPrevista:d}");
