@@ -18,6 +18,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca
             txb_precoKm.Enabled = false;
             this.repGpAuto = repGpAuto;
 
+            cbox_gpAutomoveis.DropDownStyle = ComboBoxStyle.DropDownList;
+
             txb_kmDisponivel.Text = Convert.ToString(0);
             txb_precoD.Text = Convert.ToString(0);
             txb_precoKm.Text = Convert.ToString(0);

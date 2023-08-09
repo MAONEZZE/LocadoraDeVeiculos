@@ -77,9 +77,9 @@
             // cbox_cliente
             // 
             cbox_cliente.FormattingEnabled = true;
-            cbox_cliente.Location = new Point(66, 25);
+            cbox_cliente.Location = new Point(71, 25);
             cbox_cliente.Name = "cbox_cliente";
-            cbox_cliente.Size = new Size(85, 23);
+            cbox_cliente.Size = new Size(80, 23);
             cbox_cliente.TabIndex = 13;
             cbox_cliente.SelectedValueChanged += cbox_cliente_SelectedValueChanged;
             // 
@@ -93,10 +93,10 @@
             // 
             // mtxb_telefone
             // 
-            mtxb_telefone.Location = new Point(66, 165);
+            mtxb_telefone.Location = new Point(71, 165);
             mtxb_telefone.Mask = "(##) #####-####";
             mtxb_telefone.Name = "mtxb_telefone";
-            mtxb_telefone.Size = new Size(94, 23);
+            mtxb_telefone.Size = new Size(89, 23);
             mtxb_telefone.TabIndex = 33;
             // 
             // label4
@@ -137,23 +137,23 @@
             // 
             // txb_email
             // 
-            txb_email.Location = new Point(66, 115);
+            txb_email.Location = new Point(71, 115);
             txb_email.Name = "txb_email";
-            txb_email.Size = new Size(257, 23);
+            txb_email.Size = new Size(252, 23);
             txb_email.TabIndex = 28;
             // 
             // txb_nome
             // 
-            txb_nome.Location = new Point(66, 67);
+            txb_nome.Location = new Point(71, 67);
             txb_nome.Name = "txb_nome";
-            txb_nome.Size = new Size(257, 23);
+            txb_nome.Size = new Size(252, 23);
             txb_nome.TabIndex = 27;
             // 
             // txb_cnh
             // 
-            txb_cnh.Location = new Point(101, 64);
+            txb_cnh.Location = new Point(114, 64);
             txb_cnh.Name = "txb_cnh";
-            txb_cnh.Size = new Size(100, 23);
+            txb_cnh.Size = new Size(87, 23);
             txb_cnh.TabIndex = 35;
             // 
             // label5
@@ -190,9 +190,9 @@
             // txb_data
             // 
             txb_data.Format = DateTimePickerFormat.Short;
-            txb_data.Location = new Point(101, 23);
+            txb_data.Location = new Point(114, 23);
             txb_data.Name = "txb_data";
-            txb_data.Size = new Size(100, 23);
+            txb_data.Size = new Size(87, 23);
             txb_data.TabIndex = 39;
             // 
             // label7
