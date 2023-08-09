@@ -46,25 +46,14 @@ namespace LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel
 
         public decimal CalcularValorReposicaoCombustivel(Automovel automovel, NivelCombustivelEnum nivelCombustivel)
         {
-            decimal combustivelValor;
-            switch(automovel.Combustivel)
+            decimal combustivelValor = automovel.Combustivel switch
             {
-                case TipoCombustivelEnum.Gasolina:
-                    combustivelValor = Gasolina;
-                    break;
-                case TipoCombustivelEnum.Etanol:
-                    combustivelValor = Etanol;
-                    break;
-                case TipoCombustivelEnum.Diesel:
-                    combustivelValor = Diesel;
-                    break;
-                case TipoCombustivelEnum.Gas:
-                    combustivelValor = Gas;
-                    break;
-                default:
-                    combustivelValor = 0;
-                    break;
-            }
+                TipoCombustivelEnum.Gasolina => Gasolina,
+                TipoCombustivelEnum.Etanol => Etanol,
+                TipoCombustivelEnum.Diesel => Diesel,
+                TipoCombustivelEnum.Gas => Gas,
+                _ => 0,
+            };
             decimal litrosARepor = automovel.ObterLitrosAbastecidos(nivelCombustivel);
 
             return litrosARepor * combustivelValor;
