@@ -10,9 +10,9 @@ namespace LocadoraDeVeiculos.TestesIntegracao.ModuloCondutor
     {
         private Cliente cliente;
 
-        public RepositorioCondutorTest() : base()
+        public RepositorioCondutorTest()
         {
-            var endereco = new Endereco("rua", "bairro", "cidade", "estado", "cep", 0, "casa");
+            var endereco = Builder<Endereco>.CreateNew().Build();
 
             cliente = Builder<Cliente>.CreateNew().With(c=>c.Endereco = endereco).Persist();
         }
