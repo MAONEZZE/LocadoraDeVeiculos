@@ -14,6 +14,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCondutor
 
             this.ConfigurarDialog();
 
+            cbox_cliente.DropDownStyle = ComboBoxStyle.DropDownList;
+
             AlimentarCBOXCliente(repCliente);
         }
 

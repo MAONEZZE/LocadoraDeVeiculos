@@ -62,23 +62,23 @@
             // 
             // txb_nome
             // 
-            txb_nome.Location = new Point(72, 12);
+            txb_nome.Location = new Point(78, 12);
             txb_nome.Name = "txb_nome";
-            txb_nome.Size = new Size(272, 23);
+            txb_nome.Size = new Size(266, 23);
             txb_nome.TabIndex = 0;
             // 
             // txb_email
             // 
-            txb_email.Location = new Point(72, 60);
+            txb_email.Location = new Point(78, 60);
             txb_email.Name = "txb_email";
-            txb_email.Size = new Size(272, 23);
+            txb_email.Size = new Size(266, 23);
             txb_email.TabIndex = 1;
             // 
             // txb_cnpj
             // 
-            txb_cnpj.Location = new Point(229, 219);
+            txb_cnpj.Location = new Point(244, 219);
             txb_cnpj.Name = "txb_cnpj";
-            txb_cnpj.Size = new Size(115, 23);
+            txb_cnpj.Size = new Size(100, 23);
             txb_cnpj.TabIndex = 3;
             // 
             // label1
@@ -198,37 +198,37 @@
             // 
             // txb_estado
             // 
-            txb_estado.Location = new Point(69, 262);
+            txb_estado.Location = new Point(78, 262);
             txb_estado.Name = "txb_estado";
-            txb_estado.Size = new Size(97, 23);
+            txb_estado.Size = new Size(88, 23);
             txb_estado.TabIndex = 15;
             // 
             // txb_cidade
             // 
-            txb_cidade.Location = new Point(229, 257);
+            txb_cidade.Location = new Point(244, 257);
             txb_cidade.Name = "txb_cidade";
-            txb_cidade.Size = new Size(115, 23);
+            txb_cidade.Size = new Size(100, 23);
             txb_cidade.TabIndex = 16;
             // 
             // txb_logradouro
             // 
-            txb_logradouro.Location = new Point(69, 330);
+            txb_logradouro.Location = new Point(78, 330);
             txb_logradouro.Name = "txb_logradouro";
-            txb_logradouro.Size = new Size(275, 23);
+            txb_logradouro.Size = new Size(266, 23);
             txb_logradouro.TabIndex = 17;
             // 
             // txb_bairro
             // 
-            txb_bairro.Location = new Point(69, 295);
+            txb_bairro.Location = new Point(78, 295);
             txb_bairro.Name = "txb_bairro";
-            txb_bairro.Size = new Size(158, 23);
+            txb_bairro.Size = new Size(149, 23);
             txb_bairro.TabIndex = 18;
             // 
             // txb_numero
             // 
-            txb_numero.Location = new Point(69, 364);
+            txb_numero.Location = new Point(78, 364);
             txb_numero.Name = "txb_numero";
-            txb_numero.Size = new Size(76, 23);
+            txb_numero.Size = new Size(67, 23);
             txb_numero.TabIndex = 19;
             // 
             // label10
@@ -276,18 +276,18 @@
             // 
             // mtxb_telefone
             // 
-            mtxb_telefone.Location = new Point(72, 110);
+            mtxb_telefone.Location = new Point(78, 110);
             mtxb_telefone.Mask = "(##) #####-####";
             mtxb_telefone.Name = "mtxb_telefone";
-            mtxb_telefone.Size = new Size(94, 23);
+            mtxb_telefone.Size = new Size(88, 23);
             mtxb_telefone.TabIndex = 25;
             // 
             // mtxb_cpf
             // 
-            mtxb_cpf.Location = new Point(69, 222);
+            mtxb_cpf.Location = new Point(78, 222);
             mtxb_cpf.Mask = "###.###.###-##";
             mtxb_cpf.Name = "mtxb_cpf";
-            mtxb_cpf.Size = new Size(97, 23);
+            mtxb_cpf.Size = new Size(88, 23);
             mtxb_cpf.TabIndex = 26;
             // 
             // mtxb_cep
@@ -300,9 +300,9 @@
             // 
             // txb_comp
             // 
-            txb_comp.Location = new Point(244, 364);
+            txb_comp.Location = new Point(248, 364);
             txb_comp.Name = "txb_comp";
-            txb_comp.Size = new Size(100, 23);
+            txb_comp.Size = new Size(96, 23);
             txb_comp.TabIndex = 28;
             // 
             // label12

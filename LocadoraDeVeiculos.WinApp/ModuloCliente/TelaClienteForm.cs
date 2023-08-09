@@ -22,7 +22,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
             this.cliente.Nome = txb_nome.Text;
             this.cliente.Email = txb_email.Text;
             this.cliente.Telefone = mtxb_telefone.Text;
-            
+
             this.cliente.Endereco.Bairro = txb_bairro.Text;
             this.cliente.Endereco.Cep = mtxb_cep.Text;
             this.cliente.Endereco.Cidade = txb_cidade.Text;
