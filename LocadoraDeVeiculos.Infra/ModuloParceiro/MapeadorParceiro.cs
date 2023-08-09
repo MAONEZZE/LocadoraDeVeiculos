@@ -6,7 +6,7 @@ namespace LocadoraDeVeiculos.Infra.ModuloParceiro
     {
         public void Configure(EntityTypeBuilder<Parceiro> builder)
         {
-            builder.ToTable("TBParceiro");
+            builder.ToTable("TBParceiro"); 
 
             builder.Property(p=>p.Id).ValueGeneratedOnAdd();
 
