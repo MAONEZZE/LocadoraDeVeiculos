@@ -1,11 +1,8 @@
 ﻿using FizzWare.NBuilder;
+using FluentAssertions;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LocadoraDeVeiculos.TestesIntegracao.ModuloPlanoDeCobranca
 {
@@ -25,10 +22,13 @@ namespace LocadoraDeVeiculos.TestesIntegracao.ModuloPlanoDeCobranca
             var plano = Builder<PlanoDeCobranca>.CreateNew().With(p => p.GrupoAutomovel = gp).Build();
 
             //Act
-            repositorioP.Inserir(plano);
+            repositorioPlanoDeCobranca.Inserir(plano);
+
+            dbContext.GravarDados();
 
             //Assert
 
+            repositorioPlanoDeCobranca.SelecionarPorId(plano.Id).Should().Be(plano);
 
         }
     }

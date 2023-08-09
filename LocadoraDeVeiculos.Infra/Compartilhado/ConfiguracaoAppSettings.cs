@@ -19,9 +19,17 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
         {
             return configuration.GetConnectionString("SqlServer")!;
         }
+
         public string ObterArquivoJsonPrecoCombustivel()
         {
             return configuration.GetSection("ArquivoJson:ConfiguracaoPreco").Value!;
+        }
+
+        public string ObterCredencial()
+        {
+            var foo = Convert.FromBase64String(configuration.GetSection("Id:Id1").Value!);
+
+            return System.Text.Encoding.UTF8.GetString(foo);
         }
     }
 }

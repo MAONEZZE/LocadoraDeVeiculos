@@ -23,7 +23,6 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
         Parceiro parceiro;
         public ServicoParceiroTestes()
         {
-
             validadorMock = new Mock<IValidadorParceiro>();
             repositorioMoq = new Mock<IRepositorioParceiro>();
             contexto = new Mock<IContextoPersistencia>();

@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Infra.Compartilhado;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -8,14 +9,7 @@ namespace LocadoraDeVeiculos.InfraEmail
 {
     public class GeradorEmail : IGeradorEmail
     {
-        private readonly string? senha;
-
-        public GeradorEmail()
-        {
-            this.senha = "wctzzwxulytircaj";
-        }
-
-       
+        
         public Result EnviarEmail(Aluguel aluguel, byte[] bytesAnexo = null!)
         {
             string emailRemetente = "equip3devagar3sempr3@gmail.com";
@@ -45,7 +39,7 @@ namespace LocadoraDeVeiculos.InfraEmail
             {
                 using (var smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
-                    smtp.Credentials = new NetworkCredential(emailRemetente, senha);
+                    smtp.Credentials = new NetworkCredential(emailRemetente, ObterCredenciais());
 
                     smtp.EnableSsl = true;
 
@@ -81,6 +75,11 @@ namespace LocadoraDeVeiculos.InfraEmail
             sb.AppendLine("Locadora de Veículos Devagar e Sempre");
 
             return sb.ToString();
+        }
+
+        private string ObterCredenciais()
+        {
+            return new ConfiguracaoAppSettings().ObterCredencial();
         }
     }
 }
