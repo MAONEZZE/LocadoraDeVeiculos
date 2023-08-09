@@ -24,9 +24,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.1 - TestesUnitarios", "5.1 - TestesUnitarios", "{D23C649F-E547-4114-B1A6-7A8A0B270C66}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.2 - TestesIntegracao", "5.2 - TestesIntegracao", "{37BD0DBF-6799-4BBC-8FB4-2DF64E926F65}"
-	ProjectSection(SolutionItems) = preProject
-		LocadoraDeVeiculos.TestesIntegracao\Compartilhado\appsettings.json = LocadoraDeVeiculos.TestesIntegracao\Compartilhado\appsettings.json
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraDeVeiculos.TestesUnitarios", "LocadoraDeVeiculos.TestesUnitarios\LocadoraDeVeiculos.TestesUnitarios.csproj", "{32DB51CD-2A79-43A7-8A4F-CE9F656B5D34}"
 EndProject

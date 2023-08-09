@@ -1,7 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using LocadoraDeVeiculos.Dominio.ModuloParceiro;
 using FluentAssertions;
-using LocadoraDeVeiculos.TestesIntegracao.Compartilhado;
 
 namespace LocadoraDeVeiculos.TestesIntegracao.ModuloParceiro
 {
@@ -14,6 +13,8 @@ namespace LocadoraDeVeiculos.TestesIntegracao.ModuloParceiro
             var parceiro = Builder<Parceiro>.CreateNew().Build();
 
             repositorioParceiro.Inserir(parceiro);
+
+            dbContext.SaveChanges();
 
             repositorioParceiro.SelecionarPorId(parceiro.Id).Should().Be(parceiro);
         }
@@ -29,6 +30,8 @@ namespace LocadoraDeVeiculos.TestesIntegracao.ModuloParceiro
 
             repositorioParceiro.Editar(parceiro);
 
+            dbContext.SaveChanges();
+
             repositorioParceiro.SelecionarPorId(parceiro.Id).Should().Be(parceiro);
         }
 
@@ -40,6 +43,8 @@ namespace LocadoraDeVeiculos.TestesIntegracao.ModuloParceiro
             parceiro = repositorioParceiro.SelecionarPorId(parceiro.Id);
 
             repositorioParceiro.Excluir(parceiro);
+
+            dbContext.SaveChanges();
 
             repositorioParceiro.SelecionarPorId(parceiro.Id).Should().BeNull();
 

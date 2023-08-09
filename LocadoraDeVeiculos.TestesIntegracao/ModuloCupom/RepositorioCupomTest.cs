@@ -21,24 +21,19 @@ namespace LocadoraDeVeiculos.TestesIntegracao.ModuloCupom
         [TestMethod]
         public void Deve_inserir_cupom()
         {
-            var cupom = Builder<Cupom>.CreateNew().Build();
-
-            cupom.Parceiro = parceiro;
+            var cupom = Builder<Cupom>.CreateNew().With(x=>x.Parceiro = parceiro).Build();
 
             repositorioCupom.Inserir(cupom);
 
-            repositorioCupom.SelecionarPorId(cupom.Id)
-                .Should().Be(cupom);
+            dbContext.SaveChanges();
+
+            repositorioCupom.SelecionarPorId(cupom.Id).Should().Be(cupom);
         }
 
         [TestMethod]
         public void Deve_editar_cupom()
         {
-            var cupom = Builder<Cupom>.CreateNew().Build();
-
-            cupom.Parceiro = parceiro;
-
-            repositorioCupom.Inserir(cupom);
+            var cupom = Builder<Cupom>.CreateNew().With(x => x.Parceiro = parceiro).Persist();
 
             cupom = repositorioCupom.SelecionarPorId(cupom.Id);
 
@@ -46,25 +41,23 @@ namespace LocadoraDeVeiculos.TestesIntegracao.ModuloCupom
 
             repositorioCupom.Editar(cupom);
 
-            repositorioCupom.SelecionarPorId(cupom.Id)
-                .Should().Be(cupom);
+            dbContext.SaveChanges();
+
+            repositorioCupom.SelecionarPorId(cupom.Id).Should().Be(cupom);
         }
 
         [TestMethod]
         public void Deve_excluir_cupom()
         {
-            var cupom = Builder<Cupom>.CreateNew().Build();
-
-            cupom.Parceiro = parceiro;
-
-            repositorioCupom.Inserir(cupom);
+            var cupom = Builder<Cupom>.CreateNew().With(x => x.Parceiro = parceiro).Persist();
 
             cupom = repositorioCupom.SelecionarPorId(cupom.Id);
 
             repositorioCupom.Excluir(cupom);
 
-            repositorioCupom.SelecionarPorId(cupom.Id)
-               .Should().BeNull();
+            dbContext.SaveChanges();
+
+            repositorioCupom.SelecionarPorId(cupom.Id).Should().BeNull();
         }
     }
 }

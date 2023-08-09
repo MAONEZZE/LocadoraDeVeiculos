@@ -61,6 +61,8 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var connectionString = configuracao.GetConnectionString("SqlServer");
 
+            var arquivoConfiguracao = configuracao.GetSection("ArquivoJson:ConfiguracaoPreco").Value!;
+
             var servicos = new ServiceCollection();
 
             servicos.AddDbContext<IContextoPersistencia, LocadoraDeVeiculosDbContext>(optionsBuilder =>
@@ -122,6 +124,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             servicos.AddTransient<IGeradorEmail, GeradorEmail>();
             servicos.AddTransient<IGeradorPdf, GeradorPdf>();
+            servicos.AddTransient<ISerializador, SerializadorJson>(s => new SerializadorJson(arquivoConfiguracao));
 
             container = servicos.BuildServiceProvider();
 

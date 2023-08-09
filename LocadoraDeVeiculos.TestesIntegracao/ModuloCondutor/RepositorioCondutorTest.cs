@@ -18,15 +18,15 @@ namespace LocadoraDeVeiculos.TestesIntegracao.ModuloCondutor
         [TestMethod]
         public void DeveInserir_Condutor()
         {
-            var condutor = Builder<Condutor>.CreateNew().Build();
+            var condutor = Builder<Condutor>.CreateNew().With(c=>c.Cliente = cliente).Build();
+        
+            repositorioCondutor.Inserir(condutor);
 
-            condutor.Cliente = cliente;
+            dbContext.SaveChanges();
 
-            //repositorioCondutor.Inserir(condutor);
+            var condutorEncontrado = repositorioCondutor.SelecionarPorId(condutor.Id);
 
-            //var condutorEncontrado = repositorioCondutor.SelecionarPorId(condutor.Id);
-
-            //condutorEncontrado.Should().Be(condutor);
+            condutorEncontrado.Should().Be(condutor);
         }   
     }
 }

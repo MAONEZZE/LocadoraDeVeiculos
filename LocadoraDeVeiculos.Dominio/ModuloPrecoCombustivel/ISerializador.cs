@@ -1,7 +1,5 @@
 ﻿
-using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
-
-namespace LocadoraDeVeiculos.Infra.PrecosCombustiveis.ModuloPrecoCombustivel
+namespace LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel
 {
     public interface ISerializador
     {

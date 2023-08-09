@@ -18,15 +18,19 @@ namespace LocadoraDeVeiculos.TestesIntegracao
 
         protected IRepositorioCondutor repositorioCondutor;
 
-       private ConfiguracaoAppSettings configuracao;
+        private ConfiguracaoAppSettings configuracao;
+
+        protected LocadoraDeVeiculosDbContext dbContext;
 
         public RepositorioBaseTests()
         {
+
+
             var configuracaoDb = new ConfiguracaoDb();
 
             configuracao = new ConfiguracaoAppSettings();
 
-            var dbContext = configuracaoDb.InicializarContexto(configuracao);
+            dbContext = configuracaoDb.InicializarContexto(configuracao);
 
             repositorioParceiro = new RepositorioParceiro(dbContext);
 
@@ -34,18 +38,31 @@ namespace LocadoraDeVeiculos.TestesIntegracao
 
             repositorioCondutor = new RepositorioCondutor(dbContext);
 
-
-
-            BuilderSetup.SetCreatePersistenceMethod<Parceiro>(repositorioParceiro.Inserir);
-
-            BuilderSetup.SetCreatePersistenceMethod<Cupom>(repositorioCupom.Inserir);
-
             LimparTabelas();
+
+            BuilderSetup.SetCreatePersistenceMethod<Parceiro>((p) =>
+            {           
+                repositorioParceiro.Inserir(p);
+                dbContext.SaveChanges();
+            });
+
+            BuilderSetup.SetCreatePersistenceMethod<Cupom>((c) =>
+            {              
+                repositorioCupom.Inserir(c);
+                dbContext.SaveChanges();
+            });
+
+            BuilderSetup.SetCreatePersistenceMethod<Condutor>((c)=>
+            {           
+                repositorioCondutor.Inserir(c);
+                dbContext.SaveChanges();
+            });
+       
         }
 
         protected void LimparTabelas()
         {
-            string? connectionString = configuracao.ObterConnectionString(); 
+            string? connectionString = configuracao.ObterConnectionString();
 
             var sqlConnection = new SqlConnection(connectionString);
 
@@ -67,5 +84,5 @@ namespace LocadoraDeVeiculos.TestesIntegracao
 
     }
 
-   
+
 }
