@@ -25,7 +25,9 @@ namespace LocadoraDeVeiculos.Infra.ModuloCupom
 
         public Cupom SelecionarPorNome(string nome)
         {
-            return registros.Where(x => x.Nome == nome).SingleOrDefault()!;
+            return registros.Include(p => p.Parceiro)
+                .Where(x => x.Nome == nome)
+                .SingleOrDefault()!;
         }
     }
 }
