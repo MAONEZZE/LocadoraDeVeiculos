@@ -6,12 +6,13 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
 {
     public class ControladorCupom : ControladorBase
     {
+        private readonly ServicoCupom servicoCupom;
 
-        ServicoCupom servicoCupom;
-        IRepositorioCupom repositorioCupom;
-        IRepositorioParceiro repositorioParceiro;
+        private readonly IRepositorioCupom repositorioCupom;
 
-        TabelaCupomControl tabelaCupom;
+        private readonly IRepositorioParceiro repositorioParceiro;
+
+        private TabelaCupomControl tabelaCupom;
 
         public ControladorCupom(ServicoCupom servicoCupom, IRepositorioCupom repositorioCupom, IRepositorioParceiro repositorioParceiro)
         {
@@ -38,13 +39,61 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
             }
         }
 
+        public override void Editar()
+        {
+            var id = tabelaCupom.ObtemIdSelecionado();
+
+            if (id == default) return;
+
+            var cupom = repositorioCupom.SelecionarPorId(id);
+
+            var opcao = MessageBox.Show($"Confirma editar o cupom: {cupom.Nome}?", "Editar Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcao == DialogResult.No) return;
+
+            var telaCupom = new TelaCupomForm
+            {
+                Text = "Editar Cupom"
+            };
+
+            telaCupom.OnObterParceiro_ += repositorioParceiro.SelecionarTodos;
+
+            telaCupom.onGravarRegistro += servicoCupom.Editar;
+
+            telaCupom.ConfigurarCupom(cupom);
+
+            if (telaCupom.ShowDialog() == DialogResult.OK)
+            {
+                AtualizarListagem();
+            }
+        }
+
 
 
         public override void Excluir()
         {
-            throw new NotImplementedException();
-        }
+            var id = tabelaCupom.ObtemIdSelecionado();
 
+            if (id == default) return;
+
+            var cupom = repositorioCupom.SelecionarPorId(id);
+
+            var opcao = MessageBox.Show($"Confirma excluír o cupom: {cupom.Nome}?", "Excluír Cupom", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (opcao == DialogResult.No) return;
+
+            var result = servicoCupom.Excluir(cupom);
+
+            if (result.IsFailed)
+            {
+                var erros = result.Errors.Select(x => x.Message).ToList();
+
+                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
+            }
+
+            else
+                AtualizarListagem();
+        }
 
 
         public override UserControl ObtemListagem()
@@ -69,7 +118,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
         {
             var sufixo = listagem.Count > 1 ? "ns" : "m";
 
-            mensagemRodape = $"Visualizando {listagem.Count} cupo{sufixo}";
+            mensagemRodape = $"Visualizando {listagem.Count} cupo{sufixo}.";
 
             TelaPrincipalForm.Instancia.AtualizarRodape(mensagemRodape);
         }

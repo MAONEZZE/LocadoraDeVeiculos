@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
-using LocadoraDeVeiculos.Dominio.ModuloCliente;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado
 {
@@ -18,23 +17,17 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
 
         public void Inserir(T novoRegistro)
         {
-            registros.Add(novoRegistro);
-
-            dbContext.SaveChanges();
+            registros.Add(novoRegistro);         
         }
 
         public void Editar(T registro)
         {
-            registros.Update(registro);
-
-            dbContext.SaveChanges();
+            registros.Update(registro);         
         }
 
         public void Excluir(T registro)
         {
-            registros.Remove(registro);
-
-            dbContext.SaveChanges();
+            registros.Remove(registro);          
         }
 
         public bool Existe(T registro)
@@ -42,15 +35,15 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
             return registros.Contains(registro);
         }
 
-        public virtual T SelecionarPorId(int id)
+        public virtual T SelecionarPorId(Guid id)
         {
-            return registros.SingleOrDefault(t => t.Id == id)!;
+            return registros.SingleOrDefault(t=>t.Id == id);
         }
 
         public virtual List<T> SelecionarTodos()
         {
             return registros.ToList();
         }
-    
+            
     }
 }

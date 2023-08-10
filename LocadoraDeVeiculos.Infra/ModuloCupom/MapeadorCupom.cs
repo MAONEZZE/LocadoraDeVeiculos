@@ -8,11 +8,11 @@ namespace LocadoraDeVeiculos.Infra.ModuloCupom
         {
             builder.ToTable("TBCupom");
 
-            builder.Property(c => c.Id).ValueGeneratedOnAdd();
+            builder.Property(c => c.Id).ValueGeneratedNever();
 
             builder.Property(c => c.Nome).HasColumnType("varchar(250)").IsRequired();
 
-            builder.Property(c=>c.DataValidade).IsRequired();
+            builder.Property(c => c.DataValidade).IsRequired();
 
             builder.HasOne(c => c.Parceiro).WithMany().IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);

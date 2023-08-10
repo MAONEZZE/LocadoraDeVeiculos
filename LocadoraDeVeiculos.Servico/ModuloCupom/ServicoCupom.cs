@@ -1,17 +1,21 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCupom;
-
-
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloCupom;
 
 namespace LocadoraDeVeiculos.Servico.ModuloCupom
 {
     public class ServicoCupom : ServicoBase<Cupom, ValidadorCupom>
     {
-        IRepositorioCupom repositorioCupom;
-       
+        private IRepositorioCupom repositorioCupom;
+        private readonly IRepositorioAluguel repositorioAluguel;
+        private IContextoPersistencia contexto;
 
-        public ServicoCupom(IRepositorioCupom repositorioCupom)
-        {           
+
+        public ServicoCupom(IRepositorioCupom repositorioCupom, IRepositorioAluguel repositorioAluguel, IContextoPersistencia contexto)
+        {
             this.repositorioCupom = repositorioCupom;
+            this.repositorioAluguel = repositorioAluguel;
+            this.contexto = contexto;
         }
 
         public Result Inserir(Cupom cupom)
@@ -21,19 +25,29 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             var erros = ValidarCupom(cupom);
 
             if (erros.Any())
+            {
+                contexto.DesfazerAlteracoes();
+
+                Log.Error(erros[0], cupom);
+
                 return Result.Fail(erros);
+            }
 
             try
             {
                 repositorioCupom.Inserir(cupom);
 
+                contexto.GravarDados();
+
                 Log.Debug("Cupom {cupomId} inserido com sucesso", cupom.Id);
 
                 return Result.Ok();
             }
-            catch (SqlException)
+            catch
             {
                 string msg = $"Falha ao tentar inserir cupom {cupom}";
+
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, cupom);
 
@@ -49,26 +63,34 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             var erros = ValidarCupom(cupom);
 
             if (erros.Any())
+            {
+                contexto.DesfazerAlteracoes();
+
+                Log.Error(erros[0], cupom);
+
                 return Result.Fail(erros);
+            }
 
             try
             {
                 repositorioCupom.Editar(cupom);
 
+                contexto.GravarDados();
+
                 Log.Debug("Cupom {cupomId} editado com sucesso", cupom.Id);
 
                 return Result.Ok();
             }
-            catch (SqlException)
+            catch
             {
                 string msg = $"Falha ao tentar editar cupom {cupom}";
+
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, cupom);
 
                 return Result.Fail(msg);
             }
-
-
         }
 
         public Result Excluir(Cupom cupom)
@@ -88,20 +110,17 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
 
                 repositorioCupom.Excluir(cupom);
 
+                contexto.GravarDados();
+
                 Log.Debug("Cupom {cupomId} excluído com sucesso", cupom.Id);
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch
             {
-                string msg;
+                string msg = $"Falha ao tentar excluir cupom {cupom}";
 
-                if (ex.Message.Contains("FK_TBCUPOM_TBALUGUEL"))
-                {
-                    msg = "Este cupom está relacionado com um aluguel e pode ser excluído";
-                }
-                else
-                    msg = $"Falha ao tentar excluir cupom {cupom}";
+                contexto.DesfazerAlteracoes();
 
                 Log.Error(msg, cupom);
 
@@ -119,7 +138,10 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             {
                 erros.AddRange(resultado.Errors.Select(e => e.Message));
             }
-          
+
+            if (repositorioAluguel.SelecionarTodos().Any(x => x.Cupom.Equals(cupom)))
+                erros.Add("Este cupom já esta sendo utilizado, não é possivel editar ou excluir");
+
             if (!repositorioCupom.EhValido(cupom))
                 erros.Add($"Este nome '{cupom.Nome}' já está sendo utilizado");
 

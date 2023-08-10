@@ -16,7 +16,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCupom
 
         public Cupom() { }
 
-        public Cupom(int id, string nome, decimal valor, DateTime dataValidade, Parceiro parceiro) : this(nome, valor, dataValidade, parceiro)
+        public Cupom(Guid id, string nome, decimal valor, DateTime dataValidade, Parceiro parceiro) : this(nome, valor, dataValidade, parceiro)
         {
             Id = id;
         }
@@ -38,7 +38,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCupom
 
         public override string ToString()
         {
-            return $"Cupom: {Nome} - Parceiro: {Parceiro.Nome} - Validade: {DataValidade}";
+            return $"{Nome} - Parceiro: {Parceiro.Nome} - Validade: {DataValidade:d}";
         }
 
         public override bool Equals(object? obj)

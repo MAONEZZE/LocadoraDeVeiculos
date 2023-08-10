@@ -15,6 +15,10 @@
 
         public virtual string TooltipVisualizar { get; }
 
+        public virtual string TooltipPrecoCombustivel { get; }
+
+        public virtual string TooltipDevolverAutomovel { get; }
+
         #endregion
 
         #region estados dos botões
@@ -29,6 +33,10 @@
         public virtual bool FiltrarHabilitado { get { return false; } }
    
         public virtual bool VisualizarHabilitado { get { return false; } }
+
+        public virtual bool PrecoCombustivelHabilitado { get { return false; } }
+
+        public virtual bool DevolverAutomovelHabilitado { get { return false; } }
 
         #endregion
     }

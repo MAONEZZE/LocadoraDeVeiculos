@@ -6,7 +6,7 @@
 
         public Parceiro() { }
 
-        public Parceiro(int id, string nome) : this(nome)
+        public Parceiro(Guid id, string nome) : this(nome)
         {
             Id = id;
         }

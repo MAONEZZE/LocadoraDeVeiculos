@@ -11,8 +11,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
 
         public onObterParceiroDelegate OnObterParceiro_;
 
-        private int id = 0;
-
         Cupom cupom;
 
         public TelaCupomForm()
@@ -20,14 +18,12 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
             InitializeComponent();
 
             this.ConfigurarDialog();
-
-            
+           
         }
 
 
         private void BtnSalvar_Click(object sender, EventArgs e)
-        {
-            cupom.Id = id;
+        {          
             cupom.Valor = txtValor.Value;
             cupom.DataValidade = txtData.Value;
             cupom.Nome = txtNome.Text;
@@ -47,8 +43,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
 
         public void ConfigurarCupom(Cupom cupom)
         {
-            id = cupom.Id;
-
+          
             txtNome.Text = cupom.Nome;
 
             txtData.Value = cupom.DataValidade == default ? DateTime.Now : cupom.DataValidade;

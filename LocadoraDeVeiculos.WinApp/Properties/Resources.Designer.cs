@@ -83,6 +83,26 @@ namespace LocadoraDeVeiculos.WinApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Captura_de_tela_2023_08_01_202617 {
+            get {
+                object obj = ResourceManager.GetObject("Captura de tela 2023-08-01 202617", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap car_rental_FILL0_wght0_GRAD0_opsz24 {
+            get {
+                object obj = ResourceManager.GetObject("car_rental_FILL0_wght0_GRAD0_opsz24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap carro {
             get {
                 object obj = ResourceManager.GetObject("carro", resourceCulture);
@@ -183,6 +203,16 @@ namespace LocadoraDeVeiculos.WinApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap palette_FILL0_wght300_GRAD0_opsz40 {
+            get {
+                object obj = ResourceManager.GetObject("palette_FILL0_wght300_GRAD0_opsz40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap parceiro {
             get {
                 object obj = ResourceManager.GetObject("parceiro", resourceCulture);
@@ -236,6 +266,16 @@ namespace LocadoraDeVeiculos.WinApp.Properties {
         internal static System.Drawing.Bitmap search_FILL0_wght400_GRAD0_opsz48 {
             get {
                 object obj = ResourceManager.GetObject("search_FILL0_wght400_GRAD0_opsz48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap taxaeservicos {
+            get {
+                object obj = ResourceManager.GetObject("taxaeservicos", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

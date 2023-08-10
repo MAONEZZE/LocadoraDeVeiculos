@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LocadoraDeVeiculos.WinApp.ModuloCliente
+﻿namespace LocadoraDeVeiculos.WinApp.ModuloCliente
 {
     public class ConfiguracaoToolBoxCliente : ConfiguracaoToolboxBase
     {
@@ -15,5 +9,9 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
         public override string TooltipEditar => "Editar Cliente";
 
         public override string TooltipExcluir => "Excluir Cliente";
+
+        public override string TooltipFiltrar => "Filtrar Cliente";
+
+        public override bool FiltrarHabilitado => true; //Filtrar por cpf e cnpj
     }
 }

@@ -1,39 +1,53 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloCupom;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocadoraDeVeiculos.Dominio.ModuloCliente
 {
     public class Cliente : Pessoa<Cliente>
     {
-        public List<Cupom> cuponsUtilizados;
-        public Endereco endereco;
+        public HashSet<Cupom> ListaCupons {  get; set; }
+        public TipoClienteEnum TipoCliente { get; set; }
+        public Endereco Endereco { get; set; }
 
         public Cliente()
         {
-            this.cuponsUtilizados = new List<Cupom>();
+            this.ListaCupons = new();
+            this.Endereco = new Endereco();
         }
-        public Cliente(string nome, string email, string telefone, Endereco endereco, TipoClienteEnum tipoCliente, string documento) : this()
+        public Cliente(string nome, string email, string telefone, TipoClienteEnum tipoCliente, Endereco endereco, string documento) : this()
         {
             base.Nome = nome;
             base.Documento = documento;
             base.Email = email;
             base.Telefone = telefone;
-            base.TipoCliente = tipoCliente;
-            this.endereco = endereco;
+            this.TipoCliente = tipoCliente;
+            this.Endereco = endereco;
         }
-        public Cliente(int id, string nome, string email, string telefone, Endereco endereco, TipoClienteEnum tipoCliente, string documento) : this()
+        public Cliente(Guid id, string nome, string email, string telefone, TipoClienteEnum tipoCliente, Endereco endereco, string documento) : this()
         {
             base.Id = id;
             base.Nome = nome;
             base.Documento = documento;
             base.Email = email;
             base.Telefone = telefone;
-            base.TipoCliente = tipoCliente;
-            this.endereco = endereco;
+            this.TipoCliente = tipoCliente;
+            this.Endereco = endereco;
+        }
+
+        public void AdicionarCupom(Cupom cupom)
+        {
+            ListaCupons.Add(cupom);
+        }
+
+        public override string ToString()
+        {
+            return Nome;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Cliente cliente
+                && Id == cliente.Id
+                && Documento == cliente.Documento;
         }
     }
 }

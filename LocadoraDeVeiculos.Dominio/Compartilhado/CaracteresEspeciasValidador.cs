@@ -1,5 +1,4 @@
 ﻿using FluentValidation.Validators;
-using FluentValidation;
 
 namespace LocadoraDeVeiculos.Dominio.Compartilhado;
 

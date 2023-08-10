@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace LocadoraDeVeiculos.Dominio.ModuloCupom
+﻿namespace LocadoraDeVeiculos.Dominio.ModuloCupom
 {
     public class ValidadorCupom : AbstractValidator<Cupom>, IValidadorCupom
     {

@@ -1,4 +1,15 @@
 
+using LocadoraDeVeiculos.WinApp.ModuloAluguel;
+using LocadoraDeVeiculos.WinApp.ModuloAutomovel;
+using LocadoraDeVeiculos.WinApp.ModuloCliente;
+using LocadoraDeVeiculos.WinApp.ModuloCondutor;
+using LocadoraDeVeiculos.WinApp.ModuloCupom;
+using LocadoraDeVeiculos.WinApp.ModuloFuncionario;
+using LocadoraDeVeiculos.WinApp.ModuloGrupoAutomovel;
+using LocadoraDeVeiculos.WinApp.ModuloParceiro;
+using LocadoraDeVeiculos.WinApp.ModuloPlanoDeCobranca;
+using LocadoraDeVeiculos.WinApp.ModuloTaxaServico;
+
 namespace LocadoraDeVeiculos.WinApp
 {
     public partial class TelaPrincipalForm : Form
@@ -7,11 +18,13 @@ namespace LocadoraDeVeiculos.WinApp
 
         private ControladorBase controlador = null!;
 
+        private readonly Ioc ioc;
+
         public TelaPrincipalForm()
         {
             InitializeComponent();
 
-            Ioc.Inicializar = true;
+            ioc = new Ioc();
 
             Instancia = this;
         }
@@ -80,6 +93,9 @@ namespace LocadoraDeVeiculos.WinApp
             BtnEditar.ToolTipText = configuracao.TooltipEditar;
             BtnExcluir.ToolTipText = configuracao.TooltipExcluir;
             BtnFiltrar.ToolTipText = configuracao.TooltipFiltrar;
+            BtnDetalhes.ToolTipText = configuracao.TooltipVisualizar;
+            btnPrecoCombustivel.ToolTipText = configuracao.TooltipPrecoCombustivel;
+            btnDevolverAutomovel.ToolTipText = configuracao.TooltipDevolverAutomovel;
         }
 
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
@@ -88,6 +104,9 @@ namespace LocadoraDeVeiculos.WinApp
             BtnEditar.Enabled = configuracao.EditarHabilitado;
             BtnExcluir.Enabled = configuracao.ExcluirHabilitado;
             BtnFiltrar.Enabled = configuracao.FiltrarHabilitado;
+            BtnDetalhes.Enabled = configuracao.VisualizarHabilitado;
+            btnPrecoCombustivel.Enabled = configuracao.PrecoCombustivelHabilitado;
+            btnDevolverAutomovel.Enabled = configuracao.DevolverAutomovelHabilitado;
         }
         #endregion
 
@@ -111,26 +130,91 @@ namespace LocadoraDeVeiculos.WinApp
         {
             controlador.Filtrar();
         }
+
+        private void BtnDetalhes_Click(object sender, EventArgs e)
+        {
+            controlador.Visualizar();
+        }
+
+        private void BtnPrecoCombustivel_Click(object sender, EventArgs e)
+        {
+            if (controlador is ControladorAluguel control)
+                control.ConfigurarPrecoCombustivel();
+        }
+
+        private void btnDevolverAutomovel_Click(object sender, EventArgs e)
+        {
+            if (controlador is ControladorAluguel control)
+                control.DevolverAutomovel();
+        }
+
         #endregion
 
         #region click - escolha dos menus
-      
+
         private void ParceiroMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorParceiro>());
+        }
+
+        private void CategoriaMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(ioc.Get<ControladorGrupoAutomovel>());
         }
 
         private void CupomMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(Ioc.ObterControlador(sender));
+            ConfigurarTelaPrincipal(ioc.Get<ControladorCupom>());
         }
-        private void BtnGerarPdf_Click(object sender, EventArgs e)
-        {
 
+        private void VeiculoMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(ioc.Get<ControladorAutomovel>());
         }
+
+        private void TaxaServicoMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(ioc.Get<ControladorTaxaServico>());
+        }
+
+        private void ClienteMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(ioc.Get<ControladorCliente>());
+        }
+        private void FuncionarioMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(ioc.Get<ControladorFuncionario>());
+        }
+
+        private void condutorMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(ioc.Get<ControladorCondutor>());
+        }
+
+        private void AluguelMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(ioc.Get<ControladorAluguel>());
+        }
+
+        private void planoDeCobrançaMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigurarTelaPrincipal(ioc.Get<ControladorPlanoDeCobranca>());
+        }
+
         #endregion
 
+        #region mudar cor click
+        private void BtnMudarCor_Click(object sender, EventArgs e)
+        {
+            var cores = Enum.GetValues<KnownColor>().ToArray();
 
+            var cor = cores[new Random().Next(1, 167)];
+
+            toolStrip.BackColor = Color.FromKnownColor(cor);
+
+        }
+
+        #endregion
 
 
     }

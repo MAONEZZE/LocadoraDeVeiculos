@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraDeVeiculos.Infra.Compartilhado
 {

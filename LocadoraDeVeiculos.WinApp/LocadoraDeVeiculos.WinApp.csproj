@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LocadoraDeVeiculos.Dominio\LocadoraDeVeiculos.Dominio.csproj" />
+    <ProjectReference Include="..\LocadoraDeVeiculos.Infra.PrecosCombustiveis\LocadoraDeVeiculos.Infra.PrecosCombustiveis.csproj" />
+    <ProjectReference Include="..\LocadoraDeVeiculos.InfraEmail\LocadoraDeVeiculos.InfraEmail.csproj" />
     <ProjectReference Include="..\LocadoraDeVeiculos.Infra\LocadoraDeVeiculos.Infra.csproj" />
     <ProjectReference Include="..\LocadoraDeVeiculos.Servico\LocadoraDeVeiculos.Servico.csproj" />
   </ItemGroup>

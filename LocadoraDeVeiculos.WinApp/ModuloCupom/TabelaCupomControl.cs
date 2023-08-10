@@ -16,7 +16,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
         {
             var colunas = new DataGridViewColumn[]
             {
-                new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id" },
+                new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id", Visible = false },
 
                 new DataGridViewTextBoxColumn { Name = "Nome", HeaderText = "Nome" },
 
@@ -32,7 +32,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCupom
             return colunas;
         }
 
-        public int ObtemIdSelecionado()
+        public Guid ObtemIdSelecionado()
         {
             return gridCupom.SelecionarId();
         }
