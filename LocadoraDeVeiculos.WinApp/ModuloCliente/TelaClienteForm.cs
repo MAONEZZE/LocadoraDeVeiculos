@@ -103,11 +103,13 @@ namespace LocadoraDeVeiculos.WinApp.ModuloCliente
             {
                 rdb_cpf.Checked = true;
                 mtxb_cpf.Text = cliente.Documento;
+                mtxb_cpf.Enabled = true;
             }
             else if (cliente.TipoCliente == TipoClienteEnum.CNPJ)
             {
                 rdb_cnpj.Checked = true;
                 txb_cnpj.Text = cliente.Documento;
+                txb_cnpj.Enabled = true;
             }
 
             this.cliente = cliente;
