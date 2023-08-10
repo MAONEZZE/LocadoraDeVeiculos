@@ -59,6 +59,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             .AddJsonFile("appsettings.json")
             .Build();
 
+            
             var connectionString = configuracao.GetConnectionString("SqlServer");
 
             var arquivoConfiguracao = configuracao.GetSection("ArquivoJson:ConfiguracaoPreco").Value!;
@@ -68,6 +69,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             servicos.AddDbContext<IContextoPersistencia, LocadoraDeVeiculosDbContext>(optionsBuilder =>
             {
                 optionsBuilder.UseSqlServer(connectionString);
+              
             });
 
             servicos.AddTransient<ControladorParceiro>();
@@ -127,7 +129,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             servicos.AddTransient<ISerializador, SerializadorJson>(s => new SerializadorJson(arquivoConfiguracao));
 
             container = servicos.BuildServiceProvider();
-
+        
             AtualizarBanco(container);
         }
 

@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.Infra.Compartilhado;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace LocadoraDeVeiculos.InfraEmail
 {
@@ -18,9 +19,9 @@ namespace LocadoraDeVeiculos.InfraEmail
 
             var emailMessage = new MailMessage();
 
-            emailMessage.From = new MailAddress(ValidarEndereco(emailRemetente));
+            emailMessage.From = new MailAddress(ValidarEmail(emailRemetente));
 
-            emailMessage.To.Add(new MailAddress(ValidarEndereco(aluguel.Cliente.Email)));
+            emailMessage.To.Add(new MailAddress(ValidarEmail(aluguel.Cliente.Email)));
 
             emailMessage.Subject = $"Detalhes da {tipoEmail} do aluguel do veículo {aluguel.Automovel.Modelo}";
 
@@ -55,8 +56,15 @@ namespace LocadoraDeVeiculos.InfraEmail
         }
 
 
-        private static string ValidarEndereco(string email)
+        private static string ValidarEmail(string email)
         {
+            string padrao = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]";
+
+            bool valido = Regex.IsMatch(email, padrao);
+
+            if (!valido)
+                throw new Exception("O email informado está em um formato inválido");
+
             return email;
         }
 

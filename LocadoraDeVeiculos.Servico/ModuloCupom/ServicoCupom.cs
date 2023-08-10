@@ -28,6 +28,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             {
                 contexto.DesfazerAlteracoes();
 
+                Log.Error(erros[0], cupom);
+
                 return Result.Fail(erros);
             }
 
@@ -63,6 +65,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloCupom
             if (erros.Any())
             {
                 contexto.DesfazerAlteracoes();
+
+                Log.Error(erros[0], cupom);
 
                 return Result.Fail(erros);
             }

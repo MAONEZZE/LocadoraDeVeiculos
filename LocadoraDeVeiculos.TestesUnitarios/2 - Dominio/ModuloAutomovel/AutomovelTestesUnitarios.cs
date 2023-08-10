@@ -29,6 +29,18 @@ namespace LocadoraDeVeiculos.TestesUnitarios._2___Dominio.ModuloAutomovel
         }
 
         [TestMethod]
+        public void Deve_retornar_13_75_se_o_tanque_chegar_com_tres_quartos()
+        {
+            automovel.CapacidadeDeCombustivel = 55;
+
+            NivelCombustivelEnum nivel = NivelCombustivelEnum.Tres_Quartos;
+
+            var litrosAbastecidos = automovel.ObterLitrosAbastecidos(nivel);
+
+            litrosAbastecidos.Should().Be(13.75M);
+        }
+
+        [TestMethod]
         public void Deve_retornar_zero_se_tanque_estiver_cheio()
         {
             automovel.CapacidadeDeCombustivel = 55;

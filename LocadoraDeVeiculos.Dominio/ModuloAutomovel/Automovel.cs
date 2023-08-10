@@ -5,7 +5,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
 
     public class Automovel : EntidadeBase<Automovel>
     {
-      
+
         public int Quilometragem { get; set; }
 
         public string Placa { get; set; }
@@ -26,21 +26,41 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
 
         public int CapacidadeDeCombustivel { get; set; }
 
-     
-        public Automovel() 
+
+        public Automovel()
         {
-            
+
         }
-          
+
         public decimal ObterLitrosAbastecidos(NivelCombustivelEnum nivelAtual)
         {
-            if (nivelAtual == NivelCombustivelEnum.Vazio)
-                return CapacidadeDeCombustivel;
+            decimal litros;
 
-            decimal valorEmLitros = CapacidadeDeCombustivel / (decimal)nivelAtual;
+            switch (nivelAtual)
+            {
+                case NivelCombustivelEnum.Vazio:
+                    litros = CapacidadeDeCombustivel;
+                    break;
+                case NivelCombustivelEnum.Cheio:
+                    litros = 0;
+                    break;
+                case NivelCombustivelEnum.Meio:
+                    litros = CapacidadeDeCombustivel * 0.50M;
+                    break;
+                case NivelCombustivelEnum.Tres_Quartos:
+                    litros = Math.Abs((CapacidadeDeCombustivel * 0.75M) - CapacidadeDeCombustivel);
+                    break;
+                case NivelCombustivelEnum.Um_Quarto:
+                    litros = Math.Abs((CapacidadeDeCombustivel * 0.25M) - CapacidadeDeCombustivel);
+                    break;
+                default: throw new Exception("Valor não suportado");
 
-            return Math.Round(CapacidadeDeCombustivel - valorEmLitros, 2);
+            }
+            return Math.Round(litros, 2);
+
+
         }
+
 
         public void AtualizarQuilometragem(int quilometragemPercorrida)
         {
@@ -52,7 +72,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel
 
         public void IncluirFoto(byte[] imagemBytes)
         {
-            Foto = new ImagemVeiculo(imagemBytes);        
+            Foto = new ImagemVeiculo(imagemBytes);
         }
 
         public void EditarFoto(byte[] imagemBytes)

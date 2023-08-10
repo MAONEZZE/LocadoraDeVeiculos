@@ -2,13 +2,11 @@
 {
     public enum NivelCombustivelEnum
     {
-        Vazio = 0,
-        Cheio = 1,      
-        Meio = 2,
-        Tres_Quartos = 3,
-        Um_Quarto = 4,
-
-
+        Vazio,
+        Cheio ,     
+        Meio ,
+        Tres_Quartos,
+        Um_Quarto,
     }
 
 }
