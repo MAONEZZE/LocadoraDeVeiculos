@@ -1,18 +1,23 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
+using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 
 namespace LocadoraDeVeiculos.Servico.ModuloCondutor
 {
     public class ServicoCondutor : ServicoBase<Condutor, ValidadorCondutor>
     {
-        private IRepositorioCondutor repCondutor;
+        private readonly IRepositorioCondutor repCondutor;
+
+        private readonly IRepositorioAluguel repositorioAluguel;
 
         private IContextoPersistencia contexto;
 
-        public ServicoCondutor(IRepositorioCondutor repCondutor, IContextoPersistencia contexto)
+        public ServicoCondutor(IRepositorioCondutor repCondutor, IRepositorioAluguel repositorioAluguel, IContextoPersistencia contexto)
         {
             this.repCondutor = repCondutor;
+            this.repositorioAluguel = repositorioAluguel;
             this.contexto = contexto;
         }
 
@@ -64,6 +69,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
 
             try
             {
+                int quantidadeEmAlugueisAtivos = repositorioAluguel.ObterQuantidadeDeAlugueisAtivosCom(condutor);
+
+                if (quantidadeEmAlugueisAtivos > 0)
+                {
+                    Log.Warning("Condutor {condutorId} não pode ser editado, pois está em uso em um aluguel ativo", condutor.Id);
+
+                    return Result.Fail($"Condutor {condutor.Nome} não pode ser editado, pois está em uso em um aluguel ativo");
+                }
+
                 repCondutor.Editar(condutor);
 
                 Log.Debug("Condutor {condutorId} editado com sucesso", condutor.Id);
@@ -100,6 +114,18 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
                     return Result.Fail("Condutor não encontrado");
                 }
 
+                int quantidadeEmAlugueisAtivos = repositorioAluguel.ObterQuantidadeDeAlugueisAtivosCom(condutor);
+                int quantidadeEmAlugueisConcluido = repositorioAluguel.ObterQuantidadeDeAlugueisConcluidosCom(condutor);
+
+                int totalEmUso = quantidadeEmAlugueisAtivos + quantidadeEmAlugueisConcluido;
+
+                if (totalEmUso > 0)
+                {
+                    Log.Warning("Não é possível excluir Condutor {condutorId}, pois está associado a aluguel(is)", condutor.Id, totalEmUso);
+
+                    return Result.Fail($"Não é possível excluir Condutor {condutor.Nome}, pois está associado a aluguel(is)");
+                }
+
                 repCondutor.Excluir(condutor);
 
                 Log.Debug("Condutor {condutorId} excluído com sucesso", condutor.Id);
@@ -111,7 +137,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
             catch (Exception ex)
             {
                 string msg;
-                
+
                 msg = $"Falha ao tentar excluir condutor {condutor}";
 
                 Log.Error(msg, condutor);

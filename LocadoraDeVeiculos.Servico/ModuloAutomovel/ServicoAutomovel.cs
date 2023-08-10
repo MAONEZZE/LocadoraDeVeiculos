@@ -1,6 +1,7 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 
 namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
 {
@@ -132,6 +133,21 @@ namespace LocadoraDeVeiculos.Servico.ModuloAutomovel
 
                 return Result.Fail(msg);
             }
+        }
+
+        public List<Automovel> SelecionarAutomoveisDisponives(GrupoAutomovel grupoAutomovel)
+        {
+            List<Automovel> automoveis = repositorioAutomovel.SelecionarPorGrupoAutomovel(grupoAutomovel);
+
+            List<Automovel> automoveisDisponiveis = new List<Automovel>();
+
+            foreach (var automovel in automoveis)
+            {
+                if (repositorioAluguel.ObterQuantidadeDeAlugueisAtivosCom(automovel) == 0)
+                    automoveisDisponiveis.Add(automovel);
+            }
+
+            return automoveisDisponiveis;
         }
 
         private List<string> ValidarAutomovel(Automovel automovel)

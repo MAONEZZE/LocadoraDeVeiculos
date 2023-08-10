@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 
 namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
@@ -7,11 +8,14 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
     {
         private IRepositorioTaxaServico repositorioTaxaServico;
 
+        private readonly IRepositorioAluguel repositorioAluguel;
+
         private IContextoPersistencia contexto;
 
-        public ServicoTaxaServico(IRepositorioTaxaServico repositorioTaxaServico, IContextoPersistencia contexto)
+        public ServicoTaxaServico(IRepositorioTaxaServico repositorioTaxaServico, IRepositorioAluguel repositorioAluguel, IContextoPersistencia contexto)
         {
             this.repositorioTaxaServico = repositorioTaxaServico;
+            this.repositorioAluguel = repositorioAluguel;
             this.contexto = contexto;
         }
 
@@ -62,6 +66,24 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
             try
             {
+                bool taxaServicoExiste = repositorioTaxaServico.Existe(taxaServico);
+
+                if (taxaServicoExiste == false)
+                {
+                    Log.Warning("Taxa ou Serviço {TaxaServicoId} não existe", taxaServico.Id);
+
+                    return Result.Fail($"Taxa ou Serviço {taxaServico.Nome} não existe");
+                }
+
+                int quantidadeEmAlugueisAtivos = repositorioAluguel.ObterQuantidadeDeAlugueisAtivosCom(taxaServico);
+
+                if (quantidadeEmAlugueisAtivos > 0)
+                {
+                    Log.Warning("Taxa ou Serviço {TaxaServicoId} não pode ser editado, pois está em uso em alugueis ativos", taxaServico.Id);
+
+                    return Result.Fail($"Taxa ou Serviço {taxaServico.Nome} não pode ser editado, pois está em uso em alugueis ativos");
+                }
+
                 repositorioTaxaServico.Editar(taxaServico);
 
                 contexto.GravarDados();
@@ -94,6 +116,18 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
                     Log.Warning("Taxa ou Serviço {TaxaServicoId} não existe", taxaServico.Id);
 
                     return Result.Fail("Taxa ou Serviço não existe");
+                }
+
+                int quantidadeEmAlugueisAtivos = repositorioAluguel.ObterQuantidadeDeAlugueisAtivosCom(taxaServico);
+                int quantidadeEmAlugueisConcluido = repositorioAluguel.ObterQuantidadeDeAlugueisConcluidosCom(taxaServico);
+
+                int totalEmUso = quantidadeEmAlugueisAtivos + quantidadeEmAlugueisConcluido;
+
+                if (totalEmUso > 0)
+                {
+                    Log.Warning("Não é possível excluir Taxa ou Serviço {TaxaServicoId}, pois está associado a aluguel(is)", taxaServico.Id);
+
+                    return Result.Fail($"Não é possível excluir Taxa ou Serviço {taxaServico.Nome}, pois está associado a aluguel(is)");
                 }
 
                 repositorioTaxaServico.Excluir(taxaServico);

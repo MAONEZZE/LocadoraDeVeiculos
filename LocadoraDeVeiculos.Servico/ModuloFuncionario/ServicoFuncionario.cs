@@ -1,5 +1,9 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
+using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
+using LocadoraDeVeiculos.Infra.ModuloAluguel;
+using LocadoraDeVeiculos.Infra.ModuloTaxaServico;
 
 namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
 {
@@ -7,11 +11,14 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
     {
         private IRepositorioFuncionario repositorioFuncionario;
 
+        private readonly IRepositorioAluguel repositorioAluguel;
+
         private IContextoPersistencia contexto;
 
-        public ServicoFuncionario(IRepositorioFuncionario repositorioFuncionario, IContextoPersistencia contexto)
+        public ServicoFuncionario(IRepositorioFuncionario repositorioFuncionario, IRepositorioAluguel repositorioAluguel, IContextoPersistencia contexto)
         {
             this.repositorioFuncionario = repositorioFuncionario;
+            this.repositorioAluguel = repositorioAluguel;
             this.contexto = contexto;
         }
 
@@ -61,6 +68,25 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
 
             try
             {
+                bool funcionarioExiste = repositorioFuncionario.Existe(funcionario);
+
+                if (funcionarioExiste == false)
+                {
+                    Log.Warning("Funcionário {FuncionarioId} não existe", funcionario.Id);
+
+                    return Result.Fail($"Funcionário {funcionario.Nome} não existe");
+                }
+                
+                int quantidadeEmAlugueisAtivos = repositorioAluguel.ObterQuantidadeDeAlugueisAtivosCom(funcionario);
+
+                if(quantidadeEmAlugueisAtivos > 0)
+                {
+                    Log.Warning("Funcionário {FuncionarioId} não pode ser editado, pois está sendo usado em alugueis ativos", funcionario.Id, quantidadeEmAlugueisAtivos);
+
+                    return Result.Fail($"Funcionário {funcionario.Nome} não pode ser editado, pois está sendo usado em alugueis ativos");
+                }
+
+
                 repositorioFuncionario.Editar(funcionario);
 
                 Log.Debug("Funcionário {FuncionarioId} editado com sucesso!", funcionario.Id);
@@ -90,9 +116,22 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
                 bool funcionarioExiste = repositorioFuncionario.Existe(funcionario);
 
                 if (funcionarioExiste == false) { 
-                    Log.Warning("Funcionário {FuncionarioId} não encontrado!", funcionario.Id);
+                    Log.Warning("Funcionário {FuncionarioId} não existe", funcionario.Id);
 
                     return Result.Fail("Funcionário não existe");
+                }
+
+                int quantidadeEmAlugueisAtivos = repositorioAluguel.ObterQuantidadeDeAlugueisAtivosCom(funcionario);
+
+                int quantidadeEmAlugueisConcluido = repositorioAluguel.ObterQuantidadeDeAlugueisConcluidosCom(funcionario);
+
+                int totalEmUso = quantidadeEmAlugueisAtivos + quantidadeEmAlugueisConcluido;
+
+                if (totalEmUso > 0)
+                {
+                    Log.Warning("Não é possível excluir o Funcionário {FuncionarioId}, pois está associado a aluguel(is)", funcionario.Id);
+
+                    return Result.Fail($"Não é possível excluir o Funcionário {funcionario.Nome}, pois está associado a aluguel(is)");
                 }
 
                 repositorioFuncionario.Excluir(funcionario);
