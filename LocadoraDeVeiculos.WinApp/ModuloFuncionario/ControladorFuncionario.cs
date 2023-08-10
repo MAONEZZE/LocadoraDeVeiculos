@@ -21,7 +21,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloFuncionario
         {
             Guid guidFuncionario = tabelaFuncionario.ObterIdSelecionado();
 
-            if (guidFuncionario == null)
+            if (guidFuncionario == default(Guid))
             {
                 MessageBox.Show($"Selecione um Funcionário para poder editar!",
                                  "Edição de Funcionário",

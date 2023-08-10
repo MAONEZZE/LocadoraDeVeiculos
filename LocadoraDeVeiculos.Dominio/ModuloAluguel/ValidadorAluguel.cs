@@ -38,7 +38,13 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             RuleFor(x => x.DataLocacao)
                     .NotNull()
                     .NotEmpty()
-                    .GreaterThanOrEqualTo(DateTime.Now.AddHours(-1));
+                    .GreaterThanOrEqualTo(DateTime.Now.AddHours(-1))
+                    .When(x => x.EstaAberto == true);
+
+            RuleFor(x => x.DataLocacao)
+                    .NotNull()
+                    .NotEmpty()
+                    .When(x => x.EstaAberto == false);
 
             RuleFor(x => x.DataDevolucaoPrevista)
                     .NotNull()
@@ -48,7 +54,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             RuleFor(x => x.DataDevolucao)
                     .NotNull()
                     .NotEmpty()
-                    .GreaterThan(x => x.DataLocacao)
+                    .GreaterThan(x => x.DataLocacao.Date)
                     .When(x => x.EstaAberto == false);
 
             RuleFor(x => x.NivelCombustivelAtual)

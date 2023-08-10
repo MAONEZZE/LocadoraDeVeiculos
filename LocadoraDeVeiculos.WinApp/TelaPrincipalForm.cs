@@ -95,6 +95,7 @@ namespace LocadoraDeVeiculos.WinApp
             BtnFiltrar.ToolTipText = configuracao.TooltipFiltrar;
             BtnDetalhes.ToolTipText = configuracao.TooltipVisualizar;
             btnPrecoCombustivel.ToolTipText = configuracao.TooltipPrecoCombustivel;
+            btnDevolverAutomovel.ToolTipText = configuracao.TooltipDevolverAutomovel;
         }
 
         private void ConfigurarBotoes(ConfiguracaoToolboxBase configuracao)
@@ -105,6 +106,7 @@ namespace LocadoraDeVeiculos.WinApp
             BtnFiltrar.Enabled = configuracao.FiltrarHabilitado;
             BtnDetalhes.Enabled = configuracao.VisualizarHabilitado;
             btnPrecoCombustivel.Enabled = configuracao.PrecoCombustivelHabilitado;
+            btnDevolverAutomovel.Enabled = configuracao.DevolverAutomovelHabilitado;
         }
         #endregion
 
@@ -138,7 +140,12 @@ namespace LocadoraDeVeiculos.WinApp
         {
             if (controlador is ControladorAluguel control)
                 control.ConfigurarPrecoCombustivel();
+        }
 
+        private void btnDevolverAutomovel_Click(object sender, EventArgs e)
+        {
+            if (controlador is ControladorAluguel control)
+                control.DevolverAutomovel();
         }
 
         #endregion
@@ -208,6 +215,7 @@ namespace LocadoraDeVeiculos.WinApp
         }
 
         #endregion
+
 
     }
 }

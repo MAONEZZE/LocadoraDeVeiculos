@@ -36,7 +36,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
 
         public NivelCombustivelEnum NivelCombustivelAtual { get; set; }
 
-        public List<TaxaServico> TaxasServicos { get; set; }
+        public HashSet<TaxaServico> TaxasServicos { get; set; }
 
         public bool EstaAberto { get; set; }
 
@@ -51,7 +51,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             this.EstaAberto = true;
         }
 
-        public Aluguel(Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, NivelCombustivelEnum nivelCombustivelAtual, List<TaxaServico> listaTaxaServico, bool estaAberto)
+        public Aluguel(Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, NivelCombustivelEnum nivelCombustivelAtual, HashSet<TaxaServico> listaTaxaServico, bool estaAberto)
         {
             this.Funcionario = funcionario;
             this.Cliente = cliente;
@@ -69,7 +69,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
             this.EstaAberto = estaAberto;
         }
 
-        public Aluguel(Guid id, Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, NivelCombustivelEnum nivelCombustivelAtual, List<TaxaServico> listaTaxaServico, bool estaAberto)
+        public Aluguel(Guid id, Funcionario funcionario, Cliente cliente, Condutor condutor, GrupoAutomovel grupoAutomovel, Automovel automovel, PlanoDeCobranca planoDeCobranca, int kmAutomovelAtual, DateTime dataLocacao, DateTime dataDevolucaoPrevista, DateTime dataDevolucao, Cupom cupom, NivelCombustivelEnum nivelCombustivelAtual, HashSet<TaxaServico> listaTaxaServico, bool estaAberto)
         {
             this.Id = id;
             this.Funcionario = funcionario;
