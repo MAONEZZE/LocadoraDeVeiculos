@@ -32,11 +32,11 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel
 
         public DateTime DataDevolucao { get; set; }
 
-        public Cupom Cupom { get; set; }
+        public Cupom? Cupom { get; set; }
 
         public NivelCombustivelEnum NivelCombustivelAtual { get; set; }
 
-        public HashSet<TaxaServico> TaxasServicos { get; set; }
+        public HashSet<TaxaServico>? TaxasServicos { get; set; }
 
         public bool EstaAberto { get; set; }
 

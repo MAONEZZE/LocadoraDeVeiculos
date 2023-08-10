@@ -2,6 +2,7 @@
 using FluentResults;
 using FluentResults.Extensions.FluentAssertions;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloTaxaServico;
 using Moq;
@@ -14,6 +15,8 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
     public class ServicoTaxaServicoTest
     {
         Mock<IRepositorioTaxaServico> repositorioTaxaServicoMoq;
+
+        Mock<IRepositorioAluguel> repositorioAluguel;
 
         Mock<IValidadorTaxaServico> validadorMock;
 
@@ -30,9 +33,10 @@ namespace LocadoraDeVeiculos.TestesUnitarios._1___Aplicacao
         public ServicoTaxaServicoTest()
         {
             repositorioTaxaServicoMoq = new Mock<IRepositorioTaxaServico>();
+            repositorioAluguel = new Mock<IRepositorioAluguel>();
             validadorMock = new Mock<IValidadorTaxaServico>();
             contexto = new Mock<IContextoPersistencia>();
-            servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServicoMoq.Object, contexto.Object);
+            servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServicoMoq.Object, repositorioAluguel.Object, contexto.Object);
             taxaServico = new TaxaServico("Limpeza", 10, EnumTipoCalculo.Diario);
 
             guidId = Guid.NewGuid();
