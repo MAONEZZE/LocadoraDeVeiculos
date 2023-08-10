@@ -1,4 +1,5 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+﻿using iTextSharp.text;
+using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Servico.ModuloAutomovel;
 
@@ -72,11 +73,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
             }
         }
 
-        private void mandarMsg(string msg)
-        {
-            MessageBox.Show(msg);
-        }
-
         public override void Excluir()
         {
             var id = tabelaAutomovel.ObtemIdSelecionado();
@@ -100,6 +96,32 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAutomovel
 
             else
                 AtualizarListagem();
+        }
+
+        public override void Filtrar()
+        {
+            var telaFiltro = new TelaFiltroAutomovelForm(repositorioGrupoAutomovel.SelecionarTodos())
+            {
+                Text = "Filtrar Automóveis"
+            };
+
+
+            if (telaFiltro.ShowDialog() == DialogResult.OK)
+            {
+                var grupo = telaFiltro.grupoAutomovel;
+
+                List<Automovel> listagem;
+
+                if (grupo == null)
+                    listagem = repositorioAutomovel.SelecionarTodos();
+
+                else
+                 listagem = repositorioAutomovel.SelecionarPorGrupoAutomovel(grupo);
+
+                tabelaAutomovel.AtualizarRegistros(listagem);
+
+                AtualizarRodape(listagem);
+            }
         }
 
         public override void Visualizar()

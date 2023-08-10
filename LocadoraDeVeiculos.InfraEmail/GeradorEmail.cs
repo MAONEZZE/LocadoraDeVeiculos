@@ -40,7 +40,8 @@ namespace LocadoraDeVeiculos.InfraEmail
             {
                 using (var smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
-                    smtp.Credentials = new NetworkCredential(emailRemetente, ObterCredenciais());
+
+                    smtp.Credentials = new NetworkCredential(emailRemetente,ObterCredenciais());
 
                     smtp.EnableSsl = true;
 
@@ -86,8 +87,8 @@ namespace LocadoraDeVeiculos.InfraEmail
         }
 
         private string ObterCredenciais()
-        {
-            return new ConfiguracaoAppSettings().ObterCredencial();
+        {          
+            return "wctzzwxulytircaj";
         }
     }
 }

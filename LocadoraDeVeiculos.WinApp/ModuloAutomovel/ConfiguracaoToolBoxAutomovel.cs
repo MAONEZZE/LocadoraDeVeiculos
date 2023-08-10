@@ -11,7 +11,11 @@ internal class ConfiguracaoToolBoxAutomovel : ConfiguracaoToolboxBase
 
     public override string TooltipExcluir => "Excluir Automóvel";
 
+    public override string TooltipFiltrar => "Filtrar Automóveis";
+
     public override string TooltipVisualizar => "Visualizar Automóvel";
 
     public override bool VisualizarHabilitado => true;
+
+    public override bool FiltrarHabilitado => true;
 }
