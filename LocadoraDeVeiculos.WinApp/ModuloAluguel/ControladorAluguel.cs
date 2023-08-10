@@ -63,11 +63,19 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             this.repositorioTaxaServico = repositorioTaxaServico;
             this.repositorioPlanoDeCobranca = repositorioPlanoDeCobranca;
             this.repositorioCupom = repositorioCupom;
+         
+        }
 
+        private void EnviarMensagemEmailEnviado(string msg, bool finalizar)
+        {
+            MessageBox.Show(msg,
+                                $"{(finalizar ? "Finalizar":"Cadastro")} Aluguel",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Exclamation);
         }
 
         public override void Editar()
-        {
+        {       
             Guid guidAluguel = tabelaAluguel.ObterIdSelecionado();
 
             if (guidAluguel == default(Guid))
@@ -163,7 +171,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             {
                 Text = "Inserir Aluguel",
             };
-
+         
             telaAluguel.onGravarRegistro += servicoAluguel.Inserir;
 
             telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValor;
@@ -178,6 +186,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             if (resultado == DialogResult.OK)
             {
+                EnviarMensagemEmailEnviado("Email enviado com sucesso", finalizar:false);
+
                 AtualizarListagem();
             }
         }
@@ -232,6 +242,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             if (resultado == DialogResult.OK)
             {
+                EnviarMensagemEmailEnviado("Email enviado com sucesso", finalizar : true);
+
                 AtualizarListagem();
             }
         }
@@ -293,6 +305,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             telaAluguel.onSelecionarCupomPorNome += repositorioCupom.SelecionarPorNome;
 
             telaAluguel.onSelecionarTodosTaxaServico += repositorioTaxaServico.SelecionarTodos;
+
         }
      
         private void AtualizarRodape(List<Aluguel> registros)
