@@ -94,13 +94,13 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var servicoCliente = new ServicoCliente(repositorioCliente, dbContext);
 
-            var servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServico, dbContext);
+            var servicoTaxaServico = new ServicoTaxaServico(repositorioTaxaServico, repositorioAluguel, dbContext);
 
-            var servicoFuncionario = new ServicoFuncionario(repositorioFuncionario, dbContext);
+            var servicoFuncionario = new ServicoFuncionario(repositorioFuncionario, repositorioAluguel, dbContext);
 
             var servicoAluguel = new ServicoAluguel(repositorioAluguel, repPrecoComb, repositorioPlanoDeCobranca, repositorioAutomovel, geradorEmail, geradorPdf, dbContext);
 
-            var servicoCondutor = new ServicoCondutor(repositorioCondutor, dbContext);
+            var servicoCondutor = new ServicoCondutor(repositorioCondutor, repositorioAluguel, dbContext);
 
             var servicoPlano = new ServicoPlanoDeCobranca(repositorioPlanoDeCobranca, dbContext);
 
@@ -124,6 +124,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
             var controladorFuncionario = new ControladorFuncionario(servicoFuncionario, repositorioFuncionario);
 
             var controladorAluguel = new ControladorAluguel(servicoAluguel,
+                                                            servicoAutomovel,
                                                             repositorioAluguel,
                                                             repositorioFuncionario,
                                                             repositorioCliente,
