@@ -317,14 +317,21 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             else if (String.IsNullOrEmpty(txtCupom.Text) == false)
             {
                 txtCupom.Text = txtCupom.Text.ToUpper();
+
                 Cupom cupomTemp = onSelecionarCupomPorNome(txtCupom.Text);
-                if (cupomTemp != null && cupomTemp.EhValido)
+
+                Cliente clienteTemp = (Cliente)cbxCliente.SelectedItem;
+
+                if (cupomTemp != null && cupomTemp.EhValido && !clienteTemp.ListaCupons.Contains(cupomTemp))
                 {
                     this.cupom = cupomTemp;
+
                     txtCupom.Enabled = false;
+
                     btnCupom.Text = "Remover Cupom";
+
                 }
-                if (cupomTemp == null || cupomTemp.EhValido == false)
+                else
                 {
                     MessageBox.Show($"Cupom inválido",
                                  "Cupom inválido",
@@ -383,6 +390,11 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             aluguel.DataDevolucaoPrevista = txtDevolucaoPrevista.Value;
 
             aluguel.TaxasServicos.UnionWith(taxasServicos);
+
+            if(cupom == null)
+            {
+                aluguel.Cupom = null;
+            }
 
             aluguel.Cupom = cupom;
 

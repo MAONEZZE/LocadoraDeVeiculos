@@ -1,6 +1,7 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCupom;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
@@ -19,6 +20,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
         private IRepositorioAutomovel repositorioAutomovel;
 
+        private IRepositorioCliente repositorioCliente;
+
         private IContextoPersistencia contexto;
 
         private IGeradorEmail geradorEmail;
@@ -29,6 +32,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
                               IRepositorioPrecoCombustivel repositorioPrecoCombustivel,
                               IRepositorioPlanoDeCobranca repositorioPlanoDeCobranca,
                               IRepositorioAutomovel repositorioAutomovel,
+                              IRepositorioCliente repositorioCliente,
                               IGeradorEmail geradorEmail,
                               IGeradorPdf geradorPdf,
                               IContextoPersistencia contexto
@@ -38,6 +42,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             this.repositorioPrecoCombustivel = repositorioPrecoCombustivel;
             this.repositorioPlanoDeCobranca = repositorioPlanoDeCobranca;
             this.repositorioAutomovel = repositorioAutomovel;
+            this.repositorioCliente = repositorioCliente;
             this.geradorEmail = geradorEmail;
             this.geradorPdf = geradorPdf;
             this.contexto = contexto;
@@ -51,7 +56,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
             if (erros.Count > 0)
             {
-                contexto.DesfazerAlteracoes();
+                //contexto.DesfazerAlteracoes();
 
                 return Result.Fail(erros);
             }
@@ -59,6 +64,13 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             try
             {
                 aluguel.ValorTotalPrevisto = CalcularValor(aluguel, false);
+
+                if(aluguel.Cupom != null)
+                {
+                    aluguel.Cliente.AdicionarCupom(aluguel.Cupom);
+
+                    repositorioCliente.Editar(aluguel.Cliente);
+                }
 
                 repositorioAluguel.Inserir(aluguel);
 
