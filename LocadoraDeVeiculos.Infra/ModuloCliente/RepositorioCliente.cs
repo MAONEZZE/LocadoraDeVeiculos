@@ -18,5 +18,10 @@ namespace LocadoraDeVeiculos.Infra.ModuloCliente
 
             return false;
         }
+
+        public override List<Cliente> SelecionarTodos()
+        {
+            return registros.Include(x => x.ListaCupons).ToList();
+        }
     }
 }
