@@ -1,6 +1,5 @@
 ﻿using FluentResults;
 using LocadoraDeVeiculos.Dominio.ModuloAluguel;
-using LocadoraDeVeiculos.Infra.Compartilhado;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -8,9 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace LocadoraDeVeiculos.InfraEmail
 {
+   
     public class GeradorEmail : IGeradorEmail
     {
-        
         public Result EnviarEmail(Aluguel aluguel, byte[] bytesAnexo = null!)
         {
             string emailRemetente = "equip3devagar3sempr3@gmail.com";
@@ -46,6 +45,7 @@ namespace LocadoraDeVeiculos.InfraEmail
                     smtp.EnableSsl = true;
 
                     smtp.Send(emailMessage);
+                 
                 }
 
                 return Result.Ok().WithSuccess("Email enviado com sucesso");
@@ -55,7 +55,6 @@ namespace LocadoraDeVeiculos.InfraEmail
                 return Result.Fail(ex.Message).WithError("Falha ao enviar email");
             }
         }
-
 
         private static string ValidarEmail(string email)
         {

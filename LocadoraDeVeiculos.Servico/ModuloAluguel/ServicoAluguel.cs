@@ -6,7 +6,6 @@ using LocadoraDeVeiculos.Dominio.ModuloCupom;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Dominio.ModuloPrecoCombustivel;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
-using LocadoraDeVeiculos.Infra.ModuloAutomovel;
 
 namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 {
@@ -46,6 +45,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             this.geradorEmail = geradorEmail;
             this.geradorPdf = geradorPdf;
             this.contexto = contexto;
+
+
         }
 
         public Result Inserir(Aluguel aluguel)
@@ -56,7 +57,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
             if (erros.Count > 0)
             {
-                //Log.Debug("Tentando inserir Aluguel... {@aluguel}", aluguel);
+                Log.Error($"{erros[0]}" + " {@aluguel}", aluguel);
 
                 return Result.Fail(erros);
             }
@@ -65,7 +66,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             {
                 aluguel.ValorTotalPrevisto = CalcularValor(aluguel, false);
 
-                if(aluguel.Cupom != null)
+                if (aluguel.Cupom != null)
                 {
                     aluguel.Cliente.AdicionarCupom(aluguel.Cupom);
 
@@ -103,7 +104,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
             if (erros.Count > 0)
             {
-              
+                Log.Error($"{erros[0]}" + " {@aluguel}", aluguel);
+
                 return Result.Fail(erros);
             }
 
@@ -116,15 +118,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
                     aluguel.Automovel.AtualizarQuilometragem(aluguel.KMPercorrido);
 
                     repositorioAutomovel.Editar(aluguel.Automovel);
+
+                    EnviarEmail(aluguel);
                 }
                 else
                 {
-                    aluguel.ValorTotalPrevisto = CalcularValor(aluguel,false);
+                    aluguel.ValorTotalPrevisto = CalcularValor(aluguel, false);
                 }
 
                 repositorioAluguel.Editar(aluguel);
-
-                
 
                 contexto.GravarDados();
 
@@ -154,7 +156,6 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
                 if (aluguelExiste == false)
                 {
-
                     Log.Warning("Aluguel {AluguelId} não encontrado!", aluguel.Id);
 
                     return Result.Fail("Aluguel não existe!");
@@ -219,9 +220,11 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
             var anexo = geradorPdf.GerarPdfEmail(aluguel);
 
+            string msg;
+
             if (anexo == null)
             {
-                string msg = "Falha ao gerar PDF";
+                msg = "Falha ao gerar PDF";
 
                 Log.Error(msg);
 
@@ -232,14 +235,18 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
             if (statusEnvio.IsFailed)
             {
-                Log.Error("Falha ao tentar enviar email {aluguel}", aluguel);
+                msg = "Falha ao tentar enviar email";
 
-                Result.Fail(statusEnvio.Reasons.Select(i => i.Message));
+                Log.Error(msg + " {aluguel}", aluguel);
+
+                return Result.Fail(statusEnvio.Reasons.Select(i => i.Message));
             }
 
-            Log.Debug("Email enviado com sucesso {aluguel}", aluguel);
+            msg = "Email enviado com sucesso";
 
-            return Result.Ok().WithSuccess("Email enviado com sucesso");
+            Log.Debug(msg + " {aluguel}", aluguel);
+
+            return Result.Ok();
 
         }
 
@@ -248,15 +255,15 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             return repositorioPrecoCombustivel.Buscar();
         }
 
-        public Decimal CalcularValor(DateTime dataLocacao, 
-                                     DateTime dataDevolucaoPrevista, 
+        public Decimal CalcularValor(DateTime dataLocacao,
+                                     DateTime dataDevolucaoPrevista,
                                      DateTime dataDevolucao,
                                      NivelCombustivelEnum nivelCombustivelAtual,
-                                     HashSet<TaxaServico> taxasServicos = null, 
-                                     PlanoDeCobranca planoDeCobranca = null,
-                                     Automovel automovel = null,
+                                     HashSet<TaxaServico> taxasServicos = null!,
+                                     PlanoDeCobranca planoDeCobranca = null!,
+                                     Automovel automovel = null!,
                                      int KMPercorrido = 1,
-                                     Cupom cupom = null,
+                                     Cupom cupom = null!,
                                      bool ehDevolucao = false
                                      )
         {
@@ -318,7 +325,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
             return valorTotal;
         }
 
-        public Decimal CalcularValor(Aluguel aluguel,bool ehDevolucao = false)
+        public Decimal CalcularValor(Aluguel aluguel, bool ehDevolucao = false)
         {
             return CalcularValor(aluguel.DataLocacao, aluguel.DataDevolucaoPrevista, aluguel.DataDevolucao, aluguel.NivelCombustivelAtual, aluguel.TaxasServicos, aluguel.PlanoDeCobranca, aluguel.Automovel, aluguel.KMPercorrido, aluguel.Cupom, ehDevolucao);
         }
