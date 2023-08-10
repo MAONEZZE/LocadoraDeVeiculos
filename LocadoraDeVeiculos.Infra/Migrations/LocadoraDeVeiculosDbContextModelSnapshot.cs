@@ -66,7 +66,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<Guid>("CondutorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CupomId")
+                    b.Property<Guid?>("CupomId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DataDevolucao")

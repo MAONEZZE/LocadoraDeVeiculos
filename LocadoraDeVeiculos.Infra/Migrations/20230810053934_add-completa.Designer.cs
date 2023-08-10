@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infra.Migrations
 {
     [DbContext(typeof(LocadoraDeVeiculosDbContext))]
-    [Migration("20230809023806_add-completa")]
+    [Migration("20230810053934_add-completa")]
     partial class addcompleta
     {
         /// <inheritdoc />
@@ -69,7 +69,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     b.Property<Guid>("CondutorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CupomId")
+                    b.Property<Guid?>("CupomId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DataDevolucao")

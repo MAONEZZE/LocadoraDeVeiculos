@@ -192,7 +192,7 @@ namespace LocadoraDeVeiculos.Infra.Migrations
                     DataLocacao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataDevolucaoPrevista = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataDevolucao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CupomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CupomId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     NivelCombustivelAtual = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
                     EstaAberto = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     ValorTotalPrevisto = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
