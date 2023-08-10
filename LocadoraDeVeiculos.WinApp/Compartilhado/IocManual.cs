@@ -125,6 +125,7 @@ namespace LocadoraDeVeiculos.WinApp.Compartilhado
 
             var controladorAluguel = new ControladorAluguel(servicoAluguel,
                                                             servicoAutomovel,
+                                                            servicoCondutor,
                                                             repositorioAluguel,
                                                             repositorioFuncionario,
                                                             repositorioCliente,

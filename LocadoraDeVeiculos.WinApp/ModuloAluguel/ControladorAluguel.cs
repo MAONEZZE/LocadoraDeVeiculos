@@ -9,6 +9,7 @@ using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloAluguel;
 using LocadoraDeVeiculos.Servico.ModuloAutomovel;
+using LocadoraDeVeiculos.Servico.ModuloCondutor;
 using LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
@@ -20,6 +21,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         private readonly ServicoAluguel servicoAluguel;
 
         private readonly ServicoAutomovel servicoAutomovel;
+
+        private readonly ServicoCondutor servicoCondutor;
 
         private readonly IRepositorioFuncionario repositorioFuncionario;
 
@@ -41,6 +44,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         
         public ControladorAluguel(ServicoAluguel servicoAluguel,
                                   ServicoAutomovel servicoAutomovel,
+                                  ServicoCondutor servicoCondutor,
                                   IRepositorioAluguel repositorioAluguel, 
                                   IRepositorioFuncionario repositorioFuncionario,
                                   IRepositorioCliente repositorioCliente,
@@ -54,6 +58,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         {
             this.servicoAluguel = servicoAluguel;
             this.servicoAutomovel = servicoAutomovel;
+            this.servicoCondutor = servicoCondutor;
             this.repositorioAluguel = repositorioAluguel;
             this.repositorioFuncionario = repositorioFuncionario;
             this.repositorioCliente = repositorioCliente;
@@ -179,6 +184,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             ConfigurarDelegates(telaAluguel);
 
             telaAluguel.onSelecionarAutomovelPorGrupoAutomovel += servicoAutomovel.SelecionarAutomoveisDisponives;
+
+            telaAluguel.onSelecionarCondutorPorCliente += servicoCondutor.SelecionarCondutoresDisponives;
 
             telaAluguel.ConfigurarRegistro(new Aluguel());
 

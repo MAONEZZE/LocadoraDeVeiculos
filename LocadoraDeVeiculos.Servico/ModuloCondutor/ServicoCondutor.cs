@@ -1,8 +1,11 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
+using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
+using LocadoraDeVeiculos.Infra.ModuloAutomovel;
 
 namespace LocadoraDeVeiculos.Servico.ModuloCondutor
 {
@@ -147,7 +150,20 @@ namespace LocadoraDeVeiculos.Servico.ModuloCondutor
                 return Result.Fail(msg);
             }
         }
+        public List<Condutor> SelecionarCondutoresDisponives(Cliente cliente)
+        {
+            List<Condutor> condutores = repCondutor.SelecionarPorCliente(cliente);
 
+            List<Condutor> condutoresDisponiveis = new();
+
+            foreach (var condutor in condutores)
+            {
+                if (repositorioAluguel.ObterQuantidadeDeAlugueisAtivosCom(condutor) == 0)
+                    condutoresDisponiveis.Add(condutor);
+            }
+
+            return condutoresDisponiveis;
+        }
         private List<string> ValidarCondutor(Condutor condutor)
         {
             var erros = new List<string>();

@@ -321,8 +321,8 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
                 valorTotal += diasAtraso * 50;
             }
-
-            return valorTotal;
+           
+            return Math.Round(valorTotal, 2);
         }
 
         public Decimal CalcularValor(Aluguel aluguel, bool ehDevolucao = false)

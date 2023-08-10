@@ -412,6 +412,7 @@
             // txtKMPercorrido
             // 
             txtKMPercorrido.Location = new Point(458, 19);
+            txtKMPercorrido.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             txtKMPercorrido.Name = "txtKMPercorrido";
             txtKMPercorrido.Size = new Size(100, 23);
             txtKMPercorrido.TabIndex = 12;

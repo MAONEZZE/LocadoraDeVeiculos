@@ -20,7 +20,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
     public delegate TEntidade SelecionarPorFiltroDelegate<TEntidade, TEntidadeFiltro>(TEntidadeFiltro filtro)
         where TEntidade : EntidadeBase<TEntidade>;
 
- 
+
     public delegate Decimal CalcularValorTotalDelegate(DateTime dataLocacao,
                                                          DateTime dataDevolucaoPrevista,
                                                          DateTime dataDevolucao,
@@ -55,7 +55,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         public event SelecionarPorFiltroListaDelegate<Automovel, GrupoAutomovel> onSelecionarAutomovelPorGrupoAutomovel;
 
-     
+
         // Plano de Cobranca
 
         public event SelecionarPorFiltroListaDelegate<PlanoDeCobranca, GrupoAutomovel> onSelecionarTodosPlanoDeCobrancaPorGrupoAutomovel;
@@ -81,7 +81,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         private bool ehDevolucao;
 
-        
+
         #endregion Propiedades
 
         public TelaAluguelForm()
@@ -93,7 +93,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             tctrlTaxas.TabPages.Remove(tbTaxasAdicionais);
 
             this.taxasServicos = new();
-          
+
         }
         #region ConfigurarRegistro
         public void ConfigurarRegistro(Aluguel aluguelSelecionado)
@@ -392,7 +392,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             aluguel.TaxasServicos.UnionWith(taxasServicos);
 
-            if(cupom == null)
+            if (cupom == null)
             {
                 aluguel.Cupom = null;
             }
