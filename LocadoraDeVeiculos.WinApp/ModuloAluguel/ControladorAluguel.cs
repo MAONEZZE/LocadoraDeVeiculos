@@ -8,6 +8,7 @@ using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
 using LocadoraDeVeiculos.Dominio.ModuloTaxaServico;
 using LocadoraDeVeiculos.Servico.ModuloAluguel;
+using LocadoraDeVeiculos.Servico.ModuloAutomovel;
 using LocadoraDeVeiculos.WinApp.ModuloConfiguracaoPreco;
 
 namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
@@ -17,6 +18,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
         private readonly IRepositorioAluguel repositorioAluguel;
 
         private readonly ServicoAluguel servicoAluguel;
+
+        private readonly ServicoAutomovel servicoAutomovel;
 
         private readonly IRepositorioFuncionario repositorioFuncionario;
 
@@ -38,7 +41,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         private TabelaAluguelUserControl tabelaAluguel;
         
-        public ControladorAluguel(ServicoAluguel servicoAluguel, 
+        public ControladorAluguel(ServicoAluguel servicoAluguel,
+                                  ServicoAutomovel servicoAutomovel,
                                   IRepositorioAluguel repositorioAluguel, 
                                   IRepositorioFuncionario repositorioFuncionario,
                                   IRepositorioCliente repositorioCliente,
@@ -51,6 +55,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
                                     )
         {
             this.servicoAluguel = servicoAluguel;
+            this.servicoAutomovel = servicoAutomovel;
             this.repositorioAluguel = repositorioAluguel;
             this.repositorioFuncionario = repositorioFuncionario;
             this.repositorioCliente = repositorioCliente;
@@ -166,6 +171,8 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             telaAluguel.onCalcularValorTotal += servicoAluguel.CalcularValor;
 
             ConfigurarDelegates(telaAluguel);
+
+            telaAluguel.onSelecionarAutomovelPorGrupoAutomovel += servicoAutomovel.SelecionarAutomoveisDisponives;
 
             telaAluguel.ConfigurarRegistro(new Aluguel());
 
