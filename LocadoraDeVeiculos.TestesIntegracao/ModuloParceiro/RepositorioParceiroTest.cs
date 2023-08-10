@@ -1,6 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using LocadoraDeVeiculos.Dominio.ModuloParceiro;
 using FluentAssertions;
+using LocadoraDeVeiculos.TestesIntegracao.Compartilhado;
 
 namespace LocadoraDeVeiculos.TestesIntegracao.ModuloParceiro
 {

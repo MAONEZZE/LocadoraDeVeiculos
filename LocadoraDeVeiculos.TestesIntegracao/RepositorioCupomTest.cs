@@ -2,6 +2,8 @@
 using FluentAssertions;
 using LocadoraDeVeiculos.Dominio.ModuloCupom;
 using LocadoraDeVeiculos.Dominio.ModuloParceiro;
+using LocadoraDeVeiculos.TestesIntegracao.Compartilhado;
+
 namespace LocadoraDeVeiculos.TestesIntegracao
 {
     [TestClass]

@@ -2,6 +2,7 @@
 using FluentAssertions;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
+using LocadoraDeVeiculos.TestesIntegracao.Compartilhado;
 
 namespace LocadoraDeVeiculos.TestesIntegracao.ModuloCondutor
 {

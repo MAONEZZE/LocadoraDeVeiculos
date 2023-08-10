@@ -2,7 +2,7 @@
 using FluentAssertions;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlanoDeCobranca;
-
+using LocadoraDeVeiculos.TestesIntegracao.Compartilhado;
 
 namespace LocadoraDeVeiculos.TestesIntegracao.ModuloPlanoDeCobranca
 {
