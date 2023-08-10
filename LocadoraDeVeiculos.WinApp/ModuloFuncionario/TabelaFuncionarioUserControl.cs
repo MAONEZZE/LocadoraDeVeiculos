@@ -34,7 +34,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloFuncionario
 
             foreach (Funcionario funcionario in listaFuncionarios)
             {
-                grid.Rows.Add(funcionario.Id, funcionario.Nome, funcionario.DataAdmissao, $"R$ {funcionario.Salario/100}");
+                grid.Rows.Add(funcionario.Id, funcionario.Nome, funcionario.DataAdmissao.ToShortDateString(), $"R$ {funcionario.Salario}");
             }
         }
 
