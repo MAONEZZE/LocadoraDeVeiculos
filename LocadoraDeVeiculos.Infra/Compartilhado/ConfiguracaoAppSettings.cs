@@ -27,7 +27,10 @@ namespace LocadoraDeVeiculos.Infra.Compartilhado
 
         public string ObterCredencial()
         {
-            var foo = Convert.FromBase64String(configuration.GetSection("Id:Id1").Value!);
+
+            var jsonData = configuration.GetSection("Identify:default").Path!;
+
+            var foo = Convert.FromBase64String(jsonData);
 
             return System.Text.Encoding.UTF8.GetString(foo);
         }

@@ -53,10 +53,9 @@
             // 
             btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnCancelar.DialogResult = DialogResult.Cancel;
-            btnCancelar.Location = new Point(241, 332);
-            btnCancelar.Margin = new Padding(3, 2, 3, 2);
+            btnCancelar.Location = new Point(302, 457);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(82, 32);
+            btnCancelar.Size = new Size(94, 43);
             btnCancelar.TabIndex = 11;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
@@ -65,10 +64,9 @@
             // 
             btnSalvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalvar.DialogResult = DialogResult.OK;
-            btnSalvar.Location = new Point(141, 332);
-            btnSalvar.Margin = new Padding(3, 2, 3, 2);
+            btnSalvar.Location = new Point(188, 457);
             btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new Size(82, 32);
+            btnSalvar.Size = new Size(94, 43);
             btnSalvar.TabIndex = 10;
             btnSalvar.Text = "Salvar";
             btnSalvar.UseVisualStyleBackColor = true;
@@ -76,101 +74,108 @@
             // 
             // cbox_cliente
             // 
+            cbox_cliente.DropDownStyle = ComboBoxStyle.DropDownList;
             cbox_cliente.FormattingEnabled = true;
-            cbox_cliente.Location = new Point(71, 25);
+            cbox_cliente.Location = new Point(81, 33);
+            cbox_cliente.Margin = new Padding(3, 4, 3, 4);
             cbox_cliente.Name = "cbox_cliente";
-            cbox_cliente.Size = new Size(80, 23);
+            cbox_cliente.Size = new Size(315, 28);
             cbox_cliente.TabIndex = 13;
             cbox_cliente.SelectedValueChanged += cbox_cliente_SelectedValueChanged;
             // 
             // mtxb_cpf
             // 
-            mtxb_cpf.Location = new Point(226, 165);
+            mtxb_cpf.Location = new Point(258, 220);
+            mtxb_cpf.Margin = new Padding(3, 4, 3, 4);
             mtxb_cpf.Mask = "###.###.###-##";
             mtxb_cpf.Name = "mtxb_cpf";
-            mtxb_cpf.Size = new Size(97, 23);
+            mtxb_cpf.Size = new Size(138, 27);
             mtxb_cpf.TabIndex = 34;
             // 
             // mtxb_telefone
             // 
-            mtxb_telefone.Location = new Point(71, 165);
+            mtxb_telefone.Location = new Point(81, 220);
+            mtxb_telefone.Margin = new Padding(3, 4, 3, 4);
             mtxb_telefone.Mask = "(##) #####-####";
             mtxb_telefone.Name = "mtxb_telefone";
-            mtxb_telefone.Size = new Size(89, 23);
+            mtxb_telefone.Size = new Size(101, 27);
             mtxb_telefone.TabIndex = 33;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(189, 168);
+            label4.Location = new Point(216, 224);
             label4.Name = "label4";
-            label4.Size = new Size(31, 15);
+            label4.Size = new Size(36, 20);
             label4.TabIndex = 32;
             label4.Text = "CPF:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(27, 119);
+            label3.Location = new Point(31, 159);
             label3.Name = "label3";
-            label3.Size = new Size(39, 15);
+            label3.Size = new Size(49, 20);
             label3.TabIndex = 31;
             label3.Text = "Email:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(11, 166);
+            label2.Location = new Point(13, 221);
             label2.Name = "label2";
-            label2.Size = new Size(54, 15);
+            label2.Size = new Size(69, 20);
             label2.TabIndex = 30;
             label2.Text = "Telefone:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(22, 70);
+            label1.Location = new Point(26, 114);
             label1.Name = "label1";
-            label1.Size = new Size(43, 15);
+            label1.Size = new Size(53, 20);
             label1.TabIndex = 29;
             label1.Text = "Nome:";
             // 
             // txb_email
             // 
-            txb_email.Location = new Point(71, 115);
+            txb_email.Location = new Point(81, 153);
+            txb_email.Margin = new Padding(3, 4, 3, 4);
             txb_email.Name = "txb_email";
-            txb_email.Size = new Size(252, 23);
+            txb_email.Size = new Size(315, 27);
             txb_email.TabIndex = 28;
             // 
             // txb_nome
             // 
-            txb_nome.Location = new Point(71, 67);
+            txb_nome.Location = new Point(82, 110);
+            txb_nome.Margin = new Padding(3, 4, 3, 4);
             txb_nome.Name = "txb_nome";
-            txb_nome.Size = new Size(252, 23);
+            txb_nome.Size = new Size(315, 27);
             txb_nome.TabIndex = 27;
             // 
             // txb_cnh
             // 
-            txb_cnh.Location = new Point(114, 64);
+            txb_cnh.Location = new Point(130, 85);
+            txb_cnh.Margin = new Padding(3, 4, 3, 4);
             txb_cnh.Name = "txb_cnh";
-            txb_cnh.Size = new Size(87, 23);
+            txb_cnh.Size = new Size(99, 27);
             txb_cnh.TabIndex = 35;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(59, 67);
+            label5.Location = new Point(67, 89);
             label5.Name = "label5";
-            label5.Size = new Size(36, 15);
+            label5.Size = new Size(43, 20);
             label5.TabIndex = 36;
             label5.Text = "CNH:";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(41, 29);
+            label6.Location = new Point(47, 39);
             label6.Name = "label6";
-            label6.Size = new Size(54, 15);
+            label6.Size = new Size(70, 20);
             label6.TabIndex = 37;
             label6.Text = "Validade:";
             // 
@@ -180,9 +185,11 @@
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(txb_cnh);
             groupBox1.Controls.Add(label5);
-            groupBox1.Location = new Point(27, 210);
+            groupBox1.Location = new Point(31, 280);
+            groupBox1.Margin = new Padding(3, 4, 3, 4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(296, 100);
+            groupBox1.Padding = new Padding(3, 4, 3, 4);
+            groupBox1.Size = new Size(365, 133);
             groupBox1.TabIndex = 39;
             groupBox1.TabStop = false;
             groupBox1.Text = "Dados da CNH";
@@ -190,26 +197,28 @@
             // txb_data
             // 
             txb_data.Format = DateTimePickerFormat.Short;
-            txb_data.Location = new Point(114, 23);
+            txb_data.Location = new Point(130, 31);
+            txb_data.Margin = new Padding(3, 4, 3, 4);
             txb_data.Name = "txb_data";
-            txb_data.Size = new Size(87, 23);
+            txb_data.Size = new Size(99, 27);
             txb_data.TabIndex = 39;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(18, 28);
+            label7.Location = new Point(21, 37);
             label7.Name = "label7";
-            label7.Size = new Size(47, 15);
+            label7.Size = new Size(58, 20);
             label7.TabIndex = 40;
             label7.Text = "Cliente:";
             // 
             // chk_clienteCondut
             // 
             chk_clienteCondut.AutoSize = true;
-            chk_clienteCondut.Location = new Point(157, 27);
+            chk_clienteCondut.Location = new Point(82, 69);
+            chk_clienteCondut.Margin = new Padding(3, 4, 3, 4);
             chk_clienteCondut.Name = "chk_clienteCondut";
-            chk_clienteCondut.Size = new Size(166, 19);
+            chk_clienteCondut.Size = new Size(207, 24);
             chk_clienteCondut.TabIndex = 41;
             chk_clienteCondut.Text = "O cliente será o Condutor?";
             chk_clienteCondut.UseVisualStyleBackColor = true;
@@ -217,9 +226,9 @@
             // 
             // TelaCondutorForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(335, 375);
+            ClientSize = new Size(443, 532);
             Controls.Add(chk_clienteCondut);
             Controls.Add(label7);
             Controls.Add(groupBox1);
@@ -234,6 +243,7 @@
             Controls.Add(cbox_cliente);
             Controls.Add(btnCancelar);
             Controls.Add(btnSalvar);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "TelaCondutorForm";
             Text = "TelaCondutorForm";
             groupBox1.ResumeLayout(false);

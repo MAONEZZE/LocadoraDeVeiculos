@@ -56,7 +56,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
             if (erros.Count > 0)
             {
-                //contexto.DesfazerAlteracoes();
+                //Log.Debug("Tentando inserir Aluguel... {@aluguel}", aluguel);
 
                 return Result.Fail(erros);
             }
@@ -103,8 +103,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloAluguel
 
             if (erros.Count > 0)
             {
-                contexto.DesfazerAlteracoes();
-
+              
                 return Result.Fail(erros);
             }
 

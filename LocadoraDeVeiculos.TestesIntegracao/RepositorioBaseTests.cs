@@ -13,6 +13,7 @@ using LocadoraDeVeiculos.Infra.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Infra.ModuloParceiro;
 using LocadoraDeVeiculos.Infra.ModuloPlanoDeCobranca;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LocadoraDeVeiculos.TestesIntegracao
 {
@@ -33,6 +34,8 @@ namespace LocadoraDeVeiculos.TestesIntegracao
         private ConfiguracaoAppSettings configuracao;
 
         protected LocadoraDeVeiculosDbContext dbContext;
+
+        ServiceProvider service;
 
         public RepositorioBaseTests()
         {
@@ -94,8 +97,6 @@ namespace LocadoraDeVeiculos.TestesIntegracao
                 repositorioGrupoAutomovel.Inserir(c);
                 dbContext.SaveChanges();
             });
-
-
         }
 
         protected void LimparTabelas()
@@ -106,12 +107,13 @@ namespace LocadoraDeVeiculos.TestesIntegracao
 
             string sqlLimpezaTabela =
                 @"
+                DELETE FROM [DBO].[TBPlanoDeCobranca];
                 DELETE FROM [DBO].[TBCUPOM];
                 DELETE FROM [DBO].[TBPARCEIRO];
                 DELETE FROM [DBO].[TBCONDUTOR];
                 DELETE FROM [DBO].[TBCLIENTE];
                 DELETE FROM [DBO].[TBGrupoAutomovel];
-                DELETE FROM [DBO].[TBPlanoDeCobranca];
+               
                 ";
 
             var comando = new SqlCommand(sqlLimpezaTabela, sqlConnection);

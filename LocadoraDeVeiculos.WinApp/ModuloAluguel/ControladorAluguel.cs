@@ -37,8 +37,6 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         private readonly IRepositorioCupom repositorioCupom;
 
-
-
         private TabelaAluguelUserControl tabelaAluguel;
         
         public ControladorAluguel(ServicoAluguel servicoAluguel,
@@ -92,7 +90,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
                 return;
             }
 
-            TelaAluguelForm telaAluguel = new TelaAluguelForm
+            TelaAluguelForm telaAluguel = new TelaAluguelForm()
             {
                 Text = "Editar Aluguel",
             };
@@ -107,7 +105,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
             DialogResult resultado = telaAluguel.ShowDialog();
 
-            if(resultado == DialogResult.OK)
+            if (resultado == DialogResult.OK)
             {
                 AtualizarListagem();
             }
@@ -161,7 +159,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
 
         public override void Inserir()
         {
-            TelaAluguelForm telaAluguel = new TelaAluguelForm
+            TelaAluguelForm telaAluguel = new TelaAluguelForm()
             {
                 Text = "Inserir Aluguel",
             };
@@ -217,7 +215,7 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
                 return;
             }
 
-            TelaAluguelForm telaAluguel = new TelaAluguelForm
+            TelaAluguelForm telaAluguel = new TelaAluguelForm()
             {
                 Text = "Devolução de Aluguel",
             };
@@ -285,18 +283,18 @@ namespace LocadoraDeVeiculos.WinApp.ModuloAluguel
             telaAluguel.onSelecionarTodosGrupoAutomovel += repositorioGrupoAutomovel.SelecionarTodos;
 
             telaAluguel.onSelecionarAutomovelPorGrupoAutomovel += repositorioAutomovel.SelecionarPorGrupoAutomovel;
-
+         
             telaAluguel.onSelecionarTodosPlanoDeCobrancaPorGrupoAutomovel += repositorioPlanoDeCobranca.SelecionarPlanoDeCobrancaPorGrupoAutomovel;
 
-            telaAluguel.onSelecionarTodosClientes += repositorioCliente.SelecionarTodos;
+            telaAluguel.onSelecionarTodosClientes += repositorioCliente.SelecionarTodos; 
 
-            telaAluguel.onSelecionarCondutorPorCliente += repositorioCondutor.SelecionarPorCliente;
+            telaAluguel.onSelecionarCondutorPorCliente += repositorioCondutor.SelecionarPorCliente; 
 
             telaAluguel.onSelecionarCupomPorNome += repositorioCupom.SelecionarPorNome;
 
             telaAluguel.onSelecionarTodosTaxaServico += repositorioTaxaServico.SelecionarTodos;
         }
-
+     
         private void AtualizarRodape(List<Aluguel> registros)
         {
             mensagemRodape = $"Visualizando {registros.Count} Aluguéis";

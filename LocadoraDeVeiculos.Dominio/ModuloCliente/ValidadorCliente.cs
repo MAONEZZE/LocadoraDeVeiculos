@@ -1,10 +1,11 @@
 ﻿using FluentValidation.Results;
+using System.Text.RegularExpressions;
 
 namespace LocadoraDeVeiculos.Dominio.ModuloCliente
 {
     public class ValidadorCliente : AbstractValidator<Cliente>, IValidadorCliente
     {
-        public ValidadorCliente() 
+        public ValidadorCliente()
         {
             RuleFor(x => x.Nome)
                 .NotNull()
@@ -14,7 +15,8 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
 
             RuleFor(x => x.Email)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .Custom(ValidarEmail);
 
             RuleFor(x => x.Telefone)
                 .NotNull()
@@ -25,7 +27,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
                 .NotEmpty();
 
             RuleFor(x => x.Endereco)
-                .NotNull() 
+                .NotNull()
                 .NotEmpty()
                 .Custom(VerificadorEndereco);
 
@@ -35,9 +37,19 @@ namespace LocadoraDeVeiculos.Dominio.ModuloCliente
 
         }
 
+        private void ValidarEmail(string email, ValidationContext<Cliente> ctx)
+        {
+            string padrao = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]";
+
+            bool valido = Regex.IsMatch(email, padrao);
+
+            if (!valido)
+                ctx.AddFailure(new ValidationFailure("Email", "O email informado não possui um formato válido"));
+        }
+
         private void VerificadorEndereco(Endereco endereco, ValidationContext<Cliente> ctx)
         {
-            if(endereco.Bairro == null)
+            if (endereco.Bairro == null)
             {
                 ctx.AddFailure(new ValidationFailure("Bairro", "O Bairro não pode ser nulo"));
             }
