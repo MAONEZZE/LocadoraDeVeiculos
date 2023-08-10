@@ -19,9 +19,19 @@ namespace LocadoraDeVeiculos.Infra.ModuloPlanoDeCobranca
             return false;
         }
 
+        public override List<PlanoDeCobranca> SelecionarTodos()
+        {
+            return registros.Include(x => x.GrupoAutomovel).ToList();
+        }
+
+        public override PlanoDeCobranca SelecionarPorId(Guid id)
+        {
+            return registros.Include(x => x.GrupoAutomovel).Where(x => x.Id == id).SingleOrDefault();
+        }
+
         public List<PlanoDeCobranca> SelecionarPlanoDeCobrancaPorGrupoAutomovel(GrupoAutomovel grupoAutomovel)
         {
-            return registros.Where(x => x.GrupoAutomovel == grupoAutomovel).ToList();
+            return registros.Include(x => x.GrupoAutomovel).Where(x => x.GrupoAutomovel == grupoAutomovel).ToList();
         }
     }
 }

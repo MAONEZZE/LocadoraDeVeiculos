@@ -17,7 +17,10 @@ namespace LocadoraDeVeiculos.Infra.ModuloTaxaServico
         {
             var encontrado = BuscarPorNome(taxaServico.Nome);
 
-            return encontrado == null || encontrado.Id == taxaServico.Id;
+           if(encontrado == null || encontrado.Id == taxaServico.Id)
+                return true;
+
+            return false;
         }
     }
 }

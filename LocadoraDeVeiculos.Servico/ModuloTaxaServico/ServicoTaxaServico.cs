@@ -66,6 +66,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
             try
             {
+                /*
                 bool taxaServicoExiste = repositorioTaxaServico.Existe(taxaServico);
 
                 if (taxaServicoExiste == false)
@@ -74,6 +75,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
                     return Result.Fail($"Taxa ou Serviço {taxaServico.Nome} não existe");
                 }
+                */
 
                 int quantidadeEmAlugueisAtivos = repositorioAluguel.ObterQuantidadeDeAlugueisAtivosCom(taxaServico);
 
@@ -109,6 +111,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloTaxaServico
 
             try
             {
+
                 bool taxaServicoExiste = repositorioTaxaServico.Existe(taxaServico);
 
                 if (taxaServicoExiste == false)

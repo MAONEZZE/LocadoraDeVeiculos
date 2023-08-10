@@ -68,6 +68,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
 
             try
             {
+                /*
                 bool funcionarioExiste = repositorioFuncionario.Existe(funcionario);
 
                 if (funcionarioExiste == false)
@@ -76,7 +77,7 @@ namespace LocadoraDeVeiculos.Servico.ModuloFuncionario
 
                     return Result.Fail($"Funcionário {funcionario.Nome} não existe");
                 }
-                
+                */
                 int quantidadeEmAlugueisAtivos = repositorioAluguel.ObterQuantidadeDeAlugueisAtivosCom(funcionario);
 
                 if(quantidadeEmAlugueisAtivos > 0)

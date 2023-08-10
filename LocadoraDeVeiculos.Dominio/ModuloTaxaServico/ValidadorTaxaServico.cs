@@ -14,6 +14,9 @@
                 .NotEmpty()
                 .NotNull()
                 .GreaterThan(0);
+            RuleFor(x => x.TipoCalculo)
+                .NotEmpty()
+                .NotNull();
         }
     }
 }
