@@ -19,3 +19,4 @@ Este é um projeto de uma Locadora de Veículos que permite fazer alugueis de ve
 ## Participantes
 - Bruno Gomes (https://github.com/brunogomescarvalho)
 - Francisco de Assis (https://github.com/FranciscoPaixao)
+- Ruan Sanchez (https://github.com/MAONEZZE)
